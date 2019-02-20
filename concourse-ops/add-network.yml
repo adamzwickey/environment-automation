@@ -1,0 +1,5 @@
+- op: add
+  path: /instance_groups/name=web/networks/-
+  value:
+    name: public
+    static_ips: [((external_ip))]

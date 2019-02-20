@@ -1,3 +1,4 @@
 state/bosh-bootstrap-ca 
 state/state.json
 creds/bosh-bootstrap-creds.yml
+creds/concourse-creds.yml

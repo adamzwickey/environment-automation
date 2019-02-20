@@ -31,12 +31,17 @@ gcloud compute firewall-rules create bosh \
     --allow=tcp:25555,tcp:8443,tcp:4222,tcp:6868,tcp:22 \
     --target-tags bosh,bosh-bootstrap \
     --source-ranges 0.0.0.0/0    
+gcloud compute firewall-rules create concourse \
+    --network $NETWORK_NAME  \
+    --allow=tcp:8080 \
+    --target-tags xxx \
+    --source-ranges 0.0.0.0/0
 ```
 
 - Create a Bosh public IP
 ```bash
 gcloud compute addresses create bosh-bootstrap \
-    --region $NETWORK_SUBNET_REGION \
+    --region $NETWORK_SUBNET_REGION
 export BOSH_BOOTSTRAP_PUBLIC_IP=$(gcloud compute addresses describe bosh-bootstrap --region $NETWORK_SUBNET_REGION | grep address: | awk '{print $2}')
 ```
 
@@ -82,4 +87,44 @@ bosh create-env bosh-deployment/bosh.yml \
 source ./bosh-bootstrap-login.sh
 ```
 
- - Deploy Concourse
+- Prepare GCP environment for concourse
+```bash
+NETWORK_SUBNET_REGION=us-east1
+CONCOURSE_USERNAME=admin
+CONCOURSE_PASSWORD=TOP-SECRET_PWD
+CONCOURSE_FQDNS=concourse.myfqdns.com
+CONCOURSE_WORKERS=3
+
+gcloud compute addresses create concourse \
+    --region $NETWORK_SUBNET_REGION
+CONCOURSE_EXTERNAL_IP=$(gcloud compute addresses describe concourse --region $NETWORK_SUBNET_REGION | grep address: | awk '{print $2}')
+
+DNS_ZONE=public-zone
+gcloud dns record-sets transaction start --zone $DNS_ZONE
+gcloud dns record-sets transaction add $CONCOURSE_EXTERNAL_IP --name=$CONCOURSE_FQDNS --ttl=300 --type=A --zone=$DNS_ZONE
+gcloud dns record-sets transaction execute --zone $DNS_ZONE
+```
+
+- Deploy Concourse
+```bash
+cat concourse-bosh-deployment/cluster/concourse.yml | yaml-patch -o concourse-ops/add-network.yml > concourse-result.yml
+
+bosh deploy -d concourse concourse-result.yml \
+   -l concourse-bosh-deployment/versions.yml \
+   --vars-store creds/concourse-creds.yml \
+   -o concourse-bosh-deployment/cluster/operations/basic-auth.yml \
+   -o concourse-bosh-deployment/cluster/operations/scale.yml \
+   -o concourse-ops/public-network.yml \
+   --var local_user.username=$CONCOURSE_USERNAME \
+   --var local_user.password=$CONCOURSE_PASSWORD \
+   --var external_ip=$CONCOURSE_EXTERNAL_IP \
+   --var external_url=http://$CONCOURSE_FQDNS:8080 \
+   --var network_name=default \
+   --var web_vm_type=default \
+   --var db_vm_type=default \
+   --var db_persistent_disk_type=db \
+   --var worker_vm_type=concourse \
+   --var deployment_name=concourse \
+   --var web_instances=1 \
+   --var worker_instances=$CONCOURSE_WORKERS
+```
