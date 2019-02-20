@@ -20,7 +20,7 @@ gcloud compute networks subnets create $NETWORK_SUBNET \
     --region $NETWORK_SUBNET_REGION
 ```
 
-- Create needed firewal rules
+- Create needed firewall rules
 ```bash
 gcloud compute firewall-rules create all-internal \
     --network $NETWORK_NAME  \
@@ -42,6 +42,9 @@ export BOSH_BOOTSTRAP_PUBLIC_IP=$(gcloud compute addresses describe bosh-bootstr
 
 ## Deploy BOSH and Concourse
 ### GCP
+
+- Prep your env vars
+```bash
 NETWORK_SUBNET_CIDR=10.0.0.0/24
 NETWORK_SUBNET_GW=10.0.0.1
 BOSH_BOOTSTRAP_IP=10.0.0.2
@@ -49,8 +52,10 @@ GCP_PROJECT=fe-azwickey
 GCP_CREDENTIALS_JSON=~/cloudfoundry/homelab/gcp/FE-azwickey-44b8446078ff.json
 GCP_ZONE=$NETWORK_SUBNET_REGION-b
 JUMPBOX_KEY=$(cat ~/.ssh/id_rsa.pub)
+```
 
-. deploy and alias bosh
+. Deploy and alias bosh
+```bash
 bosh create-env bosh-deployment/bosh.yml \
  --state=state/state.json \
  --vars-store=creds/bosh-bootstrap-creds.yml \
@@ -75,5 +80,6 @@ bosh create-env bosh-deployment/bosh.yml \
  -v jumpbox_ssh.public_key="$JUMPBOX_KEY"
 
 source ./bosh-bootstrap-login.sh
+```
 
  . Deploy Concourse
