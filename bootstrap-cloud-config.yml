@@ -1,0 +1,44 @@
+azs:
+- name: z1
+  cloud_properties: {zone: us-east1-b}
+
+vm_types:
+- name: concourse
+  cloud_properties:
+    machine_type: n1-standard-1
+    root_disk_size_gb: 80
+    root_disk_type: pd-ssd
+- name: default
+  cloud_properties:
+    machine_type: n1-standard-1
+    root_disk_size_gb: 20
+    root_disk_type: pd-ssd
+disk_types:
+- name: default
+  disk_size: 3000
+- name: db
+  disk_size: 10240
+
+networks:
+- name: default
+  type: manual
+  subnets:
+  - range: 10.0.0.0/24
+    gateway: 10.0.0.1
+    dns: [8.8.8.8, 8.8.4.4]
+    reserved: [10.0.0.0-10.0.0.9]
+    azs: [z1]
+    cloud_properties:
+      subnetwork_name: bosh-bootstrap-subnet
+      network_name: bosh-bootstrap
+      ephemeral_external_ip: true
+      tags: [concourse]
+- name: public
+  type: vip
+
+compilation:
+  workers: 3
+  reuse_compilation_vms: true
+  az: z1
+  vm_type: default
+  network: default
