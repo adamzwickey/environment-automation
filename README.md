@@ -5,7 +5,7 @@
 Using a shell with GCloud CLI Execute the following:
 
 - Create the network and subnet
-⋅⋅⋅```bash
+```bash
 NETWORK_NAME=bosh-bootstrap
 NETWORK_SUBNET=bosh-bootstrap-subnet
 NETWORK_SUBNET_CIDR=10.0.0.0/24
@@ -21,7 +21,7 @@ gcloud compute networks subnets create $NETWORK_SUBNET \
 ```
 
 - Create needed firewal rules
-⋅⋅⋅```bash
+```bash
 gcloud compute firewall-rules create all-internal \
     --network $NETWORK_NAME  \
     --allow all \
@@ -34,7 +34,7 @@ gcloud compute firewall-rules create bosh \
 ```
 
 - Create a Bosh public IP
-⋅⋅⋅```bash
+```bash
 gcloud compute addresses create bosh-bootstrap \
     --region $NETWORK_SUBNET_REGION \
 export BOSH_BOOTSTRAP_PUBLIC_IP=$(gcloud compute addresses describe bosh-bootstrap --region $NETWORK_SUBNET_REGION | grep address: | awk '{print $2}')
