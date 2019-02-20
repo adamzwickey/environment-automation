@@ -2,8 +2,10 @@
 
 ## Preparing the IaaS
 ### GCP
-- Using gcloud shell:
-. create network and subnet
+Using a shell with GCloud CLI Execute the following:
+
+- Create the network and subnet
+⋅⋅⋅```bash
 NETWORK_NAME=bosh-bootstrap
 NETWORK_SUBNET=bosh-bootstrap-subnet
 NETWORK_SUBNET_CIDR=10.0.0.0/24
@@ -16,8 +18,10 @@ gcloud compute networks subnets create $NETWORK_SUBNET \
     --network $NETWORK_NAME \
     --range=$NETWORK_SUBNET_CIDR \
     --region $NETWORK_SUBNET_REGION
+```
 
-. create fw rules
+- Create needed firewal rules
+⋅⋅⋅```bash
 gcloud compute firewall-rules create all-internal \
     --network $NETWORK_NAME  \
     --allow all \
@@ -27,11 +31,14 @@ gcloud compute firewall-rules create bosh \
     --allow=tcp:25555,tcp:8443,tcp:4222,tcp:6868,tcp:22 \
     --target-tags bosh,bosh-bootstrap \
     --source-ranges 0.0.0.0/0    
+```
 
-. create bosh public IP
+- Create a Bosh public IP
+⋅⋅⋅```bash
 gcloud compute addresses create bosh-bootstrap \
     --region $NETWORK_SUBNET_REGION \
 export BOSH_BOOTSTRAP_PUBLIC_IP=$(gcloud compute addresses describe bosh-bootstrap --region $NETWORK_SUBNET_REGION | grep address: | awk '{print $2}')
+```
 
 ## Deploy BOSH and Concourse
 ### GCP
@@ -70,5 +77,3 @@ bosh create-env bosh-deployment/bosh.yml \
 source ./bosh-bootstrap-login.sh
 
  . Deploy Concourse
-
- 
