@@ -34,7 +34,7 @@ gcloud compute firewall-rules create bosh \
 gcloud compute firewall-rules create concourse \
     --network $NETWORK_NAME  \
     --allow=tcp:8080 \
-    --target-tags xxx \
+    --target-tags concourse-web \
     --source-ranges 0.0.0.0/0
 ```
 
@@ -99,7 +99,7 @@ gcloud compute addresses create concourse \
     --region $NETWORK_SUBNET_REGION
 CONCOURSE_EXTERNAL_IP=$(gcloud compute addresses describe concourse --region $NETWORK_SUBNET_REGION | grep address: | awk '{print $2}')
 
-DNS_ZONE=public-zone
+DNS_ZONE=zwickey-base
 gcloud dns record-sets transaction start --zone $DNS_ZONE
 gcloud dns record-sets transaction add $CONCOURSE_EXTERNAL_IP --name=$CONCOURSE_FQDNS --ttl=300 --type=A --zone=$DNS_ZONE
 gcloud dns record-sets transaction execute --zone $DNS_ZONE
