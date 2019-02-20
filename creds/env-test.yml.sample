@@ -1,0 +1,6 @@
+bucket: MY_AUTOMATION_BUCKET
+google-json-key: |
+  {
+    "type": "service_account",
+    "project_id": ......
+  }

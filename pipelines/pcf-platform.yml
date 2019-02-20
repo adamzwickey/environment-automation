@@ -1,0 +1,35 @@
+resource_types:
+- name: pivnet
+  type: docker-image
+  source:
+    repository: pivotalcf/pivnet-resource
+    tag: latest-final
+
+resources:
+#- name: gcs-resource
+#  type: docker-image
+#  source:
+#    repository: frodenas/gcs-resource
+#- name: terraform-state
+#  type: gcs
+#  source:
+#    bucket: ((state-bucket))
+#    json_key: ((google-json-key))
+#    versioned_file: terraform.tfstate
+- name: environment-automation
+  type: git
+  source:
+    uri: git@github.com:azwickey-pivotal/environment-automation.git
+    branch: master
+    private_key: ((github-key))
+
+jobs:
+- name: bootstrap-terraform-state
+  serial: true
+  plan:
+  - get: environment-automation
+  - task: create-terraform-state
+    params:
+      TERRAFORM_STATEFILE_BUCKET: ((state-bucket))
+      GCP_SERVICE_ACCOUNT_KEY: ((google-json-key))
+    file: environment-automation/tasks/create-initial-terraform-state/task.yml
