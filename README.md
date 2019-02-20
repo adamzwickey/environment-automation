@@ -54,7 +54,7 @@ GCP_ZONE=$NETWORK_SUBNET_REGION-b
 JUMPBOX_KEY=$(cat ~/.ssh/id_rsa.pub)
 ```
 
-. Deploy and alias bosh
+- Deploy and alias bosh
 ```bash
 bosh create-env bosh-deployment/bosh.yml \
  --state=state/state.json \
@@ -82,4 +82,4 @@ bosh create-env bosh-deployment/bosh.yml \
 source ./bosh-bootstrap-login.sh
 ```
 
- . Deploy Concourse
+ - Deploy Concourse
