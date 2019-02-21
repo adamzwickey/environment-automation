@@ -1,7 +1,7 @@
 provider "google" {
   project     = "${var.project}"
   region      = "${var.region}"
-  credentials = "${file("${var.service_account_key}")}"
+  credentials = "${var.service_account_key}"
   version = ">= 1.7.0"
 }
 
