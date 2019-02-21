@@ -3,10 +3,12 @@ groups:
   jobs:
   - bootstrap-terraform-state
   - create-infrastructure
+  - wipe-env
 - name: infrastructure
   jobs:
   - bootstrap-terraform-state
   - create-infrastructure
+  - wipe-env
 
 resource_types:
 - name: pivnet
@@ -44,6 +46,23 @@ jobs:
       TERRAFORM_STATEFILE_BUCKET: ((state-bucket))
       GCP_SERVICE_ACCOUNT_KEY: ((google-json-key))
     file: environment-automation/tasks/create-initial-terraform-state/task.yml
+
+- name: wipe-env
+  serial_groups: [terraform]
+  ensure:
+    put: terraform-state
+    params:
+      file: wipe-output/*.tfstate
+  plan:
+  - aggregate:
+    - get: environment-automation
+    - get: terraform-state
+  - task: wipe
+    file: environment-automation/tasks/wipe-env/task.yml
+    params:
+      GCP_PROJECT_ID: ((gcp_project_id))
+      GCP_REGION: ((gcp_region))
+      GCP_SERVICE_ACCOUNT_KEY: ((google-json-key))
 
 - name: create-infrastructure
   serial_groups: [terraform]
