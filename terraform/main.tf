@@ -19,4 +19,6 @@ module "infra" {
   pas_cidr                             = "${var.pas_cidr}"
   services_cidr                        = "${var.services_cidr}"
   internetless                         = "${var.internetless}"
+  dns_zone_dns_name                    = "${var.dns_zone_dns_name}"
+  dns_zone_name                        = "${var.dns_zone_name}"
 }

@@ -12,6 +12,8 @@ terraform init environment-automation/terraform
 terraform plan \
   -var "project=${GCP_PROJECT_ID}" \
   -var "region=${GCP_REGION}" \
+  -var "dns_zone_name=${GCP_DNS_ZONE_NAME}" \
+  -var "dns_zone_dns_name=${GCP_DNS_ZONE_DNS_NAME}" \
   -out terraform.tfplan \
   -state terraform-state/terraform.tfstate \
   environment-automation/terraform

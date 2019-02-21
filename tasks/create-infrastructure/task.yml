@@ -17,6 +17,8 @@ params:
   GCP_PROJECT_ID:
   GCP_REGION:
   GCP_SERVICE_ACCOUNT_KEY:
+  GCP_DNS_ZONE_NAME:
+  GCP_DNS_ZONE_DNS_NAME:
 
 run:
   path: environment-automation/tasks/create-infrastructure/task.sh

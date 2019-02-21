@@ -140,3 +140,17 @@ resource "google_compute_firewall" "cf-tcp" {
 
   target_tags = ["${var.env_name}-cf-tcp-lb"]
 }
+
+resource "google_compute_address" "ops-manager-ip" {
+  name = "${var.env_name}-ops-manager-ip"
+}
+
+resource "google_dns_record_set" "ops-manager-dns" {
+  name = "opsman.${var.dns_zone_dns_name}"
+  type = "A"
+  ttl  = 300
+
+  managed_zone = "${var.dns_zone_name}"
+
+  rrdatas = ["${google_compute_address.ops-manager-ip.address}"]
+}
