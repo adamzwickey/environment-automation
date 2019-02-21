@@ -48,7 +48,7 @@ resource "google_compute_firewall" "allow-ssh" {
   target_tags   = ["allow-ssh"]
 }
 
-//// Create Firewall Rule for allow-ert-all com between bosh deployed ert jobs
+//// Create Firewall Rule for allow-pcf-all com between bosh deployed pcf jobs
 //// This will match the default OpsMan tag configured for the deployment
 resource "google_compute_firewall" "allow-pcf-all" {
   name       = "${var.env_name}-allow-pcf-all"
@@ -67,8 +67,25 @@ resource "google_compute_firewall" "allow-pcf-all" {
     protocol = "udp"
   }
 
-  target_tags = ["${var.env_name}", "${var.env_name}-opsman", "nat-traverse"]
-  source_tags = ["${var.env_name}", "${var.env_name}-opsman", "nat-traverse"]
+  # Allow HTTP/S access to Ops Manager from the outside world
+  resource "google_compute_firewall" "ops-manager-external" {
+    name        = "${var.env_name}-ops-manager-external"
+    network     = "${var.pcf_network_name}"
+    target_tags = ["${var.env_name}-ops-manager-external"]
+
+    allow {
+      protocol = "icmp"
+    }
+
+    allow {
+      protocol = "tcp"
+      ports    = ["22", "80", "443"]
+    }
+  }
+
+
+  target_tags = ["${var.env_name}-opsman"]
+  source_ranges = ["0.0.0.0/0"]
 }
 
 resource "google_compute_address" "ops-manager-ip" {
