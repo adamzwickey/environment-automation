@@ -15,24 +15,10 @@ resource "google_compute_firewall" "pks-master" {
   target_tags = ["master"]
 }
 
-resource "google_compute_address" "pks-api-ip" {
-  name = "${var.env_name}-pks-api-ip"
-}
-
-resource "google_dns_record_set" "pks-api-dns" {
-  name = "pks.${var.dns_zone_dns_name}."
-  type = "A"
-  ttl  = 300
-
-  managed_zone = "${var.dns_zone_name}"
-
-  rrdatas = ["${google_compute_address.pks-api-ip.address}"]
-}
-
 module "pks-api" {
   source   = "../common/load_balancer"
   env_name = "${var.env_name}"
-  name     = "api"
+  name     = "pks-api"
 
   global  = false
   count   = 1
@@ -42,6 +28,39 @@ module "pks-api" {
   lb_name               = "${var.env_name}-pks-api"
   forwarding_rule_ports = ["9021", "8443"]
   health_check          = false
+}
+
+resource "google_dns_record_set" "pks-api-dns" {
+  name = "pks.${var.dns_zone_dns_name}."
+  type = "A"
+  ttl  = 300
+
+  managed_zone = "${var.dns_zone_name}"
+  rrdatas = ["${module.pks-api.address}"]
+}
+
+module "pks-cluster-1" {
+  source   = "../common/load_balancer"
+  env_name = "${var.env_name}"
+  name     = "pks-cluster-1"
+
+  global  = false
+  count   = 1
+  network = "${var.network_name}"
+
+  ports                 = ["9021", "8443"]
+  lb_name               = "${var.env_name}-pks-cluster-1"
+  forwarding_rule_ports = [8443"]
+  health_check          = false
+}
+
+resource "google_dns_record_set" "pks-cluster-dns" {
+  name = "${var.pks_cluster_name}.pks.${var.dns_zone_dns_name}."
+  type = "A"
+  ttl  = 300
+
+  managed_zone = "${var.dns_zone_name}"
+  rrdatas = ["${module.pks-cluster-1.address}"]
 }
 
 resource "google_service_account" "pks_master_node_service_account" {

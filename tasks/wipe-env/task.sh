@@ -16,5 +16,6 @@ terraform destroy -force \
   -var "region=dontcare" \
   -var "dns_zone_name=dontcare" \
   -var "dns_zone_dns_name=dontcare" \
+  -var "pks_cluster_name=dontcare" \
   -state-out $root/wipe-output/terraform.tfstate \
   environment-automation/terraform

@@ -58,3 +58,7 @@ variable "dns_zone_name" {
 variable "enable_gcr" {
   default = false
 }
+
+variable "pks_cluster_name" {
+  type = "string"
+}

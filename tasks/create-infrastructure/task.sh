@@ -14,6 +14,7 @@ terraform plan \
   -var "region=${GCP_REGION}" \
   -var "dns_zone_name=${GCP_DNS_ZONE_NAME}" \
   -var "dns_zone_dns_name=${GCP_DNS_ZONE_DNS_NAME}" \
+  -var "pks_cluster_name=${PKS_CLUSTER_NAME}" \
   -out terraform.tfplan \
   -state terraform-state/terraform.tfstate \
   environment-automation/terraform

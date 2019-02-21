@@ -27,3 +27,7 @@ variable "dns_zone_dns_name" {
 variable "dns_zone_name" {
   type = "string"
 }
+
+variable "pks_cluster_name" {
+  type = "string"
+}

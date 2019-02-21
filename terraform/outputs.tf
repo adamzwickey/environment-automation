@@ -62,6 +62,10 @@ output "pks_lb_backend_name" {
   value = "${module.pks.pks_load_balancer_name}"
 }
 
+output "pks_cluster_lb_backend_name" {
+  value = "${module.pks.pks_cluster_load_balancer_name}"
+}
+
 output "pks_master_node_service_account_key" {
   value = "${module.pks.pks_worker_node_service_account_key}"
 }
