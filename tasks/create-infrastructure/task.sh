@@ -2,10 +2,7 @@
 set -eu
 
 root=$PWD
-
-export GOOGLE_CREDENTIALS=${GCP_SERVICE_ACCOUNT_KEY}
-export GOOGLE_PROJECT=${GCP_PROJECT_ID}
-export GOOGLE_REGION=${GCP_REGION}
+ echo "creds:\n ${GCP_SERVICE_ACCOUNT_KEY}"
 
 terraform init environment-automation/terraform
 
