@@ -82,3 +82,4 @@ jobs:
       GCP_SERVICE_ACCOUNT_KEY: ((gcp_json_key))
       GCP_DNS_ZONE_NAME: ((gcp_dns_zone_name))
       GCP_DNS_ZONE_DNS_NAME: ((gcp_dns_zone_dns_name))
+      PKS_CLUSTER_NAME: ((pks_cluster_name))
