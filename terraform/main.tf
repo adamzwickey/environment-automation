@@ -34,6 +34,7 @@ module "pas" {
 module "pks" {
   source = "pks"
 
+  project                              = "${var.project}"
   network_name                         = "${var.network_name}"
   env_name                             = "${var.env_name}"
   region                               = "${var.region}"
