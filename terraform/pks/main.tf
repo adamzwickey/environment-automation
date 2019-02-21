@@ -26,7 +26,7 @@ resource "google_dns_record_set" "pks-api-dns" {
 
   managed_zone = "${var.dns_zone_name}"
 
-  rrdatas = ["${google_compute_address.ops-manager-ip.address}"]
+  rrdatas = ["${google_compute_address.pks-api-ip.address}"]
 }
 
 module "pks-api" {

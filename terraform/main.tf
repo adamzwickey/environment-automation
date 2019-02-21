@@ -38,4 +38,6 @@ module "pks" {
   network_name                         = "${var.network_name}"
   env_name                             = "${var.env_name}"
   region                               = "${var.region}"
+  dns_zone_dns_name                    = "${var.dns_zone_dns_name}"
+  dns_zone_name                        = "${var.dns_zone_name}"
 }
