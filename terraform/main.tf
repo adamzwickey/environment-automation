@@ -40,4 +40,5 @@ module "pks" {
   region                               = "${var.region}"
   dns_zone_dns_name                    = "${var.dns_zone_dns_name}"
   dns_zone_name                        = "${var.dns_zone_name}"
+  pks_cluster_name                     = "${var.pks_cluster_name}"
 }
