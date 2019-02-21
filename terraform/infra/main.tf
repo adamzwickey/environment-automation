@@ -9,7 +9,7 @@ resource "google_compute_subnetwork" "infrastructure" {
 
 resource "google_compute_subnetwork" "pks" {
   name                     = "${var.env_name}-pks-subnet"
-  ip_cidr_range            = "${var.infrastructure_cidr}"
+  ip_cidr_range            = "${var.pks_cidr}"
   network                  = "${var.network_name}"
   region                   = "${var.region}"
   private_ip_google_access = "${var.internetless}"
