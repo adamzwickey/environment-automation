@@ -6,6 +6,7 @@ groups:
   - create-infrastructure
   - wipe-env
   - deploy-opsman
+  - fetch-opsman
   - fetch-pks
   - fetch-pas
 - name: infrastructure
@@ -13,6 +14,7 @@ groups:
   - bootstrap-terraform-state
   - create-infrastructure
   - wipe-env
+  - fetch-opsman
   - deploy-opsman
 - name: pks
   jobs:
@@ -44,21 +46,21 @@ resources:
 - name: terraform-state
   type: gcs-resource
   source:
-    bucket: ((state_bucket))
-    json_key: ((gcp_json_key))
+    bucket: ((gcp.bucket))
+    json_key: ((gcp.json_key))
     versioned_file: terraform.tfstate
 - name: environment-automation
   type: git
   source:
-    uri: git@github.com:azwickey-pivotal/environment-automation.git
+    uri: ((github.configuration_uri))
     branch: master
-    private_key: ((github_key))
+    private_key: ((github.key))
 - name: config
   type: git
   source:
-    uri: ((configuration_uri))
+    uri: ((github.configuration_uri))
     branch: master
-    private_key: ((github_key))
+    private_key: ((github.key))
     submodules: all
     depth: 1
 - name: platform-automation-pivnet
@@ -71,38 +73,44 @@ resources:
 - name: platform-automation-tasks
   type: gcs-resource
   source:
-    bucket: ((bucket))
-    json_key: ((gcp_json_key))
+    bucket: ((gcp.bucket))
+    json_key: ((gcp.json_key))
     regexp: platform-automation-tasks-(.*).zip
 - name: platform-automation-image
   type: gcs-resource
   source:
-    bucket: ((bucket))
-    json_key: ((gcp_json_key))
+    bucket: ((gcp.bucket))
+    json_key: ((gcp.json_key))
     regexp: platform-automation-image-(.*).tgz
+- name: opsman-product
+  type: gcs-resource
+  source:
+    bucket: ((gcp.bucket))
+    json_key: ((gcp.json_key))
+    regexp: products/OpsManager(.*)GCP.yml
 - name: pks-product
   type: gcs-resource
   source:
-    bucket: ((bucket))
-    json_key: ((gcp_json_key))
-    regexp: pivotal-container-(.*).pivotal
+    bucket: ((gcp.bucket))
+    json_key: ((gcp.json_key))
+    regexp: products/pivotal-container-(.*).pivotal
 - name: pks-stemcell
   type: gcs-resource
   source:
-    bucket: ((bucket))
-    json_key: ((gcp_json_key))
+    bucket: ((gcp.bucket))
+    json_key: ((gcp.json_key))
     regexp: pks-stemcell/light-bosh-stemcell-(.*)-google.*\.tgz
 - name: pas-product
   type: gcs-resource
   source:
-    bucket: ((bucket))
-    json_key: ((gcp_json_key))
+    bucket: ((gcp.bucket))
+    json_key: ((gcp.json_key))
     regexp: cf-(.*).pivotal
 - name: pas-stemcell
   type: gcs-resource
   source:
-    bucket: ((bucket))
-    json_key: ((gcp_json_key))
+    bucket: ((gcp.bucket))
+    json_key: ((gcp.json_key))
     regexp: pas-stemcell/light-bosh-stemcell-(.*)-google.*\.tgz
 
 jobs:
@@ -116,8 +124,8 @@ jobs:
   - get: environment-automation
   - task: create-terraform-state
     params:
-      TERRAFORM_STATEFILE_BUCKET: ((state_bucket))
-      GCP_SERVICE_ACCOUNT_KEY: ((gcp_json_key))
+      TERRAFORM_STATEFILE_BUCKET: ((gcp.bucket))
+      GCP_SERVICE_ACCOUNT_KEY: ((gcp.json_key))
     file: environment-automation/tasks/create-initial-terraform-state/task.yml
 
 - name: wipe-env
@@ -134,9 +142,9 @@ jobs:
   - task: wipe
     file: environment-automation/tasks/wipe-env/task.yml
     params:
-      GCP_PROJECT_ID: ((gcp_project_id))
-      GCP_REGION: ((gcp_region))
-      GCP_SERVICE_ACCOUNT_KEY: ((gcp_json_key))
+      GCP_PROJECT_ID: ((gcp.project))
+      GCP_REGION: ((gcp.region))
+      GCP_SERVICE_ACCOUNT_KEY: ((gcp.json_key))
 
 - name: create-infrastructure
   serial_groups: [terraform]
@@ -152,17 +160,18 @@ jobs:
   - task: create-infrastructure
     file: environment-automation/tasks/create-infrastructure/task.yml
     params:
-      GCP_PROJECT_ID: ((gcp_project_id))
-      GCP_REGION: ((gcp_region))
-      GCP_SERVICE_ACCOUNT_KEY: ((gcp_json_key))
-      GCP_DNS_ZONE_NAME: ((gcp_dns_zone_name))
-      GCP_DNS_ZONE_DNS_NAME: ((gcp_dns_zone_dns_name))
-      PKS_CLUSTER_NAME: ((pks_cluster_name))
+      GCP_PROJECT_ID: ((gcp.project))
+      GCP_REGION: ((gcp.region))
+      GCP_SERVICE_ACCOUNT_KEY: ((gcp.json_key))
+      GCP_DNS_ZONE_NAME: ((gcp.dns_zone_name))
+      GCP_DNS_ZONE_DNS_NAME: ((gcp.dns_zone_dns_name))
+      PKS_CLUSTER_NAME: ((pks.cluster_name))
 
 - name: deploy-opsman
   serial_groups: [terraform]
   plan:
   - get: terraform-state
+    passed: [fetch-opsman, create-infrastructure]
 
 - name: fetch-platform-automation
   # We use the pivnet resource to bootstrap the pipeline,
@@ -178,6 +187,42 @@ jobs:
     - put: platform-automation-image
       params:
         file: platform-automation-pivnet/*image*.tgz
+
+- name: fetch-opsman
+  plan:
+  - aggregate:
+    - get: daily
+      trigger: true
+    - get: platform-automation-image
+      params:
+        unpack: true
+    - get: platform-automation-tasks
+      params:
+        unpack: true
+    - get: config
+    - get: terraform-state
+  - task: credhub-interpolate
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/credhub-interpolate.yml
+    params:
+      CREDHUB_CLIENT: ((credhub-client))
+      CREDHUB_SECRET: ((credhub-secret))
+      CREDHUB_SERVER: ((credhub-server))
+      PREFIX: '/pipeline/vsphere'
+      INTERPOLATION_PATH: "download-product-configs"
+    input_mapping:
+      files: config
+    output_mapping:
+      interpolated-files: config
+  - task: download-opsman-image
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/download-product.yml
+    params:
+      CONFIG_FILE: download-product-configs/opsman.yml
+  - aggregate:
+    - put: opsman-product
+      params:
+        file: downloaded-product/*
 
 - name: fetch-pks
   plan:

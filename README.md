@@ -28,7 +28,7 @@ gcloud compute firewall-rules create all-internal \
     --source-ranges $NETWORK_SUBNET_CIDR
 gcloud compute firewall-rules create bosh \
     --network $NETWORK_NAME  \
-    --allow=tcp:25555,tcp:8443,tcp:4222,tcp:6868,tcp:22 \
+    --allow=tcp:25555,tcp:8443,tcp:8844,tcp:4222,tcp:6868,tcp:22 \
     --target-tags bosh,bosh-bootstrap \
     --source-ranges 0.0.0.0/0    
 gcloud compute firewall-rules create concourse \
@@ -91,9 +91,11 @@ source ./bosh-bootstrap-login.sh
 ```bash
 NETWORK_SUBNET_REGION=us-east1
 CONCOURSE_USERNAME=admin
-CONCOURSE_PASSWORD=TOP-SECRET_PWD
-CONCOURSE_FQDNS=concourse.myfqdns.com
+CONCOURSE_PASSWORD=TOP-SECRET
+CONCOURSE_FQDNS=concourse.FQDNS
 CONCOURSE_WORKERS=3
+CREDHUB_CLIENT_SECRET=$(bosh int ./creds/bosh-bootstrap-creds.yml --path /credhub_admin_client_secret)
+CREDHUB_CA=$(bosh int ./creds/bosh-bootstrap-creds.yml --path /credhub_ca/ca)
 
 gcloud compute addresses create concourse \
     --region $NETWORK_SUBNET_REGION
@@ -114,7 +116,9 @@ bosh deploy -d concourse concourse-result.yml \
    --vars-store creds/concourse-creds.yml \
    -o concourse-bosh-deployment/cluster/operations/basic-auth.yml \
    -o concourse-bosh-deployment/cluster/operations/scale.yml \
+   -o concourse-bosh-deployment/cluster/operations/credhub.yml \
    -o concourse-ops/public-network.yml \
+   -o concourse-ops/ssl-credhub.yml \
    --var local_user.username=$CONCOURSE_USERNAME \
    --var local_user.password=$CONCOURSE_PASSWORD \
    --var external_ip=$CONCOURSE_EXTERNAL_IP \
@@ -126,5 +130,9 @@ bosh deploy -d concourse concourse-result.yml \
    --var worker_vm_type=concourse \
    --var deployment_name=concourse \
    --var web_instances=1 \
-   --var worker_instances=$CONCOURSE_WORKERS
+   --var worker_instances=$CONCOURSE_WORKERS \
+   --var credhub_url=https://$BOSH_BOOTSTRAP_IP:8844 \
+   --var credhub_client_id=credhub-admin \
+   --var credhub_client_secret=$CREDHUB_CLIENT_SECRET \
+   --var credhub_ca_cert=$CREDHUB_CA
 ```
