@@ -1,3 +1,4 @@
+concourse-result.yml
 state/bosh-bootstrap-ca 
 state/state.json
 creds/*.yml

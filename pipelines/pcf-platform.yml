@@ -1,6 +1,7 @@
 groups:
 - name: full-pcf
   jobs:
+  - fetch-platform-automation
   - bootstrap-terraform-state
   - create-infrastructure
   - wipe-env
@@ -16,13 +17,16 @@ resource_types:
   source:
     repository: pivotalcf/pivnet-resource
     tag: latest-final
-resource_types:
 - name: gcs-resource
   type: docker-image
   source:
     repository: frodenas/gcs-resource
 
 resources:
+- name: daily
+  type: time
+  source:
+    interval: 24h
 - name: terraform-state
   type: gcs-resource
   source:
@@ -35,6 +39,25 @@ resources:
     uri: git@github.com:azwickey-pivotal/environment-automation.git
     branch: master
     private_key: ((github_key))
+- name: platform-automation-pivnet
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: platform-automation
+    product_version: 2\.(.*)
+    sort_by: semver
+- name: platform-automation-tasks
+  type: gcs-resource
+  source:
+    bucket: ((bucket))
+    json_key: ((gcp_json_key))
+    regexp: platform-automation-tasks-(.*).zip
+- name: platform-automation-image
+  type: gcs-resource
+  source:
+    bucket: ((bucket))
+    json_key: ((gcp_json_key))
+    regexp: platform-automation-image-(.*).tgz
 
 jobs:
 - name: bootstrap-terraform-state
@@ -83,3 +106,18 @@ jobs:
       GCP_DNS_ZONE_NAME: ((gcp_dns_zone_name))
       GCP_DNS_ZONE_DNS_NAME: ((gcp_dns_zone_dns_name))
       PKS_CLUSTER_NAME: ((pks_cluster_name))
+
+- name: fetch-platform-automation
+  # We use the pivnet resource to bootstrap the pipeline,
+  # and because this product is part of the pipeline, not the foundation
+  plan:
+  - get: daily
+    trigger: true
+  - get: platform-automation-pivnet
+  - aggregate:
+    - put: platform-automation-tasks
+      params:
+        file: platform-automation-pivnet/*tasks*.zip
+    - put: platform-automation-image
+      params:
+        file: platform-automation-pivnet/*image*.tgz
