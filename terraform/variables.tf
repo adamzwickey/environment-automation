@@ -54,3 +54,7 @@ variable "dns_zone_dns_name" {
 variable "dns_zone_name" {
   type = "string"
 }
+
+variable "enable_gcr" {
+  default = false
+}
