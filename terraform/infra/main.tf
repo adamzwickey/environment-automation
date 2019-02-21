@@ -146,7 +146,7 @@ resource "google_compute_address" "ops-manager-ip" {
 }
 
 resource "google_dns_record_set" "ops-manager-dns" {
-  name = "opsman.${var.dns_zone_dns_name}"
+  name = "opsman.${var.dns_zone_dns_name}."
   type = "A"
   ttl  = 300
 

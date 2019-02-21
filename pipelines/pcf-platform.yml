@@ -26,15 +26,15 @@ resources:
 - name: terraform-state
   type: gcs-resource
   source:
-    bucket: ((state-bucket))
-    json_key: ((google-json-key))
+    bucket: ((state_bucket))
+    json_key: ((gcp_json_key))
     versioned_file: terraform.tfstate
 - name: environment-automation
   type: git
   source:
     uri: git@github.com:azwickey-pivotal/environment-automation.git
     branch: master
-    private_key: ((github-key))
+    private_key: ((github_key))
 
 jobs:
 - name: bootstrap-terraform-state
@@ -43,8 +43,8 @@ jobs:
   - get: environment-automation
   - task: create-terraform-state
     params:
-      TERRAFORM_STATEFILE_BUCKET: ((state-bucket))
-      GCP_SERVICE_ACCOUNT_KEY: ((google-json-key))
+      TERRAFORM_STATEFILE_BUCKET: ((state_bucket))
+      GCP_SERVICE_ACCOUNT_KEY: ((gcp_json_key))
     file: environment-automation/tasks/create-initial-terraform-state/task.yml
 
 - name: wipe-env
@@ -62,7 +62,7 @@ jobs:
     params:
       GCP_PROJECT_ID: ((gcp_project_id))
       GCP_REGION: ((gcp_region))
-      GCP_SERVICE_ACCOUNT_KEY: ((google-json-key))
+      GCP_SERVICE_ACCOUNT_KEY: ((gcp_json_key))
 
 - name: create-infrastructure
   serial_groups: [terraform]
@@ -79,4 +79,6 @@ jobs:
     params:
       GCP_PROJECT_ID: ((gcp_project_id))
       GCP_REGION: ((gcp_region))
-      GCP_SERVICE_ACCOUNT_KEY: ((google-json-key))
+      GCP_SERVICE_ACCOUNT_KEY: ((gcp_json_key))
+      GCP_DNS_ZONE_NAME: ((gcp_dns_zone_name))
+      GCP_DNS_ZONE_DNS_NAME: ((gcp_dns_zone_dns_name))
