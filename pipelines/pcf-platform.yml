@@ -55,3 +55,9 @@ jobs:
   - aggregate:
     - get: terraform-state
     - get: environment-automation
+  - task: create-infrastructure
+    file: environment-automation/tasks/create-infrastructure/task.yml
+    params:
+      GCP_PROJECT_ID: ((gcp_project_id))
+      GCP_REGION: ((gcp_region))
+      GCP_SERVICE_ACCOUNT_KEY: ((google-json-key))

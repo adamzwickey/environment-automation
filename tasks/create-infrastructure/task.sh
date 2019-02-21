@@ -2,7 +2,6 @@
 set -eu
 
 root=$PWD
- echo "creds:\n ${GCP_SERVICE_ACCOUNT_KEY}"
 
 terraform init environment-automation/terraform
 
