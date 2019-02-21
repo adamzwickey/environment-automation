@@ -19,3 +19,11 @@ variable "network_name" {
 variable "enable_gcr" {
   default = false
 }
+
+variable "dns_zone_dns_name" {
+  type = "string"
+}
+
+variable "dns_zone_name" {
+  type = "string"
+}

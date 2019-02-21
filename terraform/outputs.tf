@@ -58,6 +58,10 @@ output "services_ip_cidr_range" {
   value = "${module.infra.services_ip_cidr_range}"
 }
 
+output "pks_lb_backend_name" {
+  value = "${module.pks.pks_load_balancer_name}"
+}
+
 output "pks_master_node_service_account_key" {
   value = "${module.pks.pks_worker_node_service_account_key}"
 }

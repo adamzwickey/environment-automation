@@ -2,6 +2,48 @@ data "google_compute_network" "pcf-network" {
   name = "${var.network_name}"
 }
 
+// Allow access to master nodes
+resource "google_compute_firewall" "pks-master" {
+  name    = "${var.env_name}-pks-master"
+  network = "${var.network_name}"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["8443"]
+  }
+
+  target_tags = ["master"]
+}
+
+resource "google_compute_address" "pks-api-ip" {
+  name = "${var.env_name}-pks-api-ip"
+}
+
+resource "google_dns_record_set" "pks-api-dns" {
+  name = "pks.${var.dns_zone_dns_name}."
+  type = "A"
+  ttl  = 300
+
+  managed_zone = "${var.dns_zone_name}"
+
+  rrdatas = ["${google_compute_address.ops-manager-ip.address}"]
+}
+
+module "pks-api" {
+  source   = "../common/load_balancer"
+  env_name = "${var.env_name}"
+  name     = "api"
+
+  global  = false
+  count   = 1
+  network = "${var.network_name}"
+
+  ports                 = ["9021", "8443"]
+  lb_name               = "${var.env_name}-pks-api"
+  forwarding_rule_ports = ["9021", "8443"]
+  health_check          = false
+}
+
 resource "google_service_account" "pks_master_node_service_account" {
   account_id   = "${var.env_name}-pks-master"
   display_name = "${var.env_name} PKS Service Account"
