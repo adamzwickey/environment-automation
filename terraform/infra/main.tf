@@ -66,6 +66,9 @@ resource "google_compute_firewall" "allow-pcf-all" {
   allow {
     protocol = "udp"
   }
+
+  target_tags = ["${var.env_name}"]
+  source_ranges = ["${var.env_name}"]
 }
 
   # Allow HTTP/S access to Ops Manager from the outside world
