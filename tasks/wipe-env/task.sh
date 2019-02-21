@@ -14,5 +14,7 @@ terraform destroy -force \
   -state $root/terraform-state/*.tfstate \
   -var "project=dontcare" \
   -var "region=dontcare" \
+  -var "dns_zone_name=dontcare" \
+  -var "dns_zone_dns_name=dontcare" \
   -state-out $root/wipe-output/terraform.tfstate \
   environment-automation/terraform
