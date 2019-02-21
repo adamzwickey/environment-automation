@@ -15,5 +15,8 @@ module "infra" {
   env_name                             = "${var.env_name}"
   region                               = "${var.region}"
   infrastructure_cidr                  = "${var.infrastructure_cidr}"
+  pks_cidr                             = "${var.pks_cidr}"
+  pas_cidr                             = "${var.pas_cidr}"
+  services_cidr                        = "${var.services_cidr}"
   internetless                         = "${var.internetless}"
 }
