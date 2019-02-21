@@ -11,6 +11,15 @@ groups:
   - bootstrap-terraform-state
   - create-infrastructure
   - wipe-env
+- name: pks
+  jobs:
+  - fetch-pks
+- name: pas
+  jobs:
+- name: manage-env
+  jobs:
+- name: bootstrap-demos
+  jobs:
 
 resource_types:
 - name: pivnet
