@@ -1,3 +1,6 @@
+data "google_compute_network" "pcf-network" {
+  name = "${var.network_name}"
+}
 
 resource "google_compute_subnetwork" "infrastructure" {
   name                     = "${var.env_name}-infrastructure-subnet"
@@ -91,7 +94,7 @@ resource "google_compute_firewall" "pcf-allow-http-8080" {
 //// This will match the default OpsMan tag configured for the deployment
 resource "google_compute_firewall" "allow-ert-all" {
   name       = "${var.env_name}-allow-ert-all"
-  depends_on = ["google_compute_network.pcf-virt-net"]
+  depends_on = ["data.google_compute_network.pcf-network"]
   network    = "${var.network_name}"
 
   allow {
@@ -113,7 +116,7 @@ resource "google_compute_firewall" "allow-ert-all" {
 //// Allow access to ssh-proxy [Optional]
 resource "google_compute_firewall" "cf-ssh-proxy" {
   name       = "${var.env_name}-allow-ssh-proxy"
-  depends_on = ["google_compute_network.pcf-virt-net"]
+  depends_on = ["data.google_compute_network.pcf-network"]
   network    = "${var.network_name}"
 
   allow {
@@ -127,7 +130,7 @@ resource "google_compute_firewall" "cf-ssh-proxy" {
 //// Allow access to Optional CF TCP router
 resource "google_compute_firewall" "cf-tcp" {
   name       = "${var.env_name}-allow-cf-tcp"
-  depends_on = ["google_compute_network.pcf-virt-net"]
+  depends_on = ["data.google_compute_network.pcf-network"]
   network    = "${var.network_name}"
 
   allow {
