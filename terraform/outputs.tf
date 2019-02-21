@@ -59,9 +59,9 @@ output "services_ip_cidr_range" {
 }
 
 output "pks_master_node_service_account_key" {
-  value = "${base64decode(module.pks.pks_worker_node_service_account_key)}"
+  value = "${module.pks.pks_worker_node_service_account_key}"
 }
 
 output "pks_worker_node_service_account_key" {
-  value = "${base64decode(module.pks.pks_worker_node_service_account_key)}"
+  value = "${module.pks.pks_worker_node_service_account_key}"
 }
