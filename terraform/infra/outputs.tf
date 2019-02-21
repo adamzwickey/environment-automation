@@ -47,5 +47,5 @@ output "services_ip_cidr_range" {
 }
 
 output "ops-manager-ip" {
-  value = "${google_compute_address.ops-manager-ip}"
+  value = "${google_compute_address.ops-manager-ip.address}"
 }
