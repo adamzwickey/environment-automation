@@ -23,6 +23,9 @@ image_resource:
 inputs:
 - name: environment-automation
 
+outputs:
+- name: bootstrap-output
+
 params:
   GCP_SERVICE_ACCOUNT_KEY:
   TERRAFORM_STATEFILE_BUCKET:

@@ -5,17 +5,21 @@ groups:
   - bootstrap-terraform-state
   - create-infrastructure
   - wipe-env
+  - deploy-opsman
   - fetch-pks
+  - fetch-pas
 - name: infrastructure
   jobs:
   - bootstrap-terraform-state
   - create-infrastructure
   - wipe-env
+  - deploy-opsman
 - name: pks
   jobs:
   - fetch-pks
 - name: pas
   jobs:
+  - fetch-pas
 - name: manage-env
   jobs:
 - name: bootstrap-demos
@@ -88,10 +92,26 @@ resources:
     bucket: ((bucket))
     json_key: ((gcp_json_key))
     regexp: pks-stemcell/light-bosh-stemcell-(.*)-google.*\.tgz
+- name: pas-product
+  type: gcs-resource
+  source:
+    bucket: ((bucket))
+    json_key: ((gcp_json_key))
+    regexp: cf-(.*).pivotal
+- name: pas-stemcell
+  type: gcs-resource
+  source:
+    bucket: ((bucket))
+    json_key: ((gcp_json_key))
+    regexp: pas-stemcell/light-bosh-stemcell-(.*)-google.*\.tgz
 
 jobs:
 - name: bootstrap-terraform-state
   serial: true
+  ensure:
+    put: terraform-state
+    params:
+      file: bootstrap-output/*.tfstate
   plan:
   - get: environment-automation
   - task: create-terraform-state
@@ -110,6 +130,7 @@ jobs:
   - aggregate:
     - get: environment-automation
     - get: terraform-state
+      passed: [bootstrap-terraform-state]
   - task: wipe
     file: environment-automation/tasks/wipe-env/task.yml
     params:
@@ -126,6 +147,7 @@ jobs:
   plan:
   - aggregate:
     - get: terraform-state
+      passed: [bootstrap-terraform-state]
     - get: environment-automation
   - task: create-infrastructure
     file: environment-automation/tasks/create-infrastructure/task.yml
@@ -136,6 +158,11 @@ jobs:
       GCP_DNS_ZONE_NAME: ((gcp_dns_zone_name))
       GCP_DNS_ZONE_DNS_NAME: ((gcp_dns_zone_dns_name))
       PKS_CLUSTER_NAME: ((pks_cluster_name))
+
+- name: deploy-opsman
+  serial_groups: [terraform]
+  plan:
+  - get: terraform-state
 
 - name: fetch-platform-automation
   # We use the pivnet resource to bootstrap the pipeline,
@@ -188,5 +215,44 @@ jobs:
       params:
         file: downloaded-product/*.pivotal
     - put: pks-stemcell
+      params:
+        file: pks-stemcell/*.tgz
+
+- name: fetch-pas
+  plan:
+  - aggregate:
+    - get: daily
+      trigger: true
+    - get: platform-automation-image
+      params:
+        unpack: true
+    - get: platform-automation-tasks
+      params:
+        unpack: true
+    - get: config
+  - task: credhub-interpolate
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/credhub-interpolate.yml
+    params:
+      CREDHUB_CLIENT: ((credhub-client))
+      CREDHUB_SECRET: ((credhub-secret))
+      CREDHUB_SERVER: ((credhub-server))
+      PREFIX: '/pipeline/vsphere'
+      INTERPOLATION_PATH: "download-product-configs"
+    input_mapping:
+      files: config
+    output_mapping:
+      interpolated-files: config
+  - task: download-pas-product-and-stemcell
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/download-product.yml
+    params:
+      CONFIG_FILE: download-product-configs/pks.yml
+    output_mapping: {downloaded-stemcell: pas-stemcell}
+  - aggregate:
+    - put: pas-product
+      params:
+        file: downloaded-product/*.pivotal
+    - put: pas-stemcell
       params:
         file: pks-stemcell/*.tgz

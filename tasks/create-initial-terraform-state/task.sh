@@ -16,6 +16,8 @@
 
 set -eu
 
+root=$PWD
+
 echo $GCP_SERVICE_ACCOUNT_KEY > gcloud.key
 gcloud auth activate-service-account --key-file=gcloud.key
 
@@ -23,8 +25,10 @@ files=$(gsutil ls "gs://${TERRAFORM_STATEFILE_BUCKET}")
 
 if [ $(echo $files | grep -c terraform.tfstate) == 0 ]; then
   echo "{\"version\": 3}" > terraform.tfstate
-  gsutil cp terraform.tfstate "gs://${TERRAFORM_STATEFILE_BUCKET}/terraform.tfstate"
+  #gsutil cp terraform.tfstate "gs://${TERRAFORM_STATEFILE_BUCKET}/terraform.tfstate"
 else
   echo "terraform.tfstate file found, skipping"
   exit 0
 fi
+
+cp terraform.tfstate $root/bootstrap-output/terraform.tfstate
