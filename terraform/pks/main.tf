@@ -50,7 +50,7 @@ module "pks-cluster-1" {
 
   ports                 = ["9021", "8443"]
   lb_name               = "${var.env_name}-pks-cluster-1"
-  forwarding_rule_ports = [8443"]
+  forwarding_rule_ports = ["8443"]
   health_check          = false
 }
 
