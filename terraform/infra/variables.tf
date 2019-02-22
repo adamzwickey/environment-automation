@@ -15,25 +15,25 @@ variable "network_name" {
 variable "infrastructure_cidr" {
   type        = "string"
   description = "CIDR for Infra network"
-  default     = "10.0.1.0/26"
+  default     = "10.0.0.64/26"
 }
 
 variable "pks_cidr" {
   type        = "string"
   description = "CIDR for PKS network"
-  default     = "10.0.2.0/24"
+  default     = "10.0.1.0/24"
 }
 
 variable "pas_cidr" {
   type        = "string"
   description = "CIDR for PAS network"
-  default     = "10.0.3.0/24"
+  default     = "10.0.2.0/24"
 }
 
 variable "services_cidr" {
   type        = "string"
   description = "CIDR for Services network"
-  default     = "10.0.4.0/24"
+  default     = "10.0.3.0/24"
 }
 
 variable "internetless" {
