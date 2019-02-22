@@ -1,0 +1,44 @@
+- type: replace
+  path: /instance_groups/name=bosh/properties/director/ssl/key?
+  value: ((ca_key))
+- type: replace
+  path: /instance_groups/name=bosh/properties/director/ssl/cert?
+  value: ((ca_cert))
+
+- type: replace
+  path: /variables/name=credhub_tls/options/alternative_names/-
+  value: ((controlplane_fqdns))
+
+- type: replace
+  path: /variables/name=credhub_tls/options/common_name
+  value: ((controlplane_fqdns))
+
+- type: replace
+  path: /instance_groups/name=bosh/jobs/name=credhub/properties/credhub/authentication/uaa/url
+  value: "https://((controlplane_fqdns)):8443"
+
+- type: replace
+  path: /instance_groups/name=bosh/properties/director/config_server/uaa/url
+  value: "https://((controlplane_fqdns)):8443"
+
+- type: replace
+  path: /instance_groups/name=bosh/jobs/name=uaa/properties/uaa/sslCertificate?
+  value: ((ca_cert))
+- type: replace
+  path: /instance_groups/name=bosh/jobs/name=uaa/properties/uaa/sslPrivateKey?
+  value: ((ca_key))
+- type: replace
+  path: /instance_groups/name=bosh/jobs/name=uaa/properties/uaa/url?
+  value: https://((controlplane_fqdns)):8443
+- type: replace
+  path: /instance_groups/name=bosh/jobs/name=credhub/properties/credhub/authentication/uaa/ca_certs/-
+  value: ((ca_cert))
+- type: replace
+  path: /instance_groups/name=bosh/jobs/name=credhub/properties/credhub/authentication/uaa/url?
+  value: https://((controlplane_fqdns)):8443
+- type: replace
+  path: /instance_groups/name=bosh/properties/director/config_server/uaa/url?
+  value: https://((controlplane_fqdns)):8443
+- type: replace
+  path: /instance_groups/name=bosh/properties/director/user_management/uaa/url?
+  value: https://((controlplane_fqdns)):8443
