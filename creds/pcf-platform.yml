@@ -1,0 +1,17 @@
+foundation: gcp-demo-foundation
+pivnet_token: ((pivnet_token))
+
+gcp:
+  bucket: automation-az
+  region: us-east1
+  project: fe-azwickey
+  dns_zone_name: zwickey-base
+  dns_zone_dns_name: public.cloud.zwickey.net
+  json_key: ((gcp_json_key))
+
+pks:
+  cluster_name: demo
+
+github:
+  configuration_uri: git@github.com:azwickey-pivotal/environment-automation.git
+  key: ((github_key))

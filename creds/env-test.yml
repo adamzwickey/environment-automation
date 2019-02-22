@@ -1,0 +1,2 @@
+bucket: automation-az
+google-json-key: ((gcp_json_key))

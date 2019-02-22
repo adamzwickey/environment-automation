@@ -1,4 +1,5 @@
 concourse-result.yml
-state/bosh-bootstrap-ca 
+state/bosh-bootstrap-ca
 state/state.json
-creds/*.yml
+creds/concourse-creds.yml
+creds/bosh-bootstrap-creds.yml
