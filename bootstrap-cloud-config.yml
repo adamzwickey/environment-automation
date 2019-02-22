@@ -23,7 +23,7 @@ networks:
 - name: default
   type: manual
   subnets:
-  - range: 10.0.0.0/24
+  - range: 10.0.0.0/26
     gateway: 10.0.0.1
     dns: [8.8.8.8, 8.8.4.4]
     reserved: [10.0.0.0-10.0.0.9]

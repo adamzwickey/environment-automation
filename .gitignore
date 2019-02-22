@@ -4,3 +4,4 @@ state/credhub_ca_cert
 state/state.json
 creds/concourse-creds.yml
 creds/bosh-bootstrap-creds.yml
+creds/credhub-import.yml
