@@ -88,7 +88,7 @@ credhub-interpolate: &credhub-interpolate
   image: platform-automation-image
   file: platform-automation-tasks/tasks/credhub-interpolate.yml
   input_mapping:
-    files: configuration
+    files: environment-automation
   params:
     CREDHUB_SERVER: ((credhub.server))
     CREDHUB_CA_CERT: ((credhub.ca_cert))
@@ -165,16 +165,15 @@ jobs:
         globs:
         - "((products.opsman.product_globs))"
     - get: environment-automation
-      passed: [create-infrastructure]
   - task: credhub-interpolate
     <<: *credhub-interpolate
   - task: create-vm
     image: platform-automation-image
     file: platform-automation-tasks/tasks/create-vm.yml
     input_mapping:
-      image: product
-      state: configuration
-      config: configuration
+      image: om-product
+      state: environment-automation
+      config: environment-automation
       vars: interpolated-files
     params:
       OPSMAN_CONFIG_FILE: ((foundation))/products/((product.product_slug)).yml
@@ -186,7 +185,7 @@ jobs:
           image: platform-automation-image
           file: platform-automation-tasks/tasks/make-git-commit.yml
           input_mapping:
-            repository: configuration
+            repository: environment-automation
             file-source: generated-state
           output_mapping:
             repository-commit: configuration-commit
@@ -223,7 +222,7 @@ jobs:
           image: platform-automation-image
           file: platform-automation-tasks/tasks/make-git-commit.yml
           input_mapping:
-            repository: configuration
+            repository: environment-automation
             file-source: generated-config
           output_mapping:
             repository-commit: configuration-commit
