@@ -14,4 +14,23 @@ pks:
 
 github:
   configuration_uri: git@github.com:azwickey-pivotal/environment-automation.git
-  key: ((github_key))
+  user:
+    email: azwickey@pivotal.io
+    username: azwickey-pivotal
+  key: |
+        ((github_key))
+
+credhub:
+  server: https://10.0.0.2:8844
+  ca_cert: ((credhub_ca_cert))
+  client: credhub-admin
+  secret: ((credhub_secret))
+  interpolate_folders: "gcp-demo-foundation/config gcp-demo-foundation/env gcp-demo-foundation/vars"
+
+products:
+  opsman:
+    # Pivnet-based
+    product_slug: ops-manager
+    product_name: ""
+    product_version: 2.4.4
+    product_globs: "*GCP.yml"

@@ -6,7 +6,9 @@ groups:
   - create-infrastructure
   - wipe-env
   - deploy-opsman
-  - fetch-opsman
+  - configure-director
+  - apply-changes-director
+  - export-installation
   - fetch-pks
   - fetch-pas
 - name: infrastructure
@@ -14,8 +16,10 @@ groups:
   - bootstrap-terraform-state
   - create-infrastructure
   - wipe-env
-  - fetch-opsman
   - deploy-opsman
+  - configure-director
+  - apply-changes-director
+  - export-installation
 - name: pks
   jobs:
   - fetch-pks
@@ -61,8 +65,6 @@ resources:
     uri: ((github.configuration_uri))
     branch: master
     private_key: ((github.key))
-    submodules: all
-    depth: 1
 - name: platform-automation-pivnet
   type: pivnet
   source:
@@ -82,36 +84,28 @@ resources:
     bucket: ((gcp.bucket))
     json_key: ((gcp.json_key))
     regexp: platform-automation-image-(.*).tgz
-- name: opsman-product
-  type: gcs-resource
+- name: om-product
+  type: pivnet
   source:
-    bucket: ((gcp.bucket))
-    json_key: ((gcp.json_key))
-    regexp: products/OpsManager(.*)GCP.yml
-- name: pks-product
-  type: gcs-resource
-  source:
-    bucket: ((gcp.bucket))
-    json_key: ((gcp.json_key))
-    regexp: products/pivotal-container-(.*).pivotal
-- name: pks-stemcell
-  type: gcs-resource
-  source:
-    bucket: ((gcp.bucket))
-    json_key: ((gcp.json_key))
-    regexp: pks-stemcell/light-bosh-stemcell-(.*)-google.*\.tgz
-- name: pas-product
-  type: gcs-resource
-  source:
-    bucket: ((gcp.bucket))
-    json_key: ((gcp.json_key))
-    regexp: cf-(.*).pivotal
-- name: pas-stemcell
-  type: gcs-resource
-  source:
-    bucket: ((gcp.bucket))
-    json_key: ((gcp.json_key))
-    regexp: pas-stemcell/light-bosh-stemcell-(.*)-google.*\.tgz
+    api_token: ((pivnet.token))
+    product_slug: ((products.opsman.product_slug))
+    product_version: ((products.opsman.product_version))
+    sort_by: semver
+
+
+# reusable stuff
+credhub-interpolate: &credhub-interpolate
+  image: platform-automation-image
+  file: platform-automation-tasks/tasks/credhub-interpolate.yml
+  input_mapping:
+    files: configuration
+  params:
+    CREDHUB_SERVER: ((credhub.server))
+    CREDHUB_CA_CERT: ((credhub.ca_cert))
+    CREDHUB_CLIENT: ((credhub.client))
+    CREDHUB_SECRET: ((credhub.secret))
+    PREFIX: /concourse/((foundation))
+    INTERPOLATION_PATH: ((credhub.interpolate_folders))
 
 jobs:
 - name: bootstrap-terraform-state
@@ -168,10 +162,112 @@ jobs:
       PKS_CLUSTER_NAME: ((pks.cluster_name))
 
 - name: deploy-opsman
-  serial_groups: [terraform]
+  serial: true
   plan:
-  - get: terraform-state
-    passed: [fetch-opsman, create-infrastructure]
+  - aggregate:
+    - get: platform-automation-image
+      params: {unpack: true}
+      trigger: true
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: product
+      params:
+        globs:
+        - "((product.product_globs))"
+    - get: configuration
+      passed: [create-infrastructure]
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: create-vm
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/create-vm.yml
+    input_mapping:
+      image: product
+      state: configuration
+      config: configuration
+      vars: interpolated-files
+    params:
+      OPSMAN_CONFIG_FILE: ((foundation))/products/((product.product_slug)).yml
+      VARS_FILES: vars/((foundation))/vars/((product.product_slug))-vars.yml
+      STATE_FILE: ((foundation))/state/state.yml
+    on_success:
+      do:
+        - task: make-commit
+          image: platform-automation-image
+          file: platform-automation-tasks/tasks/make-git-commit.yml
+          input_mapping:
+            repository: configuration
+            file-source: generated-state
+          output_mapping:
+            repository-commit: configuration-commit
+          params:
+            FILE_SOURCE_PATH: state.yml
+            FILE_DESTINATION_PATH: ((foundation))/state/state.yml
+            GIT_AUTHOR_EMAIL: ((git.user.email))
+            GIT_AUTHOR_NAME: ((git.user.username))
+            COMMIT_MESSAGE: "Add or update state file: state.yml"
+        - put: configuration
+          params:
+            repository: configuration-commit
+            merge: true
+  - task: configure-authentication
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/configure-authentication.yml
+    attempts: 10
+    input_mapping:
+      env: interpolated-files
+      config: interpolated-files
+    params:
+      ENV_FILE: ((foundation))/env/env.yml
+      AUTH_CONFIG_FILE: ((foundation))/config/auth.yml
+    on_success: &make-config-commit
+      do:
+        - task: staged-director-config
+          image: platform-automation-image
+          file: platform-automation-tasks/tasks/staged-director-config.yml
+          input_mapping:
+            env: interpolated-files
+          params:
+            ENV_FILE: ((foundation))/env/env.yml
+        - task: make-commit
+          image: platform-automation-image
+          file: platform-automation-tasks/tasks/make-git-commit.yml
+          input_mapping:
+            repository: configuration
+            file-source: generated-config
+          output_mapping:
+            repository-commit: configuration-commit
+          params:
+            FILE_SOURCE_PATH: director.yml
+            FILE_DESTINATION_PATH: ((foundation))/generated-config/director-((product.product_version)).yml
+            GIT_AUTHOR_EMAIL: ((git.user.email))
+            GIT_AUTHOR_NAME: ((git.user.username))
+            COMMIT_MESSAGE: "Add or update product config: director-((product.product_version)).yml"
+        - put: configuration
+          params:
+            repository: configuration-commit
+            merge: true
+
+- name: configure-director
+  serial_groups: [install-om]
+  plan:
+  - get: environment-automation
+    passed: [deploy-opsman]
+    trigger: true
+
+- name: apply-changes-director
+  serial_groups: [install-om]
+  plan:
+  - get: environment-automation
+    passed: [configure-director]
+    trigger: true
+
+- name: export-installation
+  serial_groups: [install-om]
+  plan:
+  - get: environment-automation
+    passed: [apply-changes-director]
+    trigger: true
 
 - name: fetch-platform-automation
   # We use the pivnet resource to bootstrap the pipeline,
@@ -187,117 +283,3 @@ jobs:
     - put: platform-automation-image
       params:
         file: platform-automation-pivnet/*image*.tgz
-
-- name: fetch-opsman
-  plan:
-  - aggregate:
-    - get: daily
-      trigger: true
-    - get: platform-automation-image
-      params:
-        unpack: true
-    - get: platform-automation-tasks
-      params:
-        unpack: true
-    - get: config
-    - get: terraform-state
-  - task: credhub-interpolate
-    image: platform-automation-image
-    file: platform-automation-tasks/tasks/credhub-interpolate.yml
-    params:
-      CREDHUB_CLIENT: ((credhub-client))
-      CREDHUB_SECRET: ((credhub-secret))
-      CREDHUB_SERVER: ((credhub-server))
-      PREFIX: '/pipeline/vsphere'
-      INTERPOLATION_PATH: "download-product-configs"
-    input_mapping:
-      files: config
-    output_mapping:
-      interpolated-files: config
-  - task: download-opsman-image
-    image: platform-automation-image
-    file: platform-automation-tasks/tasks/download-product.yml
-    params:
-      CONFIG_FILE: download-product-configs/opsman.yml
-  - aggregate:
-    - put: opsman-product
-      params:
-        file: downloaded-product/*
-
-- name: fetch-pks
-  plan:
-  - aggregate:
-    - get: daily
-      trigger: true
-    - get: platform-automation-image
-      params:
-        unpack: true
-    - get: platform-automation-tasks
-      params:
-        unpack: true
-    - get: config
-  - task: credhub-interpolate
-    image: platform-automation-image
-    file: platform-automation-tasks/tasks/credhub-interpolate.yml
-    params:
-      CREDHUB_CLIENT: ((credhub-client))
-      CREDHUB_SECRET: ((credhub-secret))
-      CREDHUB_SERVER: ((credhub-server))
-      PREFIX: '/pipeline/vsphere'
-      INTERPOLATION_PATH: "download-product-configs"
-    input_mapping:
-      files: config
-    output_mapping:
-      interpolated-files: config
-  - task: download-pks-product-and-stemcell
-    image: platform-automation-image
-    file: platform-automation-tasks/tasks/download-product.yml
-    params:
-      CONFIG_FILE: download-product-configs/pks.yml
-    output_mapping: {downloaded-stemcell: pks-stemcell}
-  - aggregate:
-    - put: pks-product
-      params:
-        file: downloaded-product/*.pivotal
-    - put: pks-stemcell
-      params:
-        file: pks-stemcell/*.tgz
-
-- name: fetch-pas
-  plan:
-  - aggregate:
-    - get: daily
-      trigger: true
-    - get: platform-automation-image
-      params:
-        unpack: true
-    - get: platform-automation-tasks
-      params:
-        unpack: true
-    - get: config
-  - task: credhub-interpolate
-    image: platform-automation-image
-    file: platform-automation-tasks/tasks/credhub-interpolate.yml
-    params:
-      CREDHUB_CLIENT: ((credhub-client))
-      CREDHUB_SECRET: ((credhub-secret))
-      CREDHUB_SERVER: ((credhub-server))
-      PREFIX: '/pipeline/vsphere'
-      INTERPOLATION_PATH: "download-product-configs"
-    input_mapping:
-      files: config
-    output_mapping:
-      interpolated-files: config
-  - task: download-pas-product-and-stemcell
-    image: platform-automation-image
-    file: platform-automation-tasks/tasks/download-product.yml
-    params:
-      CONFIG_FILE: download-product-configs/pks.yml
-    output_mapping: {downloaded-stemcell: pas-stemcell}
-  - aggregate:
-    - put: pas-product
-      params:
-        file: downloaded-product/*.pivotal
-    - put: pas-stemcell
-      params:
-        file: pks-stemcell/*.tgz
