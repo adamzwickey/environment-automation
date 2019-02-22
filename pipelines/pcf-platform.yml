@@ -9,8 +9,6 @@ groups:
   - configure-director
   - apply-changes-director
   - export-installation
-  - fetch-pks
-  - fetch-pas
 - name: infrastructure
   jobs:
   - bootstrap-terraform-state
@@ -22,10 +20,8 @@ groups:
   - export-installation
 - name: pks
   jobs:
-  - fetch-pks
 - name: pas
   jobs:
-  - fetch-pas
 - name: manage-env
   jobs:
 - name: bootstrap-demos
@@ -59,12 +55,6 @@ resources:
     uri: ((github.configuration_uri))
     branch: master
     private_key: ((github.key))
-- name: config
-  type: git
-  source:
-    uri: ((github.configuration_uri))
-    branch: master
-    private_key: ((github.key))
 - name: platform-automation-pivnet
   type: pivnet
   source:
@@ -87,7 +77,7 @@ resources:
 - name: om-product
   type: pivnet
   source:
-    api_token: ((pivnet.token))
+    api_token: ((pivnet_token))
     product_slug: ((products.opsman.product_slug))
     product_version: ((products.opsman.product_version))
     sort_by: semver
@@ -174,7 +164,7 @@ jobs:
       params:
         globs:
         - "((products.opsman.product_globs))"
-    - get: configuration
+    - get: environment-automation
       passed: [create-infrastructure]
   - task: credhub-interpolate
     <<: *credhub-interpolate
@@ -206,7 +196,7 @@ jobs:
             GIT_AUTHOR_EMAIL: ((git.user.email))
             GIT_AUTHOR_NAME: ((git.user.username))
             COMMIT_MESSAGE: "Add or update state file: state.yml"
-        - put: configuration
+        - put: environment-automation
           params:
             repository: configuration-commit
             merge: true
@@ -243,7 +233,7 @@ jobs:
             GIT_AUTHOR_EMAIL: ((git.user.email))
             GIT_AUTHOR_NAME: ((git.user.username))
             COMMIT_MESSAGE: "Add or update product config: director-((product.product_version)).yml"
-        - put: configuration
+        - put: environment-automation
           params:
             repository: configuration-commit
             merge: true
