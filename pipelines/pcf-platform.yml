@@ -170,10 +170,10 @@ jobs:
       trigger: true
     - get: platform-automation-tasks
       params: {unpack: true}
-    - get: product
+    - get: om-product
       params:
         globs:
-        - "((product.product_globs))"
+        - "((products.opsman.product_globs))"
     - get: configuration
       passed: [create-infrastructure]
   - task: credhub-interpolate
