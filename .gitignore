@@ -1,5 +1,6 @@
 concourse-result.yml
 state/bosh-bootstrap-ca
+state/credhub_ca_cert
 state/state.json
 creds/concourse-creds.yml
 creds/bosh-bootstrap-creds.yml
