@@ -25,7 +25,6 @@ credhub:
   ca_cert: ((credhub_ca_cert))
   client: credhub-admin
   secret: ((credhub_secret))
-  interpolate_folders: gcp-demo-foundation
 
 products:
   opsman:
