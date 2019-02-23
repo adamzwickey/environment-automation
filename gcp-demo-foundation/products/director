@@ -56,4 +56,5 @@ resource-configuration:
     instance_type:
       id: automatic
     internet_connected: true
+    elb_names: ((director.resource-config.elb_names))
 vmextensions-configuration: []
