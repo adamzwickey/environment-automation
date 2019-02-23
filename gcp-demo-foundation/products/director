@@ -1,6 +1,7 @@
 az-configuration: ((director.az))
 network-assignment:
-  other_availability_zones: []
+  network: ((director.network-assignment.network))
+  singleton_availability_zone: ((director.network-assignment.singleton_availability_zone))
 networks-configuration:
   icmp_checks_enabled: false
   networks: ((director.networks))
