@@ -209,7 +209,7 @@ jobs:
       env: interpolated-files
       config: interpolated-files
     params:
-      ENV_FILE: ((foundation))/env/env.yml
+      ENV_FILE: ((foundation))/env/((products.opsman.product_slug)).yml
       AUTH_CONFIG_FILE: ((foundation))/config/auth.yml
     on_success: &make-config-commit
       do:
