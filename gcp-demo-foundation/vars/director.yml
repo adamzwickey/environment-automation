@@ -54,5 +54,7 @@ director:
         - us-east1-c
         - us-east1-d
   network-assignment:
+    network: {name: mgmt}
+    singleton_availability_zone: {name: us-east1-b}
   security:
   resource:
