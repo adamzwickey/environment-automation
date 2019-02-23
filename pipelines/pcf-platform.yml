@@ -148,6 +148,11 @@ jobs:
       GCP_DNS_ZONE_NAME: ((gcp.dns_zone_name))
       GCP_DNS_ZONE_DNS_NAME: ((gcp.dns_zone_dns_name))
       PKS_CLUSTER_NAME: ((pks.cluster_name))
+      CREDHUB_SERVER: ((credhub.server))
+      CREDHUB_CA_CERT: ((credhub.ca_cert))
+      CREDHUB_CLIENT: ((credhub.client))
+      CREDHUB_SECRET: ((credhub.secret))
+      PREFIX: "/concourse/((foundation))"
 
 - name: deploy-opsman
   serial: true

@@ -23,3 +23,16 @@ terraform apply \
   -state-out $root/create-infrastructure-output/terraform.tfstate \
   -parallelism=5 \
   terraform.tfplan
+
+cd $root/create-infrastructure-output
+output_json=$(terraform output -json -state=terraform.tfstate)
+
+#Store relevant vars in credhub
+pub_ip_opsman=$(echo $output_json | jq --raw-output '.modules[] | select(.path[1] == "infra") | .outputs.ops_manager_ip.value')
+env_name=$(echo $output_json | jq --raw-output '.modules[] | select(.path[1] == "infra") | .outputs.ops_manager_ip.value')
+infra_subnet=$(echo $output_json | jq --raw-output '.modules[] | select(.path[1] == "infra") | .outputs.infra_network_name.value')
+
+credhub --version
+credhub set --name="${PREFIX}/om_public_ip" --type="value" --value="${pub_ip_opsman}"
+credhub set --name="${PREFIX}/env_name" --type="value" --value="${env_name}"
+credhub set --name="${PREFIX}/infra_subnet" --type="value" --value="${infra_subnet}"

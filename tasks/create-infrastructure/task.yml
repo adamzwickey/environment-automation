@@ -20,6 +20,11 @@ params:
   GCP_DNS_ZONE_NAME:
   GCP_DNS_ZONE_DNS_NAME:
   PKS_CLUSTER_NAME:
+  CREDHUB_SERVER:
+  CREDHUB_CA_CERT:
+  CREDHUB_CLIENT:
+  CREDHUB_SECRET:
+  PREFIX:
 
 run:
   path: environment-automation/tasks/create-infrastructure/task.sh

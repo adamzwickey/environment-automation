@@ -7,7 +7,7 @@ opsman-configuration:
     zone: us-east1-b
     vm_name: OpsManager                            # default: OpsManager-vm
     # For SharedVPC: projects/[HOST_PROJECT_ID]/regions/[REGION]/subnetworks/[SUBNET]
-    vpc_subnet: ((env_name))-infrastructure-subnet
+    vpc_subnet: ((infra_subnet))
     tags: ((env_name))
     custom_cpu: 2
     custom_memory: 8
