@@ -230,21 +230,38 @@ jobs:
             repository-commit: configuration-commit
           params:
             FILE_SOURCE_PATH: director.yml
-            FILE_DESTINATION_PATH: ((foundation))/generated-config/director-((products.opsman.product_version)).yml
+            FILE_DESTINATION_PATH: ((foundation))/generated-config/director-((products.opsman.product_version))
             GIT_AUTHOR_EMAIL: ((github.user.email))
             GIT_AUTHOR_NAME: ((github.user.username))
-            COMMIT_MESSAGE: "Add or update product config: director-((products.opsman.product_version)).yml"
+            COMMIT_MESSAGE: "Add or update product config: director-((products.opsman.product_version))"
         - put: environment-automation
           params:
             repository: configuration-commit
             merge: true
 
 - name: configure-director
-  serial_groups: [install-om]
+  serial: true
   plan:
-  - get: environment-automation
-    passed: [deploy-opsman]
-    trigger: true
+  - aggregate:
+    - get: platform-automation-image
+      passed: [deploy-opsman]
+      params: {unpack: true}
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: configure-director
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/configure-director.yml
+    input_mapping:
+      config: environment-automation
+      env: interpolated-files
+      vars: interpolated-files
+    params:
+      ENV_FILE: ((foundation))/env/((products.opsman.product_slug)).yml
+      DIRECTOR_CONFIG_FILE: ((foundation))/products/director.yml
+      VARS_FILES: vars/((foundation))/vars/director-vars.yml
 
 - name: apply-changes-director
   serial_groups: [install-om]
