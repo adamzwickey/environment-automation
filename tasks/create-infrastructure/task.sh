@@ -32,7 +32,9 @@ pub_ip_opsman=$(echo $output_json | jq --raw-output '.ops_manager_ip.value')
 env_name=$(echo $output_json | jq --raw-output '.env_name.value')
 infra_subnet=$(echo $output_json | jq --raw-output '.infra_network_name.value')
 
-credhub --version
-credhub set --name="${PREFIX}/om_public_ip" --type="value" --value="${pub_ip_opsman}"
-credhub set --name="${PREFIX}/env_name" --type="value" --value="${env_name}"
-credhub set --name="${PREFIX}/infra_subnet" --type="value" --value="${infra_subnet}"
+wget https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/2.2.1/credhub-linux-2.2.1.tgz
+tar -zxvf credhub-linux-2.2.1.tgz
+./credhub --version
+./credhub set --name="${PREFIX}/om_public_ip" --type="value" --value="${pub_ip_opsman}"
+./credhub set --name="${PREFIX}/env_name" --type="value" --value="${env_name}"
+./credhub set --name="${PREFIX}/infra_subnet" --type="value" --value="${infra_subnet}"
