@@ -1,0 +1,9 @@
+---
+director:
+  az:
+  config:
+  iaas:
+  network:
+  network-assignment:
+  security:
+  resource:

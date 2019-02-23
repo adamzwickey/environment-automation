@@ -260,8 +260,8 @@ jobs:
       vars: interpolated-files
     params:
       ENV_FILE: ((foundation))/env/((products.opsman.product_slug)).yml
-      DIRECTOR_CONFIG_FILE: ((foundation))/products/director.yml
-      VARS_FILES: vars/((foundation))/vars/director-vars.yml
+      DIRECTOR_CONFIG_FILE: ((foundation))/products/director
+      VARS_FILES: vars/((foundation))/vars/director.yml
 
 - name: apply-changes-director
   serial_groups: [install-om]
