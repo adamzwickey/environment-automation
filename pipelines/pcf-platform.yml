@@ -122,7 +122,6 @@ jobs:
   - aggregate:
     - get: environment-automation
     - get: terraform-state
-      passed: [bootstrap-terraform-state]
   - task: wipe
     file: environment-automation/tasks/wipe-env/task.yml
     params:
@@ -139,7 +138,6 @@ jobs:
   plan:
   - aggregate:
     - get: terraform-state
-      passed: [bootstrap-terraform-state]
     - get: environment-automation
   - task: create-infrastructure
     file: environment-automation/tasks/create-infrastructure/task.yml
