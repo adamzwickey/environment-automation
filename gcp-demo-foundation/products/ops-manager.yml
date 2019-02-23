@@ -1,17 +1,17 @@
 ---
 opsman-configuration:
   gcp:
-    gcp_service_account: ((gcp_json_key))
-    project: fe-azwickey
-    region: us-east1
-    zone: us-east1-b
-    vm_name: OpsManager                            # default: OpsManager-vm
+    gcp_service_account: ((gcp.gcp_service_account))
+    project: ((gcp.project))
+    region: ((gcp.region))
+    zone: ((gcp.zone))
+    vm_name: ((gcp.vm_name))                            # default: OpsManager-vm
     # For SharedVPC: projects/[HOST_PROJECT_ID]/regions/[REGION]/subnetworks/[SUBNET]
-    vpc_subnet: ((infra_subnet))
-    tags: ((env_name)),pcf-opsman
-    custom_cpu: 2
-    custom_memory: 8
-    boot_disk_size: 100
+    vpc_subnet: ((gcp.vpc_subnet))
+    tags: ((gcp.tags))
+    custom_cpu: ((gcp.custom_cpu))
+    custom_memory: ((gcp.custom_memory))
+    boot_disk_size: ((gcp.boot_disk_size))
     # At least one IP address (public or private) needs to be assigned to the VM.
-    public_ip: ((om_public_ip))
-    private_ip: 10.0.1.2
+    public_ip: ((gcp.public_ip))
+    private_ip: ((gcp.private_ip))
