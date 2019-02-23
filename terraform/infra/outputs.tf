@@ -1,3 +1,7 @@
+output "env_name" {
+  value = "${var.env_name}"
+}
+
 output "infra_network_name" {
   value = "${google_compute_subnetwork.infrastructure.name}"
 }
