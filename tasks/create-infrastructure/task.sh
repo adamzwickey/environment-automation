@@ -28,9 +28,9 @@ cd $root/create-infrastructure-output
 output_json=$(terraform output -json -state=terraform.tfstate)
 
 #Store relevant vars in credhub
-pub_ip_opsman=$(echo $output_json | jq --raw-output '.modules[] | select(.path[1] == "infra") | .outputs.ops_manager_ip.value')
-env_name=$(echo $output_json | jq --raw-output '.modules[] | select(.path[1] == "infra") | .outputs.ops_manager_ip.value')
-infra_subnet=$(echo $output_json | jq --raw-output '.modules[] | select(.path[1] == "infra") | .outputs.infra_network_name.value')
+pub_ip_opsman=$(echo $output_json | jq --raw-output '.ops_manager_ip.value')
+env_name=$(echo $output_json | jq --raw-output '.env_name.value')
+infra_subnet=$(echo $output_json | jq --raw-output '.infra_network_name.value')
 
 credhub --version
 credhub set --name="${PREFIX}/om_public_ip" --type="value" --value="${pub_ip_opsman}"
