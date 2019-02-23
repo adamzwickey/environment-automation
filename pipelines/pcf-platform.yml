@@ -219,7 +219,7 @@ jobs:
           input_mapping:
             env: interpolated-files
           params:
-            ENV_FILE: ((foundation))/env/env.yml
+            ENV_FILE: ((foundation))/env/((products.opsman.product_slug)).yml
         - task: make-commit
           image: platform-automation-image
           file: platform-automation-tasks/tasks/make-git-commit.yml
@@ -231,8 +231,8 @@ jobs:
           params:
             FILE_SOURCE_PATH: director.yml
             FILE_DESTINATION_PATH: ((foundation))/generated-config/director-((product.product_version)).yml
-            GIT_AUTHOR_EMAIL: ((git.user.email))
-            GIT_AUTHOR_NAME: ((git.user.username))
+            GIT_AUTHOR_EMAIL: ((github.user.email))
+            GIT_AUTHOR_NAME: ((github.user.username))
             COMMIT_MESSAGE: "Add or update product config: director-((product.product_version)).yml"
         - put: environment-automation
           params:
