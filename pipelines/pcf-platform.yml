@@ -198,8 +198,8 @@ jobs:
       config: environment-automation
       vars: interpolated-files
     params:
-      OPSMAN_CONFIG_FILE: ((foundation))/products/((product.product_slug)).yml
-      VARS_FILES: vars/((foundation))/vars/((product.product_slug))-vars.yml
+      OPSMAN_CONFIG_FILE: ((foundation))/products/((products.opsman.product_slug)).yml
+      VARS_FILES: vars/((foundation))/vars/((products.opsman.product_slug)).yml
       STATE_FILE: ((foundation))/state/state.yml
     on_success:
       do:

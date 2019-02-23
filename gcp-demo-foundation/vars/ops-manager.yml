@@ -4,7 +4,7 @@ gcp:
   project: fe-azwickey
   region: us-east1
   zone: us-east1-b
-  vm_name: OpsManager                            # default: OpsManager-vm
+  vm_name: om                            # default: OpsManager-vm
   # For SharedVPC: projects/[HOST_PROJECT_ID]/regions/[REGION]/subnetworks/[SUBNET]
   vpc_subnet: ((infra_subnet))
   tags: ((env_name)),pcf-opsman
