@@ -230,10 +230,10 @@ jobs:
             repository-commit: configuration-commit
           params:
             FILE_SOURCE_PATH: director.yml
-            FILE_DESTINATION_PATH: ((foundation))/generated-config/director-((product.product_version)).yml
+            FILE_DESTINATION_PATH: ((foundation))/generated-config/director-((products.opsman.product_version)).yml
             GIT_AUTHOR_EMAIL: ((github.user.email))
             GIT_AUTHOR_NAME: ((github.user.username))
-            COMMIT_MESSAGE: "Add or update product config: director-((product.product_version)).yml"
+            COMMIT_MESSAGE: "Add or update product config: director-((products.opsman.product_version)).yml"
         - put: environment-automation
           params:
             repository: configuration-commit
