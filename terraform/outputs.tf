@@ -10,6 +10,10 @@ output "region" {
   value = "${var.region}"
 }
 
+output "env_name" {
+  value = "${var.env_name}"
+}
+
 output "infra_network_name" {
   value = "${module.infra.infra_network_name}"
 }
