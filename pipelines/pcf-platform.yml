@@ -87,7 +87,7 @@ credhub-interpolate: &credhub-interpolate
   image: platform-automation-image
   file: platform-automation-tasks/tasks/credhub-interpolate.yml
   input_mapping:
-    files: configuration
+    files: environment-automation
   params:
     CREDHUB_SERVER: ((credhub.server))
     CREDHUB_CA_CERT: ((credhub.ca_cert))
@@ -178,7 +178,7 @@ jobs:
       config: environment-automation
       vars: interpolated-files
     params:
-      OPSMAN_CONFIG_FILE: ((foundation))/products/((products.opsman.product_slug)).yml
+      OPSMAN_CONFIG_FILE: ((foundation))/products/((products.opsman.product_slug))
       VARS_FILES: vars/((foundation))/vars/((products.opsman.product_slug)).yml
       STATE_FILE: ((foundation))/state/state.yml
     on_success:
