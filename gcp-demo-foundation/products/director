@@ -3,7 +3,7 @@ network-assignment:
   other_availability_zones: []
 networks-configuration:
   icmp_checks_enabled: false
-  networks: ((director.network))
+  networks: ((director.networks))
 properties-configuration:
   director_configuration:
     allow_legacy_agents: true

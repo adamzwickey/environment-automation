@@ -7,7 +7,52 @@ director:
     service_account: ""
     auth_json: ((gcp_json_key))
     project: fe-azwickey
-  network:
+    tag: ((env_name))
+  networks:
+    - name: mgmt
+      subnets:
+      - iaas_identifier: bosh-bootstrap/pcf-infrastructure-subnet/us-east1
+        cidr: 10.0.1.0/26
+        dns: 169.254.169.254, 8.8.8.8
+        gateway: 10.0.1.1
+        reserved_ip_ranges: 10.0.1.1-10.0.1.9
+        availability_zone_names:
+        - us-east1-b
+        - us-east1-c
+        - us-east1-d
+    - name: pas
+      subnets:
+      - iaas_identifier: bosh-bootstrap/pcf-pas-subnet/us-east1
+        cidr: 10.0.2.0/24
+        dns: 169.254.169.254, 8.8.8.8
+        gateway: 10.0.2.1
+        reserved_ip_ranges: 10.0.2.1-10.0.2.9
+        availability_zone_names:
+        - us-east1-b
+        - us-east1-c
+        - us-east1-d
+    - name: pks
+      subnets:
+      - iaas_identifier: bosh-bootstrap/pcf-pks-subnet/us-east1
+        cidr: 10.0.3.0/24
+        dns: 169.254.169.254, 8.8.8.8
+        gateway: 10.0.3.1
+        reserved_ip_ranges: 10.0.3.1-10.0.3.9
+        availability_zone_names:
+        - us-east1-b
+        - us-east1-c
+        - us-east1-d
+    - name: services
+      subnets:
+      - iaas_identifier: bosh-bootstrap/pcf-services-subnet/us-east1
+        cidr: 10.0.4.0/24
+        dns: 169.254.169.254, 8.8.8.8
+        gateway: 10.0.4.1
+        reserved_ip_ranges: 10.0.4.1-10.0.4.9
+        availability_zone_names:
+        - us-east1-b
+        - us-east1-c
+        - us-east1-d
   network-assignment:
   security:
   resource:
