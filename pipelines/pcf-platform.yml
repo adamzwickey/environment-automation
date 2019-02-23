@@ -82,6 +82,20 @@ resources:
     product_version: ((products.opsman.product_version))
     sort_by: semver
 
+# reusable stuff
+credhub-interpolate: &credhub-interpolate
+  image: platform-automation-image
+  file: platform-automation-tasks/tasks/credhub-interpolate.yml
+  input_mapping:
+    files: configuration
+  params:
+    CREDHUB_SERVER: ((credhub.server))
+    CREDHUB_CA_CERT: ((credhub.ca_cert))
+    CREDHUB_CLIENT: ((credhub.client))
+    CREDHUB_SECRET: ((credhub.secret))
+    PREFIX: /concourse/((foundation))
+    INTERPOLATION_PATH: ((credhub.interpolate_folders))
+
 jobs:
 - name: bootstrap-terraform-state
   serial: true
@@ -153,42 +167,8 @@ jobs:
         globs:
         - "((products.opsman.product_globs))"
     - get: environment-automation
-  - task: credhub-interpolate-config
-    image: platform-automation-image
-    file: platform-automation-tasks/tasks/credhub-interpolate.yml
-    input_mapping:
-      files: environment-automation
-    params:
-      CREDHUB_SERVER: ((credhub.server))
-      CREDHUB_CA_CERT: ((credhub.ca_cert))
-      CREDHUB_CLIENT: ((credhub.client))
-      CREDHUB_SECRET: ((credhub.secret))
-      PREFIX: "/concourse/((foundation))"
-      INTERPOLATION_PATH: ((foundation))/config
-  - task: credhub-interpolate-env
-    image: platform-automation-image
-    file: platform-automation-tasks/tasks/credhub-interpolate.yml
-    input_mapping:
-      files: environment-automation
-    params:
-      CREDHUB_SERVER: ((credhub.server))
-      CREDHUB_CA_CERT: ((credhub.ca_cert))
-      CREDHUB_CLIENT: ((credhub.client))
-      CREDHUB_SECRET: ((credhub.secret))
-      PREFIX: "/concourse/((foundation))"
-      INTERPOLATION_PATH: ((foundation))/env
-  - task: credhub-interpolate-vars
-    image: platform-automation-image
-    file: platform-automation-tasks/tasks/credhub-interpolate.yml
-    input_mapping:
-      files: environment-automation
-    params:
-      CREDHUB_SERVER: ((credhub.server))
-      CREDHUB_CA_CERT: ((credhub.ca_cert))
-      CREDHUB_CLIENT: ((credhub.client))
-      CREDHUB_SECRET: ((credhub.secret))
-      PREFIX: "/concourse/((foundation))"
-      INTERPOLATION_PATH: ((foundation))/vars
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
   - task: create-vm
     image: platform-automation-image
     file: platform-automation-tasks/tasks/create-vm.yml
@@ -214,8 +194,8 @@ jobs:
           params:
             FILE_SOURCE_PATH: state.yml
             FILE_DESTINATION_PATH: ((foundation))/state/state.yml
-            GIT_AUTHOR_EMAIL: ((git.user.email))
-            GIT_AUTHOR_NAME: ((git.user.username))
+            GIT_AUTHOR_EMAIL: ((github.user.email))
+            GIT_AUTHOR_NAME: ((github.user.username))
             COMMIT_MESSAGE: "Add or update state file: state.yml"
         - put: environment-automation
           params:
