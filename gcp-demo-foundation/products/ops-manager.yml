@@ -7,11 +7,11 @@ opsman-configuration:
     zone: us-east1-b
     vm_name: OpsManager                            # default: OpsManager-vm
     # For SharedVPC: projects/[HOST_PROJECT_ID]/regions/[REGION]/subnetworks/[SUBNET]
-    vpc_subnet: ((gcp.vpc_subnet))
-    tags: ((gcp.tags))
+    vpc_subnet: ((env_name))-infrastructure-subnet
+    tags: ((env_name))
     custom_cpu: 2
     custom_memory: 8
     boot_disk_size: 100
     # At least one IP address (public or private) needs to be assigned to the VM.
-    public_ip: ((gcp.public_ip))
-    private_ip: ((gcp.private_ip))
+    public_ip: ((om_public_ip))
+    private_ip: 10.0.1.2
