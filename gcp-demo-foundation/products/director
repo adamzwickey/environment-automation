@@ -34,6 +34,7 @@ properties-configuration:
   iaas_configuration:
     additional_cloud_properties: {}
     associated_service_account: ((director.iaas.service_account))
+    auth_json: ((director.iaas.auth_json))
     default_deployment_tag: ((director.iaas.tag))
     project: ((director.iaas.project))
   security_configuration:
