@@ -94,7 +94,7 @@ credhub-interpolate: &credhub-interpolate
     CREDHUB_CA_CERT: ((credhub.ca_cert))
     CREDHUB_CLIENT: ((credhub.client))
     CREDHUB_SECRET: ((credhub.secret))
-    PREFIX: /concourse/((foundation))
+    PREFIX: "/concourse/((foundation))"
     INTERPOLATION_PATH: ((credhub.interpolate_folders))
 
 jobs:
