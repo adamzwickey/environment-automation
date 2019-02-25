@@ -40,10 +40,10 @@ pub_ip_bosh=$(echo $output_json | jq --raw-output '.bosh_load_balancer_address.v
 bosh_lb=$(echo $output_json | jq --raw-output '.bosh_load_balancer_name.value')
 env_name=$(echo $output_json | jq --raw-output '.env_name.value')
 infra_subnet=$(echo $output_json | jq --raw-output '.infra_network_name.value')
-buildpacks_bucket=$(echo $output_json | jq --raw-output '.infra_network_name.value')
-resources_bucket=$(echo $output_json | jq --raw-output '.infra_network_name.value')
-packages_bucket=$(echo $output_json | jq --raw-output '.infra_network_name.value')
-droplets_bucket=$(echo $output_json | jq --raw-output '.infra_network_name.value')
+buildpacks_bucket=$(echo $output_json | jq --raw-output '.buildpacks_bucket.value')
+resources_bucket=$(echo $output_json | jq --raw-output '.resources_bucket.value')
+packages_bucket=$(echo $output_json | jq --raw-output '.packages_bucket.value')
+droplets_bucket=$(echo $output_json | jq --raw-output '.droplets_bucket.value')
 
 wget https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/2.2.1/credhub-linux-2.2.1.tgz
 tar -zxvf credhub-linux-2.2.1.tgz
