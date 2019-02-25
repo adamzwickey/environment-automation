@@ -1,6 +1,9 @@
 ---
 product-name: cf
 network-properties:
-  network: ((pas.network-assignment.network))
-  other_availability_zones: ((pas.network-assignment.other_availability_zones))
-  singleton_availability_zone: ((pas.network-assignment.singleton_availability_zone))
+  network: ((pas.networks.network))
+  other_availability_zones: ((pas.networks.other_availability_zones))
+  singleton_availability_zone: ((pas.networks.singleton_availability_zone))
+product-properties:
+  cloud_controller.apps_domain: ((pas.cloud_controller.apps_domain))
+  cloud_controller.system_domain: ((pas.cloud_controller.system_domain))

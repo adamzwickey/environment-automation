@@ -1,9 +1,12 @@
 ---
 pas:
-  network-assignment:
+  network:
     network: {name: pas}
     singleton_availability_zone: {name: us-east1-b}
     other_availability_zones:
       - name: us-east1-b
       - name: us-east1-c
       - name: us-east1-d
+  cloud-controller:
+    apps_domain: apps.public.cloud.zwickey.net
+    system_domain: apps.public.cloud.zwickey.net
