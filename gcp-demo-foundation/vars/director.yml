@@ -3,7 +3,7 @@ director:
   az: [{name: us-east1-b},{name: us-east1-c},{name: us-east1-d}]
   config:
     ntp: metadata.google.internal
-    director_hostname: bosh.public.cloud.zwickey.net
+    hostname: bosh.public.cloud.zwickey.net
 
   iaas:
     service_account: ""
