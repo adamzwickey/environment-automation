@@ -108,7 +108,7 @@ module "ssh-lb" {
 
   global  = false
   count   = 1
-  network = "${var.network}"
+  network = "${var.network_name}"
 
   ports                 = ["2222"]
   forwarding_rule_ports = ["2222"]
