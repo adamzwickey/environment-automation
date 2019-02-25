@@ -19,6 +19,7 @@ terraform plan \
   -var "dns_suffix=${GCP_DNS_ZONE_DNS_NAME}" \
   -var "ssl_cert=${SSL_CERT}" \
   -var "ssl_private_key=${SSL_PRIVATE_KEY}" \
+  -var "global_lb=1" \
   -out terraform.tfplan \
   -state terraform-state/terraform.tfstate \
   environment-automation/terraform

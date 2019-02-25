@@ -27,3 +27,9 @@ variable "buckets_location" {
 variable "ssl_certificate" {
   type = "string"
 }
+
+variable "global_lb" {}
+
+variable "zones" {
+  type = "list"
+}
