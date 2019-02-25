@@ -72,7 +72,7 @@ variable "buckets_location" {
 }
 
 variable "dns_suffix" {
-  type = true
+  type = "string"
 }
 
 variable "ssl_cert" {
