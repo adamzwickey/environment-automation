@@ -64,7 +64,7 @@ variable "pks_cluster_name" {
 }
 
 variable "create_gcs_buckets" {
-  default = true
+  default = "1"
 }
 
 variable "buckets_location" {
