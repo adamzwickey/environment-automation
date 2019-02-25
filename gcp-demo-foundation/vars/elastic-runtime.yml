@@ -1,6 +1,6 @@
 ---
 pas:
-  network:
+  networks:
     network: {name: pas}
     singleton_availability_zone: {name: us-east1-b}
     other_availability_zones:
