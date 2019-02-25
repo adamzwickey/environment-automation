@@ -7,6 +7,9 @@ pas:
       - name: us-east1-b
       - name: us-east1-c
       - name: us-east1-d
+    ssl:
+      certificate: ((ssl_certificate))
+      private_key: ((ssl_private_key))
   cloud_controller:
     apps_domain: apps.public.cloud.zwickey.net
-    system_domain: apps.public.cloud.zwickey.net
+    system_domain: run.public.cloud.zwickey.net

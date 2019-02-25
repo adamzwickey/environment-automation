@@ -9,3 +9,9 @@ product-properties:
     value: ((pas.cloud_controller.apps_domain))
   .cloud_controller.system_domain:
     value: ((pas.cloud_controller.system_domain))
+  .properties.networking_poe_ssl_certs:
+    value:
+    - certificate:
+        cert_pem: "((pas.networks.ssl.certificate))"
+        private_key_pem: "((pas.networks.ssl.private_key))"
+      name: SSL-Cert
