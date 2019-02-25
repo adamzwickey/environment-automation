@@ -187,7 +187,7 @@ module "tcprouter" {
 }
 
 resource "google_dns_record_set" "wildcard-sys-dns" {
-  name = "*.run.${var.dns_zone_dns_name}"
+  name = "*.run.${var.dns_zone_dns_name}."
   type = "A"
   ttl  = 300
 
@@ -197,7 +197,7 @@ resource "google_dns_record_set" "wildcard-sys-dns" {
 }
 
 resource "google_dns_record_set" "doppler-sys-dns" {
-  name = "doppler.run.${var.dns_zone_dns_name}"
+  name = "doppler.run.${var.dns_zone_dns_name}."
   type = "A"
   ttl  = 300
 
@@ -207,7 +207,7 @@ resource "google_dns_record_set" "doppler-sys-dns" {
 }
 
 resource "google_dns_record_set" "loggregator-sys-dns" {
-  name = "loggregator.run.${var.dns_zone_dns_name}"
+  name = "loggregator.run.${var.dns_zone_dns_name}."
   type = "A"
   ttl  = 300
 
@@ -217,7 +217,7 @@ resource "google_dns_record_set" "loggregator-sys-dns" {
 }
 
 resource "google_dns_record_set" "wildcard-apps-dns" {
-  name = "*.apps.${var.dns_zone_dns_name}"
+  name = "*.apps.${var.dns_zone_dns_name}."
   type = "A"
   ttl  = 300
 
@@ -227,7 +227,7 @@ resource "google_dns_record_set" "wildcard-apps-dns" {
 }
 
 resource "google_dns_record_set" "app-ssh-dns" {
-  name = "ssh.run.${var.dns_zone_dns_name}"
+  name = "ssh.run.${var.dns_zone_dns_name}."
   type = "A"
   ttl  = 300
 
@@ -237,7 +237,7 @@ resource "google_dns_record_set" "app-ssh-dns" {
 }
 
 resource "google_dns_record_set" "tcp-dns" {
-  name = "tcp.${var.dns_zone_dns_name}"
+  name = "tcp.${var.dns_zone_dns_name}."
   type = "A"
   ttl  = 300
 
