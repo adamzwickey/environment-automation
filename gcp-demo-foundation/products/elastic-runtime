@@ -5,5 +5,5 @@ network-properties:
   other_availability_zones: ((pas.networks.other_availability_zones))
   singleton_availability_zone: ((pas.networks.singleton_availability_zone))
 product-properties:
-  cloud_controller.apps_domain: ((pas.cloud_controller.apps_domain))
-  cloud_controller.system_domain: ((pas.cloud_controller.system_domain))
+  .cloud_controller.apps_domain: ((pas.cloud_controller.apps_domain))
+  .cloud_controller.system_domain: ((pas.cloud_controller.system_domain))
