@@ -1,2 +1,6 @@
 ---
 product-name: cf
+network-properties:
+  network: ((pas.network-assignment.network))
+  other_availability_zones: ((pas.network-assignment.other_availability_zones))
+  singleton_availability_zone: ((pas.network-assignment.singleton_availability_zone))
