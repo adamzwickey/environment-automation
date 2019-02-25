@@ -130,7 +130,7 @@ module "gorouter" {
   ssl_certificate = "${var.ssl_certificate}"
 
   ports = ["80", "443"]
-  
+
   lb_name               = "${var.env_name}-${var.global_lb > 0 ? "httpslb" : "tcplb"}"
   forwarding_rule_ports = ["80", "443"]
 
@@ -184,4 +184,64 @@ module "tcprouter" {
   health_check_timeout             = 5
   health_check_healthy_threshold   = 10
   health_check_unhealthy_threshold = 2
+}
+
+resource "google_dns_record_set" "wildcard-sys-dns" {
+  name = "*.run.${var.dns_zone_dns_name}"
+  type = "A"
+  ttl  = 300
+
+  managed_zone = "${var.dns_zone_name}"
+
+  rrdatas = ["${module.gorouter.address}"]
+}
+
+resource "google_dns_record_set" "doppler-sys-dns" {
+  name = "doppler.run.${var.dns_zone_dns_name}"
+  type = "A"
+  ttl  = 300
+
+  managed_zone = "${var.dns_zone_name}"
+
+  rrdatas = ["${module.websocket.address}"]
+}
+
+resource "google_dns_record_set" "loggregator-sys-dns" {
+  name = "loggregator.run.${var.dns_zone_dns_name}"
+  type = "A"
+  ttl  = 300
+
+  managed_zone = "${var.dns_zone_name}"
+
+  rrdatas = ["${module.websocket.address}"]
+}
+
+resource "google_dns_record_set" "wildcard-apps-dns" {
+  name = "*.apps.${var.dns_zone_dns_name}"
+  type = "A"
+  ttl  = 300
+
+  managed_zone = "${var.dns_zone_name}"
+
+  rrdatas = ["${module.gorouter.address}"]
+}
+
+resource "google_dns_record_set" "app-ssh-dns" {
+  name = "ssh.run.${var.dns_zone_dns_name}"
+  type = "A"
+  ttl  = 300
+
+  managed_zone = "${var.dns_zone_name}"
+
+  rrdatas = ["${module."ssh-lb.address}"]
+}
+
+resource "google_dns_record_set" "tcp-dns" {
+  name = "tcp.${var.dns_zone_dns_name}"
+  type = "A"
+  ttl  = 300
+
+  managed_zone = "${var.dns_zone_name}"
+
+  rrdatas = ["${module.tcprouter.address}"]
 }
