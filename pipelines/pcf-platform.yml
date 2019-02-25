@@ -513,3 +513,59 @@ jobs:
       CONFIG_FILE: ((foundation))/products/((products.pas.product_slug)).yml
       VARS_FILES: vars/((foundation))/vars/((products.pas.product_slug)).yml
       ENV_FILE: ((foundation))/env/((products.pas.product_slug)).yml
+
+- name: apply-product-changes-pas
+  serial: true
+  plan:
+  - aggregate:
+    - get: platform-automation-image
+      params: {unpack: true}
+      passed: [upload-stemcell-pas, configure-product-pas]
+      #trigger: true
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: apply-product-changes
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/apply-changes.yml
+    input_mapping:
+      env: interpolated-files
+    params:
+      ENV_FILE: ((foundation))/env/env.yml
+  - task: staged-config
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/staged-config.yml
+    input_mapping:
+      env: interpolated-files
+    params:
+      PRODUCT_NAME: ((product.product_name))
+      ENV_FILE: ((foundation))/env/((products.pas.product_slug)).yml
+      SUBSTITUTE_CREDENTIALS_WITH_PLACEHOLDERS: true
+    on_success: *make-config-commit
+
+- name: export-installation-pas
+  serial: true
+  plan:
+  - aggregate:
+    - get: platform-automation-image
+      params: {unpack: true}
+      passed: [apply-product-changes]
+      trigger: true
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: export-installation
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/export-installation.yml
+    input_mapping:
+      env: interpolated-files
+    params:
+      ENV_FILE: ((foundation))/env/env.yml
+      INSTALLATION_FILE: installation-after-((products.pas.product_slug))-((products.pas.product_version)).zip
+  - put: installation
+    params:
+      file: installation/installation-after-((products.pas.product_slug))-((products.pas.product_version)).zip
