@@ -125,7 +125,7 @@ module "gorouter" {
 
   global          = "${var.global_lb}"
   count           = "${var.global_lb > 0 ? 0 : 1}"
-  network         = "${var.network}"
+  network         = "${var.network_name}"
   zones           = "${var.zones}"
   ssl_certificate = "${var.ssl_certificate}"
 
@@ -150,7 +150,7 @@ module "websocket" {
   name     = "websocket"
 
   global  = false
-  network = "${var.network}"
+  network = "${var.network_name}"
   count   = "${var.global_lb}"
 
   ports                 = ["80", "443"]
@@ -172,7 +172,7 @@ module "tcprouter" {
   name     = "tcprouter"
 
   global  = false
-  network = "${var.network}"
+  network = "${var.network_name}"
   count   = 1
 
   ports                 = ["1024-65535"]
