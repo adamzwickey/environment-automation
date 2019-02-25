@@ -161,6 +161,7 @@ jobs:
       SSL_CERT: ((pas.ssl.cert))
       SSL_PRIVATE_KEY: ((pas.ssl.private_key))
       AZ_LIST: ((gcp.az_list))
+      CREATE_GCS_BUCKETS: ((gcp.create_buckets))
 
 - name: deploy-opsman
   serial: true

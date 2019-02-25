@@ -9,6 +9,7 @@ gcp:
   dns_zone_dns_name: public.cloud.zwickey.net
   json_key: ((gcp_json_key))
   az_list: ["us-east1-b","us-east1-c","us-east1-d"]
+  create_buckets: 0  #set to zero after first run
 
 pks:
   cluster_name: demo

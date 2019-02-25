@@ -28,6 +28,7 @@ params:
   SSL_CERT:
   SSL_PRIVATE_KEY:
   AZ_LIST:
+  CREATE_GCS_BUCKETS:
 
 run:
   path: environment-automation/tasks/create-infrastructure/task.sh
