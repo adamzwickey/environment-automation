@@ -32,3 +32,18 @@ product-properties:
       provider: internal
   .mysql_monitor.recipient_email:
     value: ((pas.email))
+  .properties.system_blobstore:
+    value: "((pas.system_blobstore.type))"
+  .properties.system_blobstore.external_gcs.access_key:
+    value: "((pas.gcp.gcs_access_key))"
+  .properties.system_blobstore.external_gcs.secret_key:
+    value:
+      secret: "((pas.gcp.gcs_secret_key))"
+  .properties.system_blobstore.external_gcs.buildpacks_bucket:
+    value: "((pas.gcp.buildpacks_bucket))"
+  .properties.system_blobstore.external_gcs.droplets_bucket:
+    value: "((pas.gcp.droplets_bucket))"
+  .properties.system_blobstore.external_gcs.packages_bucket:
+    value: "((pas.gcp.packages_bucket))"
+  .properties.system_blobstore.external_gcs.resources_bucket:
+    value: "((pas.gcp.resources_bucket))"
