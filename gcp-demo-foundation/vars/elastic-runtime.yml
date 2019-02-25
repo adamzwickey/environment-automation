@@ -13,3 +13,5 @@ pas:
   cloud_controller:
     apps_domain: apps.public.cloud.zwickey.net
     system_domain: run.public.cloud.zwickey.net
+  credhub:
+    secret: ((credhub_secret)) 
