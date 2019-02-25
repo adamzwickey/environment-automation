@@ -41,7 +41,7 @@ products:
     product_name: ""
     product_version: 2.4.4
     product_globs: "*GCP.yml"
-  opsman:
+  pas:
     product_slug: elastic-runtime
     product_name: cf
     product_version: 2.4.3

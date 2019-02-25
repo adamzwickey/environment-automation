@@ -384,7 +384,7 @@ jobs:
     input_mapping:
       env: interpolated-files
     params:
-      PRODUCT_NAME: ((product.product_name))
+      PRODUCT_NAME: ((products.pas.product_name))
       ENV_FILE: ((foundation))/env/((products.pas.product_slug)).yml
       SUBSTITUTE_CREDENTIALS_WITH_PLACEHOLDERS: true
     on_success: &make-config-commit
@@ -399,11 +399,11 @@ jobs:
             repository-commit: configuration-commit
           params:
             FILE_SOURCE_PATH: ((products.pas.product_name)).yml
-            FILE_DESTINATION_PATH: ((foundation))/generated-config/((products.pas.product_name))-((products.pas.product.product_version)).yml
+            FILE_DESTINATION_PATH: ((foundation))/generated-config/((products.pas.product_name))-((products.pas.product_version)).yml
             GIT_AUTHOR_EMAIL: ((git.user.email))
             GIT_AUTHOR_NAME: ((git.user.username))
             COMMIT_MESSAGE: "Add product config: ((products.pas.product_name))-((products.pas.product_version)).yml"
-        - put: configuration
+        - put: environment-automation
           params:
             repository: configuration-commit
             merge: true
