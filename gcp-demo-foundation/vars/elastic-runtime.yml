@@ -28,4 +28,4 @@ pas:
   resource_config:
     cells: 3
     control_elb_names: ["tcp:pcf-cf-ssh"]
-    router_elb_names: ["tcp:pcf-cf-ws,http:pcf-httpslb"]
+    router_elb_names: ["tcp:pcf-cf-ws","http:pcf-httpslb"]
