@@ -268,7 +268,7 @@ jobs:
       DIRECTOR_CONFIG_FILE: ((foundation))/products/director
       VARS_FILES: vars/((foundation))/vars/director.yml
 
-- name: apply-director-changes
+- name: apply-changes-director
   serial: true
   serial_groups: [install-om]
   plan:
@@ -298,7 +298,7 @@ jobs:
   - aggregate:
     - get: platform-automation-image
       params: {unpack: true}
-      passed: [apply-director-changes]
+      passed: [apply-changes-director]
       trigger: true
     - get: platform-automation-tasks
       params: {unpack: true}
