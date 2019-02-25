@@ -1,5 +1,6 @@
 ---
 pas:
+  email: azwickey@gmail.com
   networks:
     network: {name: pas}
     singleton_availability_zone: {name: us-east1-b}
@@ -14,4 +15,4 @@ pas:
     apps_domain: apps.public.cloud.zwickey.net
     system_domain: run.public.cloud.zwickey.net
   credhub:
-    secret: ((credhub_secret)) 
+    secret: ((pas_credhub_secret))

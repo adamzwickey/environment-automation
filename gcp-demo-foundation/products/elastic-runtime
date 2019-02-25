@@ -30,3 +30,5 @@ product-properties:
       name: primary
       primary: true
       provider: internal
+  .mysql_monitor.recipient_email:
+    value: ((pas.email))
