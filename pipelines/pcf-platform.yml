@@ -74,6 +74,11 @@ resources:
     bucket: ((gcp.bucket))
     json_key: ((gcp.json_key))
     regexp: platform-automation-image-(.*).tgz
+- name: installation
+  type: gcs-resource
+  source:
+    bucket: ((gcp.bucket))
+    regexp: installation-after-(.*).zip
 - name: om-product
   type: pivnet
   source:
@@ -263,19 +268,54 @@ jobs:
       DIRECTOR_CONFIG_FILE: ((foundation))/products/director
       VARS_FILES: vars/((foundation))/vars/director.yml
 
-- name: apply-changes-director
+- name: apply-director-changes
+  serial: true
   serial_groups: [install-om]
   plan:
-  - get: environment-automation
-    passed: [configure-director]
-    trigger: true
+  - aggregate:
+    - get: platform-automation-image
+      passed: [configure-director]
+      params: {unpack: true}
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: apply-director-changes
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/apply-director-changes.yml
+    input_mapping:
+      env: interpolated-files
+    params:
+      ENV_FILE: ((foundation))/env/ops-manager.yml
+    on_success: *make-config-commit
 
+# 4 export-installation
 - name: export-installation
+  serial: true
   serial_groups: [install-om]
   plan:
-  - get: environment-automation
-    passed: [apply-changes-director]
-    trigger: true
+  - aggregate:
+    - get: platform-automation-image
+      params: {unpack: true}
+      passed: [apply-director-changes]
+      trigger: true
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: export-installation
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/export-installation.yml
+    input_mapping:
+      env: interpolated-files
+    params:
+      ENV_FILE: ((foundation))/env/ops-manager.yml
+      INSTALLATION_FILE: installation-after-((products.opsman.product_slug))-((products.opsman.product_version)).zip
+  - put: installation
+    params:
+      file: installation/installation-after-((products.opsman.product_slug))-((products.opsman.product_version)).zip
 
 - name: fetch-platform-automation
   # We use the pivnet resource to bootstrap the pipeline,
