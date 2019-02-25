@@ -233,7 +233,7 @@ resource "google_dns_record_set" "app-ssh-dns" {
 
   managed_zone = "${var.dns_zone_name}"
 
-  rrdatas = ["${module."ssh-lb.address}"]
+  rrdatas = ["${module.ssh-lb.address}"]
 }
 
 resource "google_dns_record_set" "tcp-dns" {
