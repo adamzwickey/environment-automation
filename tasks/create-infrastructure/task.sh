@@ -21,7 +21,7 @@ terraform plan \
   -var "ssl_private_key=${SSL_PRIVATE_KEY}" \
   -var "global_lb=1" \
   -var "zones=${AZ_LIST}" \
-  -var "create_gcs_buckets=${CREATE_GCS_BUCKETS}"
+  -var "create_gcs_buckets=${CREATE_GCS_BUCKETS}" \
   -out terraform.tfplan \
   -state terraform-state/terraform.tfstate \
   environment-automation/terraform
