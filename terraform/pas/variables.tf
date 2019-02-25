@@ -21,7 +21,7 @@ variable "create_gcs_buckets" {
 }
 
 variable "buckets_location" {
-  default = ""
+  default = "US"
 }
 
 variable "ssl_certificate" {
