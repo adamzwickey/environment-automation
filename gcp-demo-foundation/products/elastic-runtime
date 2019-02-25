@@ -47,3 +47,19 @@ product-properties:
     value: "((pas.gcp.packages_bucket))"
   .properties.system_blobstore.external_gcs.resources_bucket:
     value: "((pas.gcp.resources_bucket))"
+resource-config:
+  backup_restore:
+    instances: 0
+  blobstore:
+    instances: 0
+  compute:
+    instances: 3
+  control:
+    elb_names: ((director.resource-config.elb_names))
+  ha_proxy:
+    instances: 0
+  mysql_monitor:
+    instances: 0
+  router:
+    instances: 1
+    elb_names: ((director.resource-config.elb_names))
