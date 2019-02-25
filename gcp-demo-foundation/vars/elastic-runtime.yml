@@ -26,5 +26,6 @@ pas:
   credhub:
     secret: ((pas_credhub_secret))
   resource_config:
+    cells: 3
     control_elb_names: ["tcp:((pas_ssh_lb))"]
     router_elb_names: ["tcp:((pas_wss_lb)),http:((pas_http_lb))"]
