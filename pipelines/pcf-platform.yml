@@ -319,7 +319,6 @@ jobs:
       env: interpolated-files
     params:
       ENV_FILE: ((foundation))/env/ops-manager.yml
-    on_success: *make-config-commit
 
 # 4 export-installation
 - name: export-installation

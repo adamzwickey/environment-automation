@@ -138,7 +138,7 @@ module "gorouter" {
   health_check_port                = "8080"
   health_check_interval            = 5
   health_check_timeout             = 3
-  health_check_healthy_threshold   = 6
+  health_check_healthy_threshold   = 1
   health_check_unhealthy_threshold = 3
 }
 
@@ -160,7 +160,7 @@ module "websocket" {
   health_check_port                = "8080"
   health_check_interval            = 5
   health_check_timeout             = 3
-  health_check_healthy_threshold   = 6
+  health_check_healthy_threshold   = 1
   health_check_unhealthy_threshold = 3
 }
 
@@ -180,10 +180,10 @@ module "tcprouter" {
 
   health_check                     = true
   health_check_port                = "80"
-  health_check_interval            = 30
+  health_check_interval            = 15
   health_check_timeout             = 5
-  health_check_healthy_threshold   = 10
-  health_check_unhealthy_threshold = 2
+  health_check_healthy_threshold   = 1
+  health_check_unhealthy_threshold = 3
 }
 
 resource "google_dns_record_set" "wildcard-sys-dns" {
