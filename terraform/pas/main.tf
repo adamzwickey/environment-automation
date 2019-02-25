@@ -193,7 +193,7 @@ resource "google_dns_record_set" "wildcard-sys-dns" {
 
   managed_zone = "${var.dns_zone_name}"
 
-  rrdatas = ["${module.gorouter.address}"]
+  rrdatas = ["${module.gorouter.global_address}"]
 }
 
 resource "google_dns_record_set" "doppler-sys-dns" {
