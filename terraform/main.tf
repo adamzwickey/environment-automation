@@ -43,7 +43,7 @@ module "pas_certs" {
   network_name                         = "${var.network_name}"
   env_name                             = "${var.env_name}"
   region                               = "${var.region}"
-  ssl_certificate                      = "${module.pas_certs.ssl_certificate.name}"
+  ssl_certificate                      = "${module.pas_certs.ssl_certificate}"
 }
 
 module "pks" {
