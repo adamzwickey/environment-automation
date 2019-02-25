@@ -55,11 +55,11 @@ resource-config:
   compute:
     instances: 3
   control:
-    elb_names: ((director.resource-config.elb_names))
+    elb_names: ((pas.resource_config.control_elb_names))
   ha_proxy:
     instances: 0
   mysql_monitor:
     instances: 0
   router:
     instances: 1
-    elb_names: ((director.resource-config.elb_names))
+    elb_names: ((pas.resource_config.router_elb_names))
