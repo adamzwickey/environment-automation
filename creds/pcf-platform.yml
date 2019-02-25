@@ -46,3 +46,7 @@ products:
     product_name: cf
     product_version: 2.4.3
     product_globs: "srt-*.pivotal"
+    stemcell:
+      product_slug: stemcells
+      product_version: "170.35"
+      product_globs: light-bosh-stemcell-*-google-*.tgz
