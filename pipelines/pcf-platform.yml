@@ -13,6 +13,8 @@ groups:
   - upload-stemcell-pas
   - generate-product-config-pas
   - configure-product-pas
+  - apply-product-changes-pas
+  - export-installation-pas
 - name: infrastructure
   jobs:
   - bootstrap-terraform-state
@@ -30,6 +32,8 @@ groups:
   - upload-stemcell-pas
   - generate-product-config-pas
   - configure-product-pas
+  - apply-product-changes-pas
+  - export-installation-pas
 - name: manage-env
   jobs:
 - name: bootstrap-demos
@@ -551,7 +555,7 @@ jobs:
   - aggregate:
     - get: platform-automation-image
       params: {unpack: true}
-      passed: [apply-product-changes]
+      passed: [apply-product-changes-pas]
       trigger: true
     - get: platform-automation-tasks
       params: {unpack: true}
