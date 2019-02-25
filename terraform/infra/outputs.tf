@@ -53,3 +53,11 @@ output "services_ip_cidr_range" {
 output "ops_manager_ip" {
   value = "${google_compute_address.ops-manager-ip.address}"
 }
+
+output "bosh_load_balancer_name" {
+  value = "${module.pks-api.name}"
+}
+
+output "bosh_load_balancer_address" {
+  value = "${module.pks-api.name}"
+}

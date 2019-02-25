@@ -103,3 +103,18 @@ resource "google_dns_record_set" "ops-manager-dns" {
 
   rrdatas = ["${google_compute_address.ops-manager-ip.address}"]
 }
+
+module "bosh-lb" {
+  source   = "../common/load_balancer"
+  env_name = "${var.env_name}"
+  name     = "bosh-lb"
+
+  global  = false
+  count   = 1
+  network = "${var.network_name}"
+
+  ports                 = ["8443", "25555", "8844"]
+  lb_name               = "${var.env_name}-bosh-lb"
+  forwarding_rule_ports = ["8443", "25555", "8844"]
+  health_check          = false
+}

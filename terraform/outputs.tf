@@ -85,3 +85,11 @@ output "pks_master_node_service_account_key" {
 output "pks_worker_node_service_account_key" {
   value = "${module.pks.pks_worker_node_service_account_key}"
 }
+
+output "bosh_load_balancer_name" {
+  value = "${module.infra.bosh_load_balancer_name}"
+}
+
+output "bosh_load_balancer_address" {
+  value = "${module.infra.bosh_load_balancer_address}"
+}
