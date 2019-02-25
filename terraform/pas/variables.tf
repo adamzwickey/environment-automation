@@ -11,3 +11,13 @@ variable "network_name" {
   description = "GCP VPC Network"
   default     = "bosh-bootstrap"
 }
+
+variable "create_gcs_buckets" {
+  default = true
+}
+
+variable "buckets_location" {}
+
+variable "ssl_certificate" {
+  type = "string"
+}

@@ -23,13 +23,27 @@ module "infra" {
   dns_zone_name                        = "${var.dns_zone_name}"
 }
 
-module "pas" {
-  source = "pas"
+module "pas_certs" {
+  source = "common/certs"
 
-  network_name                         = "${var.network_name}"
-  env_name                             = "${var.env_name}"
-  region                               = "${var.region}"
+  subdomains    = ["*.apps", "*.run", "*.login.sys", "*.uaa.sys", "harbor", "pks", "*.pks"]
+  env_name      = "${var.env_name}"
+  dns_suffix    = "${var.dns_suffix}"
+  resource_name = "pas-lbcert"
+
+  ssl_cert           = "${var.ssl_cert}"
+  ssl_private_key    = "${var.ssl_private_key}"
+  ssl_ca_cert        = "${var.ssl_ca_cert}"
+  ssl_ca_private_key = "${var.ssl_ca_private_key}"
 }
+
+# module "pas" {
+#  source = "pas"
+#
+#  network_name                         = "${var.network_name}"
+#  env_name                             = "${var.env_name}"
+#  region                               = "${var.region}"
+# }
 
 module "pks" {
   source = "pks"
