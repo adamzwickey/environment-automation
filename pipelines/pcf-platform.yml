@@ -160,6 +160,7 @@ jobs:
       PREFIX: "/concourse/((foundation))"
       SSL_CERT: ((pas.ssl.cert))
       SSL_PRIVATE_KEY: ((pas.ssl.private_key))
+      AZ_LIST: ((gcp.az_list))
 
 - name: deploy-opsman
   serial: true

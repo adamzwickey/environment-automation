@@ -27,6 +27,7 @@ params:
   PREFIX:
   SSL_CERT:
   SSL_PRIVATE_KEY:
+  AZ_LIST:
 
 run:
   path: environment-automation/tasks/create-infrastructure/task.sh

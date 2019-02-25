@@ -8,6 +8,7 @@ gcp:
   dns_zone_name: zwickey-base
   dns_zone_dns_name: public.cloud.zwickey.net
   json_key: ((gcp_json_key))
+  az_list: ["us-east1-b","us-east1-c","us-east1-d"]
 
 pks:
   cluster_name: demo

@@ -28,7 +28,9 @@ variable "ssl_certificate" {
   type = "string"
 }
 
-variable "global_lb" {}
+variable "global_lb" {
+  default = "1"
+}
 
 variable "zones" {
   type = "list"
