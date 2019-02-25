@@ -97,6 +97,9 @@ bosh create-env bosh-deployment/bosh.yml \
 
 source ./bin/bosh-bootstrap-login.sh
 source ./bin/credhub-login.sh
+
+bosh upload-stemcell https://s3.amazonaws.com/bosh-gce-light-stemcells/light-bosh-stemcell-250.9-google-kvm-ubuntu-xenial-go_agent.tgz
+bosh update-cloud-config bootstrap-cloud-config.yml
 ```
 
 - Prepare GCP environment for concourse
@@ -104,10 +107,11 @@ source ./bin/credhub-login.sh
 export NETWORK_SUBNET_REGION=us-east1
 export CONCOURSE_USERNAME=admin
 export CONCOURSE_PASSWORD=TOP-SECRET
-export CONCOURSE_FQDNS=concourse.fqdns
+export CONCOURSE_FQDNS=concourse.DNS_NAME
 export CONCOURSE_WORKERS=1
 export CREDHUB_CLIENT_SECRET=$(bosh int ./creds/bosh-bootstrap-creds.yml --path /credhub_admin_client_secret)
-export CREDHUB_CA=$(bosh int ./creds/bosh-bootstrap-creds.yml --path /credhub_ca/certificate)
+bosh int ./creds/bosh-bootstrap-creds.yml --path /credhub_tls/certificate > state/credhub_ca_cert
+export CREDHUB_CA=state/credhub_ca_cert
 
 gcloud compute addresses create concourse \
     --region $NETWORK_SUBNET_REGION
@@ -145,5 +149,5 @@ bosh deploy -d concourse concourse-result.yml \
    --var credhub_url=https://$BOSH_BOOTSTRAP_IP:8844 \
    --var credhub_client_id=credhub-admin \
    --var credhub_client_secret=$CREDHUB_CLIENT_SECRET \
-   --var credhub_ca_cert=$CREDHUB_CA
+   --var-file credhub_ca_cert=$CREDHUB_CA
 ```
