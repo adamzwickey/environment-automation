@@ -37,6 +37,14 @@ module "pas_certs" {
   ssl_ca_private_key = "${var.ssl_ca_private_key}"
 }
 
+# module "pas" {
+#  source = "pas"
+#
+#  network_name                         = "${var.network_name}"
+#  env_name                             = "${var.env_name}"
+#  region                               = "${var.region}"
+# }
+
 module "pks" {
   source = "pks"
 

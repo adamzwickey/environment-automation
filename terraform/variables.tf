@@ -68,7 +68,7 @@ variable "create_gcs_buckets" {
 }
 
 variable "buckets_location" {
-  type = string
+  type = "string"
 }
 
 variable "dns_suffix" {
