@@ -40,6 +40,7 @@ module "pas_certs" {
  module "pas" {
   source = "pas"
 
+  project                              = "${var.project}"
   network_name                         = "${var.network_name}"
   env_name                             = "${var.env_name}"
   region                               = "${var.region}"
