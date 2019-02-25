@@ -40,6 +40,10 @@ pub_ip_bosh=$(echo $output_json | jq --raw-output '.bosh_load_balancer_address.v
 bosh_lb=$(echo $output_json | jq --raw-output '.bosh_load_balancer_name.value')
 env_name=$(echo $output_json | jq --raw-output '.env_name.value')
 infra_subnet=$(echo $output_json | jq --raw-output '.infra_network_name.value')
+buildpacks_bucket=$(echo $output_json | jq --raw-output '.infra_network_name.value')
+resources_bucket=$(echo $output_json | jq --raw-output '.infra_network_name.value')
+packages_bucket=$(echo $output_json | jq --raw-output '.infra_network_name.value')
+droplets_bucket=$(echo $output_json | jq --raw-output '.infra_network_name.value')
 
 wget https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/2.2.1/credhub-linux-2.2.1.tgz
 tar -zxvf credhub-linux-2.2.1.tgz
@@ -51,3 +55,7 @@ tar -zxvf credhub-linux-2.2.1.tgz
 ./credhub set --name="${PREFIX}/infra_subnet" --type="value" --value="${infra_subnet}"
 ./credhub set --name="${PREFIX}/ssl_certificate" --type="value" --value="${SSL_CERT}"
 ./credhub set --name="${PREFIX}/ssl_private_key" --type="value" --value="${SSL_PRIVATE_KEY}"
+./credhub set --name="${PREFIX}/buildpacks_bucket" --type="value" --value="${buildpacks_bucket}"
+./credhub set --name="${PREFIX}/resources_bucket" --type="value" --value="${resources_bucket}"
+./credhub set --name="${PREFIX}/packages_bucket" --type="value" --value="${packages_bucket}"
+./credhub set --name="${PREFIX}/droplets_bucket" --type="value" --value="${droplets_bucket}"

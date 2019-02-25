@@ -93,3 +93,19 @@ output "bosh_load_balancer_name" {
 output "bosh_load_balancer_address" {
   value = "${module.infra.bosh_load_balancer_address}"
 }
+
+output "buildpacks_bucket" {
+  value = "${module.pas.buildpacks_bucket}"
+}
+
+output "droplets_bucket" {
+  value = "${module.pas.droplets_bucket}"
+}
+
+output "packages_bucket" {
+  value = "${module.pas.packages_bucket}"
+}
+
+output "resources_bucket" {
+  value = "${module.pas.resources_bucket}"
+}
