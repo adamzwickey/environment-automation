@@ -78,6 +78,7 @@ resources:
   type: gcs-resource
   source:
     bucket: ((gcp.bucket))
+    json_key: ((gcp.json_key))
     regexp: installation-after-(.*).zip
 - name: om-product
   type: pivnet
