@@ -35,3 +35,11 @@ variable "global_lb" {
 variable "zones" {
   type = "list"
 }
+
+variable "dns_zone_dns_name" {
+  type = "string"
+}
+
+variable "dns_zone_name" {
+  type = "string"
+}
