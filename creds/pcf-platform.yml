@@ -48,5 +48,5 @@ products:
     product_globs: "srt-*.pivotal"
     stemcell:
       product_slug: stemcells-ubuntu-xenial
-      product_version: "170.35"
+      product_version: "170.30"
       product_globs: light-bosh-stemcell-*-google-*.tgz
