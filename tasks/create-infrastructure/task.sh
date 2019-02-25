@@ -49,3 +49,5 @@ tar -zxvf credhub-linux-2.2.1.tgz
 ./credhub set --name="${PREFIX}/bosh_lb" --type="value" --value="${bosh_lb}"
 ./credhub set --name="${PREFIX}/env_name" --type="value" --value="${env_name}"
 ./credhub set --name="${PREFIX}/infra_subnet" --type="value" --value="${infra_subnet}"
+./credhub set --name="${PREFIX}/ssl_certificate" --type="value" --value="${SSL_CERT}"
+./credhub set --name="${PREFIX}/ssl_private_key" --type="value" --value="${SSL_PRIVATE_KEY}"
