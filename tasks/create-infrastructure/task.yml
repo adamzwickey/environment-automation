@@ -25,6 +25,8 @@ params:
   CREDHUB_CLIENT:
   CREDHUB_SECRET:
   PREFIX:
+  SSL_CERT:
+  SSL_PRIVATE_KEY:
 
 run:
   path: environment-automation/tasks/create-infrastructure/task.sh

@@ -12,6 +12,11 @@ gcp:
 pks:
   cluster_name: demo
 
+pas:
+  ssl:
+    cert: ((pas_cert))
+    private_key: ((pas_private_key))
+
 github:
   configuration_uri: git@github.com:azwickey-pivotal/environment-automation.git
   user:

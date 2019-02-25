@@ -158,6 +158,8 @@ jobs:
       CREDHUB_CLIENT: ((credhub.client))
       CREDHUB_SECRET: ((credhub.secret))
       PREFIX: "/concourse/((foundation))"
+      SSL_CERT: ((pas.ssl.cert))
+      SSL_PRIVATE_KEY: ((pas.ssl.private_key))
 
 - name: deploy-opsman
   serial: true

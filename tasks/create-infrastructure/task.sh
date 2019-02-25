@@ -17,6 +17,8 @@ terraform plan \
   -var "pks_cluster_name=${PKS_CLUSTER_NAME}" \
   -var "buckets_location=${GCP_REGION}" \
   -var "dns_suffix=${GCP_DNS_ZONE_DNS_NAME}" \
+  -var "ssl_cert=${SSL_CERT}" \
+  -var "ssl_private_key=${SSL_PRIVATE_KEY}" \
   -out terraform.tfplan \
   -state terraform-state/terraform.tfstate \
   environment-automation/terraform
