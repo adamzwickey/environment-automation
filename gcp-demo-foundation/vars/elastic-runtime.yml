@@ -6,10 +6,10 @@ pas:
   gcp:
     gcs_access_key: ((gcs_access_key))
     gcs_secret_key: ((gcs_secret_key))
-    buildpacks_bucket: ((gcs_buildpacks_bucket))
-    droplets_bucket: ((gcs_droplets_bucket))
-    resources_bucket: ((gcs_resources_bucket))
-    packages_bucket: ((gcs_packages_bucket))
+    buildpacks_bucket: ((buildpacks_bucket))
+    droplets_bucket: ((droplets_bucket))
+    resources_bucket: ((resources_bucket))
+    packages_bucket: ((packages_bucket))
   networks:
     network: {name: pas}
     singleton_availability_zone: {name: us-east1-b}
