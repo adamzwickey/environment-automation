@@ -98,3 +98,7 @@ variable "ssl_ca_private_key" {
   description = "the contents of a CA private key to be used to sign the generated LB certificate, optional if `ssl_cert` is provided"
   default     = ""
 }
+
+variable "zones" {
+  type = "list"
+}

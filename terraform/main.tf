@@ -45,6 +45,7 @@ module "pas_certs" {
   env_name                             = "${var.env_name}"
   region                               = "${var.region}"
   ssl_certificate                      = "${module.pas_certs.ssl_certificate}"
+  dns_zone_dns_name                    = "${var.zones}"
 }
 
 module "pks" {
