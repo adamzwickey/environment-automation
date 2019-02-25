@@ -537,7 +537,7 @@ jobs:
     input_mapping:
       env: interpolated-files
     params:
-      ENV_FILE: ((foundation))/env/env.yml
+      ENV_FILE: ((foundation))/env/((products.pas.product_slug)).yml
   - task: staged-config
     image: platform-automation-image
     file: platform-automation-tasks/tasks/staged-config.yml
