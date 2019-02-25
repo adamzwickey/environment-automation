@@ -223,7 +223,7 @@ resource "google_dns_record_set" "wildcard-apps-dns" {
 
   managed_zone = "${var.dns_zone_name}"
 
-  rrdatas = ["${module.gorouter.address}"]
+  rrdatas = ["${module.gorouter.global_address}"]
 }
 
 resource "google_dns_record_set" "app-ssh-dns" {
