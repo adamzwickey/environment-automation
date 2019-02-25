@@ -16,7 +16,9 @@ variable "create_gcs_buckets" {
   default = true
 }
 
-variable "buckets_location" {}
+variable "buckets_location" {
+  default = ""
+}
 
 variable "ssl_certificate" {
   type = "string"
