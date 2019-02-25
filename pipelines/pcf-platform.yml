@@ -514,7 +514,7 @@ jobs:
       env: interpolated-files
       vars: interpolated-files
     params:
-      CONFIG_FILE: ((foundation))/products/((products.pas.product_slug)).yml
+      CONFIG_FILE: ((foundation))/products/((products.pas.product_slug))
       VARS_FILES: vars/((foundation))/vars/((products.pas.product_slug)).yml
       ENV_FILE: ((foundation))/env/((products.pas.product_slug)).yml
 
