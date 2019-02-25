@@ -60,4 +60,4 @@ director:
     singleton_availability_zone: {name: us-east1-b}
   security:
   resource-config:
-    elb_names: ["tcp:pcf-bosh"]
+    elb_names: ["tcp:((bosh_lb))"]
