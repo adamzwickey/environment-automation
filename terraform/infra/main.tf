@@ -118,3 +118,13 @@ module "bosh-lb" {
   forwarding_rule_ports = ["8443", "25555", "8844"]
   health_check          = false
 }
+
+resource "google_dns_record_set" "bosh-dns" {
+  name = "bosh.${var.dns_zone_dns_name}."
+  type = "A"
+  ttl  = 300
+
+  managed_zone = "${var.dns_zone_name}"
+
+  rrdatas = ["${module.bosh-lb.address}"]
+}

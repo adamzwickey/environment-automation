@@ -55,9 +55,9 @@ output "ops_manager_ip" {
 }
 
 output "bosh_load_balancer_name" {
-  value = "${module.pks-api.name}"
+  value = "${module.bosh-lb.name}"
 }
 
 output "bosh_load_balancer_address" {
-  value = "${module.pks-api.name}"
+  value = "${module.bosh-lb.address}"
 }
