@@ -10,7 +10,7 @@ pks:
       - name: us-east1-d
   gcp:
     project_id: asd
-    vpc: asd
+    network: asd
     master_service_account: asd
     worker_service_account: asd
   worker_max_in_flight: 5
