@@ -1,1 +1,10 @@
 ---
+# Env Config
+# This file contains properties for targeting and logging into the Ops Manager API.
+
+target: https://opsman.public.cloud.zwickey.net
+connect-timeout: 30                 # default 5
+request-timeout: 3600               # default 1800
+skip-ssl-validation: true           # default false
+username: admin
+password: ((opsman_password))
