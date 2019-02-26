@@ -3,7 +3,7 @@ product-properties:
   .cf-redis-broker.redis_maxmemory:
     value: 512MB
   .cf-redis-broker.service_instance_limit:
-    value: 5
+    value: 25
   .properties.backups_selector:
     value: No Backups
   .properties.canary_org_space_selector:
@@ -20,7 +20,7 @@ product-properties:
   .properties.small_plan_selector:
     value: Plan Active
   .properties.syslog_selector:
-    value: Yes without encryption
+    value: "No"
   .redis-on-demand-broker.maximum_parallel_upgrades:
     value: 1
   .redis-on-demand-broker.service_instance_limit:
@@ -30,10 +30,16 @@ product-properties:
   .redis-on-demand-broker.upgrade_canary_number:
     value: 1
 network-properties:
-  network: null
-  other_availability_zones: []
-  service_network: null
-  singleton_availability_zone: null
+  network:
+    name: services
+  other_availability_zones:
+  - name: us-east1-b
+  - name: us-east1-c
+  - name: us-east1-d
+  service_network:
+    name: services
+  singleton_availability_zone:
+    name: us-east1-b
 resource-config:
   cf-redis-broker:
     instances: automatic
