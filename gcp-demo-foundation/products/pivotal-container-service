@@ -14,3 +14,5 @@ product-properties:
     value:
       cert_pem: ((pks.api.ssl_certificate))
       private_key_pem: ((pks.api.ssl_private_key))
+  .properties.telemetry_selector
+    value: disabled
