@@ -30,5 +30,5 @@ product-properties:
     value: Plan Active
   .properties.plan1_selector.active.master_az_placement:
     value: ((pks.master_az_placement))
-  .properties.plan1_selector.active.master_az_placement:
+  .properties.plan1_selector.active.worker_az_placement:
     value: ((pks.worker_az_placement))
