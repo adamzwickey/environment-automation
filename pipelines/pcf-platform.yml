@@ -146,6 +146,20 @@ resources:
     product_slug: ((products.pks.stemcell.product_slug))
     product_version: ((products.pks.stemcell.product_version))
     sort_by: semver
+- name: redis-product
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: ((products.redis.product_slug))
+    product_version: ((products.redis.product_version))
+    sort_by: semver
+- name: redis-stemcell
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: ((products.redis.stemcell.product_slug))
+    product_version: ((products.redis.stemcell.product_version))
+    sort_by: semver
 
 # reusable stuff
 credhub-interpolate: &credhub-interpolate
