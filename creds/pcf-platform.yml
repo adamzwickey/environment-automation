@@ -52,8 +52,8 @@ products:
       product_globs: light-bosh-stemcell-*-google-*.tgz
   pks:
     product_slug: pivotal-container-service
-    product_name: xxxx
-    product_version: 2.4.3
+    product_name: ""
+    product_version: 1.3.3
     product_globs: "pivotal-container-service*.pivotal"
     stemcell:
       product_slug: stemcells-ubuntu-xenial

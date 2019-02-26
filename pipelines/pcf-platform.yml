@@ -16,6 +16,9 @@ groups:
   - disable-errands-pas
   - apply-product-changes-pas
   - export-installation-pas
+  - upload-and-stage-pks
+  - upload-stemcell-pks
+  - generate-product-config-pks
 - name: infrastructure
   jobs:
   - bootstrap-terraform-state
@@ -27,6 +30,9 @@ groups:
   - export-installation
 - name: pks
   jobs:
+  - upload-and-stage-pks
+  - upload-stemcell-pks
+  - generate-product-config-pks
 - name: pas
   jobs:
   - upload-and-stage-pas
