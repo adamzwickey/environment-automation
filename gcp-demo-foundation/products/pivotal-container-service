@@ -16,3 +16,13 @@ product-properties:
       private_key_pem: ((pks.api.ssl_private_key))
   .properties.telemetry_selector:
     value: disabled
+  .properties.cloud_provider:
+    value: gcp
+  .properties.cloud_provider.gcp.project_id:
+    value: ((pks.gcp.project_id))
+  .properties.cloud_provider.gcp.vps:
+      value: ((pks.gcp.vpc))
+  .properties.cloud_provider.gcp.master_service_account:
+    value: ((pks.gcp.master_service_account))
+  .properties.cloud_provider.gcp.worker_service_account:
+    value: ((pks.gcp.worker_service_account))
