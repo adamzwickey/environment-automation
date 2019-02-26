@@ -17,7 +17,7 @@ product-properties:
   .properties.telemetry_selector:
     value: disabled
   .properties.cloud_provider:
-    value: gcp
+    value: GCP
   .properties.cloud_provider.gcp.project_id:
     value: ((pks.gcp.project_id))
   .properties.cloud_provider.gcp.network:
