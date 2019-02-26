@@ -5,3 +5,7 @@ network-properties:
   service_network: ((redis.networks.services_network))
   other_availability_zones: ((redis.networks.other_availability_zones))
   singleton_availability_zone: ((redis.networks.singleton_availability_zone))
+product-properties:
+  .cf-redis-broker.service_instance_limit:
+    value: ((redis.shared.limits))
+  .properties.syslog_selector: "No"

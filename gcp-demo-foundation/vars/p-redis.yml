@@ -8,3 +8,5 @@ redis:
       - name: us-east1-b
       - name: us-east1-c
       - name: us-east1-d
+  shared:
+    limits: 25
