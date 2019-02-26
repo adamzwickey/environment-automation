@@ -25,4 +25,4 @@ redis:
     on-demand-broker-smoke-tests: false
     register-broker: false
     smoke-tests: false
-    upgrade-all-service-instances:: false
+    upgrade-all-service-instances: false
