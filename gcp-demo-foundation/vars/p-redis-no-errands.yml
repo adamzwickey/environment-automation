@@ -17,13 +17,12 @@ redis:
   large_plan:
     singleton_availability_zone: us-east1-b
   errand_config:
+    broker-deregistrar: true
     broker-registrar: false
     cleanup-metadata-if-dedicated-disabled: false
+    delete-all-service-instances-and-deregister-broker: true
     deprecate-dedicated-vm-plan: false
     on-demand-broker-smoke-tests: false
     register-broker: false
     smoke-tests: false
-    push-usage-service: false
-    smbbrokerpush: false
-    smoke_tests: false
-    upgrade-all-service-instances: false
+    upgrade-all-service-instances:: false
