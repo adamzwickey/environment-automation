@@ -2,5 +2,6 @@
 product-name: p-redis
 network-properties:
   network: ((redis.networks.network))
+  service_network: ((redis.networks.services_network))
   other_availability_zones: ((redis.networks.other_availability_zones))
   singleton_availability_zone: ((redis.networks.singleton_availability_zone))
