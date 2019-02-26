@@ -9,10 +9,10 @@ pks:
       - name: us-east1-c
       - name: us-east1-d
   gcp:
-    project_id: asd
-    network: asd
-    master_service_account: asd
-    worker_service_account: asd
+    project_id: fe-azwickey
+    network: bosh-bootstrap
+    master_service_account: ((env_name))-pks-master
+    worker_service_account: ((env_name))-pks-worker
   worker_max_in_flight: 5
   api:
     hostname: pks.public.cloud.zwickey.net
