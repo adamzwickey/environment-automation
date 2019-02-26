@@ -21,3 +21,4 @@ pks:
   master_az_placement: ["us-east1-b","us-east1-c","us-east1-d"]
   worker_az_placement: ["us-east1-b","us-east1-c","us-east1-d"]
   enable_priviledge: true
+  worker_instances: 5

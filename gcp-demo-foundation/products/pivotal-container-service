@@ -50,3 +50,5 @@ product-properties:
     value: ((pks.worker_az_placement))
   .properties.plan3_selector.active.allow_privileged_containers:
     value: ((pks.enable_priviledge))
+  .properties.plan3_selector.active.worker_instances:
+    value: ((pks.worker_instances))
