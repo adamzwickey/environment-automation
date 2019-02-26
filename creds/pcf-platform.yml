@@ -59,3 +59,12 @@ products:
       product_slug: stemcells-ubuntu-xenial
       product_version: "170.30"
       product_globs: light-bosh-stemcell-*-google-*.tgz
+  redis:
+    product_slug: redis
+    product_name: p-redis
+    product_version: 2.0.1
+    product_globs: "p-redis*.pivotal"
+    stemcell:
+      product_slug: stemcells-ubuntu-xenial
+      product_version: "170.30"
+      product_globs: light-bosh-stemcell-*-google-*.tgz
