@@ -1,2 +1,7 @@
 ---
 product-name: pivotal-container-service
+network-properties:
+  network: ((pks.networks.network))
+  service_network: ((pks.networks.services_network))
+  other_availability_zones: ((pks.networks.other_availability_zones))
+  singleton_availability_zone: ((pks.networks.singleton_availability_zone))
