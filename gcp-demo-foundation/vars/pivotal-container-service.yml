@@ -8,3 +8,6 @@ pks:
       - name: us-east1-b
       - name: us-east1-c
       - name: us-east1-d
+  worker_max_in_flight: 5
+  api:
+    hostname: pks.public.cloud.zwickey.net

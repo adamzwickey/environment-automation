@@ -5,3 +5,12 @@ network-properties:
   service_network: ((pks.networks.services_network))
   other_availability_zones: ((pks.networks.other_availability_zones))
   singleton_availability_zone: ((pks.networks.singleton_availability_zone))
+product-properties:
+  .properties.worker_max_in_flight:
+    value: ((pks.worker_max_in_flight))
+  .properties.pks_api_hostname
+    value: ((pks.api.hostname))
+  .pivotal-container-service.pks_tls.cert_pem
+    value: ((ssl_certificate))
+  .pivotal-container-service.pks_tls.private_key_pem
+    value: ((ssl_private_key))
