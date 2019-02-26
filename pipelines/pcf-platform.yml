@@ -19,9 +19,17 @@ groups:
   - upload-and-stage-pks
   - upload-stemcell-pks
   - generate-product-config-pks
+  - configure-product-pks
+  - disable-errands-pks
+  - apply-product-changes-pks
+  - export-installation-pks
   - upload-and-stage-redis
   - upload-stemcell-redis
   - generate-product-config-redis
+  - configure-product-redis
+  - disable-errands-redis
+  - apply-product-changes-redis
+  - export-installation-redis
 - name: infrastructure
   jobs:
   - bootstrap-terraform-state
@@ -36,6 +44,10 @@ groups:
   - upload-and-stage-pks
   - upload-stemcell-pks
   - generate-product-config-pks
+  - configure-product-pks
+  - disable-errands-pks
+  - apply-product-changes-pks
+  - export-installation-pks
 - name: pas
   jobs:
   - upload-and-stage-pas
@@ -782,6 +794,110 @@ jobs:
           params:
             repository: configuration-commit
             merge: true
+
+- name: configure-product-pks
+  serial: true
+  plan:
+  - aggregate:
+    - get: platform-automation-image
+      params: {unpack: true}
+      passed: [generate-product-config-pks]
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: configure-product
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/configure-product.yml
+    input_mapping:
+      config: environment-automation
+      env: interpolated-files
+      vars: interpolated-files
+    params:
+      CONFIG_FILE: ((foundation))/products/((products.pks.product_slug))
+      VARS_FILES: vars/((foundation))/vars/((products.pks.product_slug)).yml
+      ENV_FILE: ((foundation))/env/((products.pks.product_slug)).yml
+
+- name: disable-errands-pks
+  serial: true
+  plan:
+  - aggregate:
+    - get: platform-automation-image
+      params: {unpack: true}
+      passed: [configure-product-pks]
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: configure-product
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/configure-product.yml
+    input_mapping:
+      config: environment-automation
+      env: interpolated-files
+      vars: interpolated-files
+    params:
+      CONFIG_FILE: ((foundation))/products/((products.pks.product_slug))
+      VARS_FILES: vars/((foundation))/vars/((products.pks.product_slug))-no-errands.yml
+      ENV_FILE: ((foundation))/env/((products.pks.product_slug)).yml
+
+- name: apply-product-changes-pks
+  serial: true
+  plan:
+  - aggregate:
+    - get: platform-automation-image
+      params: {unpack: true}
+      passed: [upload-stemcell-pks, configure-product-pks]
+      #trigger: true
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: apply-product-changes
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/apply-changes.yml
+    input_mapping:
+      env: interpolated-files
+    params:
+      ENV_FILE: ((foundation))/env/((products.pks.product_slug)).yml
+  - task: staged-config
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/staged-config.yml
+    input_mapping:
+      env: interpolated-files
+    params:
+      PRODUCT_NAME: ((products.pks.product_name))
+      ENV_FILE: ((foundation))/env/((products.pks.product_slug)).yml
+      SUBSTITUTE_CREDENTIALS_WITH_PLACEHOLDERS: true
+    on_success: *make-config-commit
+
+- name: export-installation-pks
+  serial: true
+  plan:
+  - aggregate:
+    - get: platform-automation-image
+      params: {unpack: true}
+      passed: [apply-product-changes-pks]
+      trigger: true
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: export-installation
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/export-installation.yml
+    input_mapping:
+      env: interpolated-files
+    params:
+      ENV_FILE: ((foundation))/env/((products.pks.product_slug)).yml
+      INSTALLATION_FILE: installation-after-((products.pks.product_slug))-((products.pks.product_version)).zip
+  - put: installation
+    params:
+      file: installation/installation-after-((products.pks.product_slug))-((products.pks.product_version)).zip
 
 - name: upload-and-stage-redis
   serial: true
