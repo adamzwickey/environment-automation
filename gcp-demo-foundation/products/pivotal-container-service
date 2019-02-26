@@ -21,7 +21,7 @@ product-properties:
   .properties.cloud_provider.gcp.project_id:
     value: ((pks.gcp.project_id))
   .properties.cloud_provider.gcp.network:
-      value: ((pks.gcp.network))
+    value: ((pks.gcp.network))
   .properties.cloud_provider.gcp.master_service_account:
     value: ((pks.gcp.master_service_account))
   .properties.cloud_provider.gcp.worker_service_account:
@@ -33,7 +33,7 @@ product-properties:
   .properties.plan1_selector.active.worker_az_placement:
     value: ((pks.worker_az_placement))
   .properties.plan1_selector.active.allow_privileged_containers:
-    .value: ((pks.enable_priviledge))
+    value: ((pks.enable_priviledge))
   .properties.plan2_selector:
     value: Plan Active
   .properties.plan2_selector.active.master_az_placement:
@@ -41,7 +41,7 @@ product-properties:
   .properties.plan2_selector.active.worker_az_placement:
     value: ((pks.worker_az_placement))
   .properties.plan2_selector.active.allow_privileged_containers:
-    .value: ((pks.enable_priviledge))
+    value: ((pks.enable_priviledge))
   .properties.plan3_selector:
     value: Plan Active
   .properties.plan3_selector.active.master_az_placement:
@@ -49,4 +49,4 @@ product-properties:
   .properties.plan3_selector.active.worker_az_placement:
     value: ((pks.worker_az_placement))
   .properties.plan3_selector.active.allow_privileged_containers:
-    .value: ((pks.enable_priviledge))
+    value: ((pks.enable_priviledge))
