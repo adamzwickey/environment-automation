@@ -8,9 +8,9 @@ network-properties:
 product-properties:
   .properties.worker_max_in_flight:
     value: ((pks.worker_max_in_flight))
-  .properties.pks_api_hostname
+  .properties.pks_api_hostname:
     value: ((pks.api.hostname))
-  .pivotal-container-service.pks_tls.cert_pem
-    value: ((ssl_certificate))
-  .pivotal-container-service.pks_tls.private_key_pem
-    value: ((ssl_private_key))
+  .pivotal-container-service.pks_tls.cert_pem:
+    value: ((pks.api.ssl_certificate))
+  .pivotal-container-service.pks_tls.private_key_pem:
+    value: ((pks.api.ssl_private_key))

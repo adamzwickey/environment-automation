@@ -11,3 +11,5 @@ pks:
   worker_max_in_flight: 5
   api:
     hostname: pks.public.cloud.zwickey.net
+    ssl_certificate: ((ssl_certificate))
+    ssl_private_key: ((ssl_private_key)) 
