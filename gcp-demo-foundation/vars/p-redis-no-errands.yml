@@ -1,0 +1,29 @@
+---
+redis:
+  networks:
+    network: {name: services}
+    services_network: {name: services}
+    singleton_availability_zone: {name: us-east1-b}
+    other_availability_zones:
+      - name: us-east1-b
+      - name: us-east1-c
+      - name: us-east1-d
+  shared:
+    limits: 25
+  small_plan:
+    singleton_availability_zone: us-east1-b
+  medium_plan:
+    singleton_availability_zone: us-east1-b
+  large_plan:
+    singleton_availability_zone: us-east1-b
+  errand_config:
+    broker-registrar: false
+    cleanup-metadata-if-dedicated-disabled: false
+    deprecate-dedicated-vm-plan: false
+    on-demand-broker-smoke-tests: false
+    register-broker: false
+    smoke-tests: false
+    push-usage-service: false
+    smbbrokerpush: false
+    smoke_tests: false
+    upgrade-all-service-instances: false
