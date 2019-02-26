@@ -10,3 +10,9 @@ product-properties:
     value: ((redis.shared.limits))
   .properties.syslog_selector:
     value: "No"
+  .properties.small_plan_selector.active.az_single_select:
+    value: ((redis.small_plan.singleton_availability_zone))
+  .properties.small_plan_selector.active.az_single_select:
+    value: ((redis.medium_plan.singleton_availability_zone))
+  .properties.small_plan_selector.active.az_single_select:
+    value: ((redis.large_plan.singleton_availability_zone))

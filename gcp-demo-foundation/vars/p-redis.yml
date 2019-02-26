@@ -10,3 +10,9 @@ redis:
       - name: us-east1-d
   shared:
     limits: 25
+  small_plan:
+    singleton_availability_zone: us-east1-b
+  medium_plan:
+    singleton_availability_zone: us-east1-b
+  large_plan:
+    singleton_availability_zone: us-east1-b
