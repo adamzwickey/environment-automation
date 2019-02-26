@@ -20,7 +20,6 @@ groups:
   - upload-stemcell-pks
   - generate-product-config-pks
   - configure-product-pks
-  - disable-errands-pks
   - apply-product-changes-pks
   - export-installation-pks
   - upload-and-stage-redis
@@ -45,7 +44,6 @@ groups:
   - upload-stemcell-pks
   - generate-product-config-pks
   - configure-product-pks
-  - disable-errands-pks
   - apply-product-changes-pks
   - export-installation-pks
 - name: pas
@@ -817,30 +815,6 @@ jobs:
     params:
       CONFIG_FILE: ((foundation))/products/((products.pks.product_slug))
       VARS_FILES: vars/((foundation))/vars/((products.pks.product_slug)).yml
-      ENV_FILE: ((foundation))/env/((products.pks.product_slug)).yml
-
-- name: disable-errands-pks
-  serial: true
-  plan:
-  - aggregate:
-    - get: platform-automation-image
-      params: {unpack: true}
-      passed: [configure-product-pks]
-    - get: platform-automation-tasks
-      params: {unpack: true}
-    - get: environment-automation
-  - task: credhub-interpolate
-    <<: *credhub-interpolate
-  - task: configure-product
-    image: platform-automation-image
-    file: platform-automation-tasks/tasks/configure-product.yml
-    input_mapping:
-      config: environment-automation
-      env: interpolated-files
-      vars: interpolated-files
-    params:
-      CONFIG_FILE: ((foundation))/products/((products.pks.product_slug))
-      VARS_FILES: vars/((foundation))/vars/((products.pks.product_slug))-no-errands.yml
       ENV_FILE: ((foundation))/env/((products.pks.product_slug)).yml
 
 - name: apply-product-changes-pks
