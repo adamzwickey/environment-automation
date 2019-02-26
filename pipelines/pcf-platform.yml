@@ -540,7 +540,7 @@ jobs:
       vars: interpolated-files
     params:
       CONFIG_FILE: ((foundation))/products/((products.pas.product_slug))
-      VARS_FILES: vars/((foundation))/vars/((products.pas.product_slug))-no-errans.yml
+      VARS_FILES: vars/((foundation))/vars/((products.pas.product_slug))-no-errands.yml
       ENV_FILE: ((foundation))/env/((products.pas.product_slug)).yml
 
 - name: apply-product-changes-pas
