@@ -26,4 +26,3 @@ redis:
     register-broker: false
     smoke-tests: false
     upgrade-all-service-instances:: false
-  empty:

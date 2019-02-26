@@ -33,3 +33,5 @@ errand-config:
     post-deploy-state: ((redis.errand_config.register-broker))
   smoke-tests:
     post-deploy-state: ((redis.errand_config.smoke-tests))
+  upgrade-all-service-instances:
+    post-deploy-state: ((redis.errand_config.upgrade-all-service-instances))
