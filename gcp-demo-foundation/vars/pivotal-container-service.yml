@@ -18,3 +18,11 @@ pks:
     hostname: pks.public.cloud.zwickey.net
     ssl_certificate: ((ssl_certificate))
     ssl_private_key: ((ssl_private_key))
+  master_az_placement:
+    - name: us-east1-b
+    - name: us-east1-c
+    - name: us-east1-d
+  worker_az_placement:
+    - name: us-east1-b
+    - name: us-east1-c
+    - name: us-east1-d

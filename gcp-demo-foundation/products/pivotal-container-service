@@ -26,3 +26,9 @@ product-properties:
     value: ((pks.gcp.master_service_account))
   .properties.cloud_provider.gcp.worker_service_account:
     value: ((pks.gcp.worker_service_account))
+  .properties.plan1_selector:
+    value: Plan Active
+  .properties.plan1_selector.active.master_az_placement:
+    value: ((pks.master_az_placement))
+  ..properties.plan1_selector.active.master_az_placement:
+    value: ((pks.worker_az_placement))
