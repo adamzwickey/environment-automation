@@ -48,11 +48,19 @@ groups:
   - upload-and-stage-redis
   - upload-stemcell-redis
   - generate-product-config-redis
+  - configure-product-redis
+  - disable-errands-redis
+  - apply-product-changes-redis
+  - export-installation-redis
 - name: marketplace
   jobs:
   - upload-and-stage-redis
   - upload-stemcell-redis
   - generate-product-config-redis
+  - configure-product-redis
+  - disable-errands-redis
+  - apply-product-changes-redis
+  - export-installation-redis
 - name: manage-env
   jobs:
 - name: bootstrap-demos
@@ -905,3 +913,107 @@ jobs:
           params:
             repository: configuration-commit
             merge: true
+
+- name: configure-product-redis
+  serial: true
+  plan:
+  - aggregate:
+    - get: platform-automation-image
+      params: {unpack: true}
+      passed: [generate-product-config-redis]
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: configure-product
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/configure-product.yml
+    input_mapping:
+      config: environment-automation
+      env: interpolated-files
+      vars: interpolated-files
+    params:
+      CONFIG_FILE: ((foundation))/products/((products.redis.product_slug))
+      VARS_FILES: vars/((foundation))/vars/((products.redis.product_slug)).yml
+      ENV_FILE: ((foundation))/env/((products.redis.product_slug)).yml
+
+- name: disable-errands-redis
+  serial: true
+  plan:
+  - aggregate:
+    - get: platform-automation-image
+      params: {unpack: true}
+      passed: [configure-product-redis]
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: configure-product
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/configure-product.yml
+    input_mapping:
+      config: environment-automation
+      env: interpolated-files
+      vars: interpolated-files
+    params:
+      CONFIG_FILE: ((foundation))/products/((products.redis.product_slug))
+      VARS_FILES: vars/((foundation))/vars/((products.redis.product_slug))-no-errands.yml
+      ENV_FILE: ((foundation))/env/((products.redis.product_slug)).yml
+
+- name: apply-product-changes-redis
+  serial: true
+  plan:
+  - aggregate:
+    - get: platform-automation-image
+      params: {unpack: true}
+      passed: [upload-stemcell-redis, configure-product-redis]
+      #trigger: true
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: apply-product-changes
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/apply-changes.yml
+    input_mapping:
+      env: interpolated-files
+    params:
+      ENV_FILE: ((foundation))/env/((products.redis.product_slug)).yml
+  - task: staged-config
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/staged-config.yml
+    input_mapping:
+      env: interpolated-files
+    params:
+      PRODUCT_NAME: ((products.redis.product_name))
+      ENV_FILE: ((foundation))/env/((products.redis.product_slug)).yml
+      SUBSTITUTE_CREDENTIALS_WITH_PLACEHOLDERS: true
+    on_success: *make-config-commit
+
+- name: export-installation-redis
+  serial: true
+  plan:
+  - aggregate:
+    - get: platform-automation-image
+      params: {unpack: true}
+      passed: [apply-product-changes-redis]
+      trigger: true
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: export-installation
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/export-installation.yml
+    input_mapping:
+      env: interpolated-files
+    params:
+      ENV_FILE: ((foundation))/env/((products.redis.product_slug)).yml
+      INSTALLATION_FILE: installation-after-((products.redis.product_slug))-((products.redis.product_version)).zip
+  - put: installation
+    params:
+      file: installation/installation-after-((products.redis.product_slug))-((products.redis.product_version)).zip
