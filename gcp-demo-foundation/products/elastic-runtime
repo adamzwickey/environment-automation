@@ -63,3 +63,24 @@ resource-config:
   router:
     instances: 1
     elb_names: ((pas.resource_config.router_elb_names))
+errand-config:
+  deploy-autoscaler:
+    post-deploy-state: ((pas.errand_config.deploy-autoscaler))
+  deploy-notifications:
+    post-deploy-state: ((pas.errand_config.deploy-notifications))
+  deploy-notifications-ui:
+    post-deploy-state: ((pas.errand_config.deploy-notifications-ui))
+  metric_registrar_smoke_test:
+    post-deploy-state: ((pas.errand_config.metric_registrar_smoke_test))
+  nfsbrokerpush:
+    post-deploy-state: ((pas.errand_config.nfsbrokerpush))
+  push-apps-manager:
+    post-deploy-state: ((pas.errand_config.push-apps-manager))
+  push-usage-service:
+    post-deploy-state: ((pas.errand_config.push-usage-service))
+  smbbrokerpush:
+    post-deploy-state: ((pas.errand_config.smbbrokerpush))
+  smoke_tests:
+    post-deploy-state: ((pas.errand_config.smoke_tests))
+  test-autoscaling:
+    post-deploy-state: ((pas.errand_config.test-autoscaling))

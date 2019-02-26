@@ -13,6 +13,7 @@ groups:
   - upload-stemcell-pas
   - generate-product-config-pas
   - configure-product-pas
+  - disable-errands-pas
   - apply-product-changes-pas
   - export-installation-pas
 - name: infrastructure
@@ -32,6 +33,7 @@ groups:
   - upload-stemcell-pas
   - generate-product-config-pas
   - configure-product-pas
+  - disable-errands-pas
   - apply-product-changes-pas
   - export-installation-pas
 - name: manage-env
@@ -517,6 +519,30 @@ jobs:
       VARS_FILES: vars/((foundation))/vars/((products.pas.product_slug)).yml
       ENV_FILE: ((foundation))/env/((products.pas.product_slug)).yml
 
+- name: disable-errands-pas
+  serial: true
+  plan:
+  - aggregate:
+    - get: platform-automation-image
+      params: {unpack: true}
+      passed: [configure-product-pas]
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: configure-product
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/configure-product.yml
+    input_mapping:
+      config: environment-automation
+      env: interpolated-files
+      vars: interpolated-files
+    params:
+      CONFIG_FILE: ((foundation))/products/((products.pas.product_slug))
+      VARS_FILES: vars/((foundation))/vars/((products.pas.product_slug))-no-errans.yml
+      ENV_FILE: ((foundation))/env/((products.pas.product_slug)).yml
+
 - name: apply-product-changes-pas
   serial: true
   plan:
@@ -543,7 +569,7 @@ jobs:
     input_mapping:
       env: interpolated-files
     params:
-      PRODUCT_NAME: ((product.product_name))
+      PRODUCT_NAME: ((products.pas.product_name))
       ENV_FILE: ((foundation))/env/((products.pas.product_slug)).yml
       SUBSTITUTE_CREDENTIALS_WITH_PLACEHOLDERS: true
     on_success: *make-config-commit
@@ -567,7 +593,7 @@ jobs:
     input_mapping:
       env: interpolated-files
     params:
-      ENV_FILE: ((foundation))/env/env.yml
+      ENV_FILE: ((foundation))/env/((products.pas.product_slug)).yml
       INSTALLATION_FILE: installation-after-((products.pas.product_slug))-((products.pas.product_version)).zip
   - put: installation
     params:
