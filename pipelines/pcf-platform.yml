@@ -21,6 +21,7 @@ groups:
   - generate-product-config-pks
   - configure-product-pks
   - apply-product-changes-pks
+  - create-pks-users
   - export-installation-pks
   - upload-and-stage-redis
   - upload-stemcell-redis
@@ -46,6 +47,7 @@ groups:
   - configure-product-pks
   - apply-product-changes-pks
   - export-installation-pks
+  - create-pks-users
 - name: pas
   jobs:
   - upload-and-stage-pas
@@ -891,6 +893,8 @@ jobs:
   plan:
   - aggregate:
     - get: environment-automation
+      passed: [apply-product-changes-pks]
+      trigger: true
   - task: create-users
     file: environment-automation/tasks/config-pks-cli-user/task.yml
     params:
@@ -898,12 +902,9 @@ jobs:
       OPSMAN_USERNAME: admin
       OPSMAN_PASSWORD: ((opsman_password))
       PKS_SYSTEM_DOMAIN: pks.((gcp.dns_zone_dns_name))
-      PKS_CLI_USERNAME: ((pks.api.user))
+      PKS_CLI_USERNAME: ((pks.api.username))
       PKS_CLI_USEREMAIL: ((pks.api.email))
       PKS_CLI_PASSWORD: ((pks.api.password))
-  - put: installation
-    params:
-      file: installation/installation-after-((products.pks.product_slug))-((products.pks.product_version)).zip
 
 - name: export-installation-pks
   serial: true
