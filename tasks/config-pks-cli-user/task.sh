@@ -10,7 +10,7 @@ source $ROOT_DIR/environment-automation/tasks/common/yaml2json.sh
 source $ROOT_DIR/environment-automation//tasks/common/check_null_variables.sh
 
 echo "Note - pre-requisite for this task to work:"
-echo "- Your PKS API endpoint [${PKS_UAA_DOMAIN_PREFIX}.${PKS_SYSTEM_DOMAIN}] should be routable and accessible from the Concourse worker(s) network."
+echo "- Your PKS API endpoint [${PKS_SYSTEM_DOMAIN}] should be routable and accessible from the Concourse worker(s) network."
 
 echo "Retrieving PKS tile properties from Ops Manager [https://$OPSMAN_DOMAIN_OR_IP_ADDRESS]..."
 
