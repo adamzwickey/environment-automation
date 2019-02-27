@@ -54,5 +54,4 @@ product-properties:
     value: ((pks.worker_instances))
 resource-config:
   pivotal-container-service:
-    instances: 1
     elb_names: ((pks.resource_config.pks_elb))
