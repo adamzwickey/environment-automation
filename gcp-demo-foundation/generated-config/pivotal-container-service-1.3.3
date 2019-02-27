@@ -61,6 +61,8 @@ resource-config:
     instance_type:
       id: automatic
     internet_connected: true
+    elb_names:
+    - tcp:pcf-pks-api
 errand-config:
   delete-all-clusters:
     pre-delete-state: true
@@ -74,3 +76,4 @@ errand-config:
     post-deploy-state: false
   wavefront-alert-deletion:
     pre-delete-state: false
+
