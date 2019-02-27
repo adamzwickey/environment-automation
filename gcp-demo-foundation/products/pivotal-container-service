@@ -52,3 +52,7 @@ product-properties:
     value: ((pks.enable_priviledge))
   .properties.plan3_selector.active.worker_instances:
     value: ((pks.worker_instances))
+resource-config:
+  pivotal-container-service:
+    instances: 1
+    elb_names: ((pks.resource_config.pks_elb))
