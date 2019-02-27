@@ -15,7 +15,7 @@ pks:
   cluster_name: demo
   api:
     username: admin
-    password: ((opmans_password))
+    password: ((opsman_password))
     email: azwickey@pivotal.io
 
 pas:

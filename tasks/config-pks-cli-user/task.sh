@@ -3,11 +3,11 @@
 set -eu
 
 export ROOT_DIR=`pwd`
-source $ROOT_DIR/environment-automation/functions/copy_binaries.sh
-source $ROOT_DIR/environment-automation/functions/check_versions.sh
-source $ROOT_DIR/environment-automation/functions/generate_cert.sh
-source $ROOT_DIR/environment-automation/functions/yaml2json.sh
-source $ROOT_DIR/environment-automation/functions/check_null_variables.sh
+source $ROOT_DIR/environment-automation/common/copy_binaries.sh
+source $ROOT_DIR/environment-automation/common/check_versions.sh
+source $ROOT_DIR/environment-automation/common/generate_cert.sh
+source $ROOT_DIR/environment-automation/common/yaml2json.sh
+source $ROOT_DIR/environment-automation/common/check_null_variables.sh
 
 echo "Note - pre-requisite for this task to work:"
 echo "- Your PKS API endpoint [${PKS_UAA_DOMAIN_PREFIX}.${PKS_SYSTEM_DOMAIN}] should be routable and accessible from the Concourse worker(s) network."
