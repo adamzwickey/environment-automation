@@ -13,6 +13,10 @@ gcp:
 
 pks:
   cluster_name: demo
+  api:
+    username: admin
+    password: ((opmans_password))
+    email: azwickey@pivotal.io
 
 pas:
   ssl:
