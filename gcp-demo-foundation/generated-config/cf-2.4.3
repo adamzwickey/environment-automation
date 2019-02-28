@@ -2,8 +2,6 @@ product-name: cf
 product-properties:
   .cloud_controller.allow_app_ssh_access:
     value: true
-  .cloud_controller.apps_domain:
-    value: apps.public.cloud.zwickey.net
   .cloud_controller.default_app_memory:
     value: 1024
   .cloud_controller.default_app_ssh_access:
@@ -27,8 +25,6 @@ product-properties:
     value: true
   .cloud_controller.staging_timeout_in_seconds:
     value: 900
-  .cloud_controller.system_domain:
-    value: run.public.cloud.zwickey.net
   .diego_brain.starting_container_count_maximum:
     value: 200
   .doppler.message_drain_buffer_size:
@@ -45,8 +41,6 @@ product-properties:
     value: false
   .mysql_monitor.poll_frequency:
     value: 30
-  .mysql_monitor.recipient_email:
-    value: azwickey@gmail.com
   .mysql_monitor.write_read_delay:
     value: 20
   .mysql_proxy.shutdown_delay:
@@ -110,13 +104,6 @@ product-properties:
   .properties.credhub_hsm_provider_partition_password:
     value:
       secret: ((properties_credhub_hsm_provider_partition_password.secret))
-  .properties.credhub_key_encryption_passwords:
-    value:
-    - key:
-        secret: ((properties_credhub_key_encryption_passwords_0_key.secret))
-      name: primary
-      primary: true
-      provider: internal
   .properties.diego_database_max_open_connections:
     value: 100
   .properties.diego_log_timestamp_format:
@@ -138,7 +125,7 @@ product-properties:
   .properties.haproxy_client_cert_validation:
     value: none
   .properties.haproxy_forward_tls:
-    value: disable
+    value: enable
   .properties.haproxy_hsts_support:
     value: disable
   .properties.haproxy_max_buffer_size:
@@ -157,12 +144,6 @@ product-properties:
     value: enable
   .properties.mysql_activity_logging.enable.audit_logging_events:
     value: connect,query
-  .properties.networking_poe_ssl_certs:
-    value:
-    - certificate:
-        cert_pem: ((properties_networking_poe_ssl_certs_0_certificate.cert_pem))
-        private_key_pem: ((properties_networking_poe_ssl_certs_0_certificate.private_key_pem))
-      name: SSL-Cert
   .properties.networkpolicyserver_database_max_open_connections:
     value: 200
   .properties.networkpolicyserverinternal_database_max_open_connections:
@@ -208,8 +189,6 @@ product-properties:
     value: SHA256
   .properties.secure_service_instance_credentials:
     value: false
-  .properties.security_acknowledgement:
-    value: X
   .properties.silk_database_max_open_connections:
     value: 200
   .properties.smoke_tests:
@@ -231,20 +210,7 @@ product-properties:
   .properties.syslog_use_tcp_for_file_forwarding_local_transport:
     value: false
   .properties.system_blobstore:
-    value: external_gcs
-  .properties.system_blobstore.external_gcs.access_key:
-    value: GOOG2HEJSCWIRIURGQ7Y
-  .properties.system_blobstore.external_gcs.buildpacks_bucket:
-    value: fe-azwickey-pcf-buildpacks
-  .properties.system_blobstore.external_gcs.droplets_bucket:
-    value: fe-azwickey-pcf-droplets
-  .properties.system_blobstore.external_gcs.packages_bucket:
-    value: fe-azwickey-pcf-packages
-  .properties.system_blobstore.external_gcs.resources_bucket:
-    value: fe-azwickey-pcf-resources
-  .properties.system_blobstore.external_gcs.secret_key:
-    value:
-      secret: ((properties_system_blobstore_external_gcs_secret_key.secret))
+    value: internal
   .properties.system_blobstore_ccdroplet_max_staged_droplets_stored:
     value: 2
   .properties.system_blobstore_ccpackage_max_valid_packages_stored:
@@ -313,31 +279,26 @@ product-properties:
     value:
       secret: ((uaa_service_provider_key_password.secret))
 network-properties:
-  network:
-    name: pas
-  other_availability_zones:
-  - name: us-east1-b
-  - name: us-east1-c
-  - name: us-east1-d
-  singleton_availability_zone:
-    name: us-east1-b
+  network: null
+  other_availability_zones: []
+  singleton_availability_zone: null
 resource-config:
   backup_restore:
-    instances: 0
+    instances: automatic
     persistent_disk:
       size_mb: automatic
     instance_type:
       id: automatic
     internet_connected: true
   blobstore:
-    instances: 0
+    instances: automatic
     persistent_disk:
       size_mb: automatic
     instance_type:
       id: automatic
     internet_connected: true
   compute:
-    instances: 3
+    instances: automatic
     instance_type:
       id: automatic
     internet_connected: true
@@ -346,8 +307,6 @@ resource-config:
     instance_type:
       id: automatic
     internet_connected: true
-    elb_names:
-    - tcp:pcf-cf-ssh
   database:
     instances: automatic
     persistent_disk:
@@ -356,23 +315,20 @@ resource-config:
       id: automatic
     internet_connected: true
   ha_proxy:
-    instances: 0
+    instances: automatic
     instance_type:
       id: automatic
     internet_connected: true
   mysql_monitor:
-    instances: 0
+    instances: automatic
     instance_type:
       id: automatic
     internet_connected: true
   router:
-    instances: 1
+    instances: automatic
     instance_type:
       id: automatic
     internet_connected: true
-    elb_names:
-    - tcp:pcf-cf-ws
-    - http:pcf-httpslb
   tcp_router:
     instances: 0
     persistent_disk:
@@ -382,23 +338,23 @@ resource-config:
     internet_connected: true
 errand-config:
   deploy-autoscaler:
-    post-deploy-state: false
+    post-deploy-state: true
   deploy-notifications:
-    post-deploy-state: false
+    post-deploy-state: true
   deploy-notifications-ui:
-    post-deploy-state: false
+    post-deploy-state: true
   metric_registrar_smoke_test:
     post-deploy-state: false
   nfsbrokerpush:
-    post-deploy-state: false
+    post-deploy-state: true
   push-apps-manager:
-    post-deploy-state: false
+    post-deploy-state: true
   push-usage-service:
-    post-deploy-state: false
+    post-deploy-state: true
   smbbrokerpush:
     post-deploy-state: false
   smoke_tests:
-    post-deploy-state: false
+    post-deploy-state: true
   test-autoscaling:
-    post-deploy-state: false
+    post-deploy-state: true
 
