@@ -286,7 +286,7 @@ jobs:
   plan:
   - aggregate:
     - get: environment-automation
-    
+
     - get: terraform-state
   - task: wipe-iaas
     file: environment-automation/tasks/wipe-env/task.yml
@@ -294,6 +294,7 @@ jobs:
       GCP_PROJECT_ID: ((gcp.project))
       GCP_REGION: ((gcp.region))
       GCP_SERVICE_ACCOUNT_KEY: ((gcp.json_key))
+      AZ_LIST: ((gcp.az_list))
 
 - name: create-infrastructure
   serial_groups: [terraform]
