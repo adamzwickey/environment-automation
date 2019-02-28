@@ -286,7 +286,7 @@ jobs:
   plan:
   - aggregate:
     - get: environment-automation
-
+      passed: [delete-opsman]
     - get: terraform-state
   - task: wipe-iaas
     file: environment-automation/tasks/wipe-env/task.yml
