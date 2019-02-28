@@ -23,4 +23,4 @@ pks:
   enable_priviledge: true
   worker_instances: 5
   resource_config:
-    pks_elb: ["tcp:pcf-pks-api"]
+    pks_elb: ["tcp:((pks_api_lb))"]

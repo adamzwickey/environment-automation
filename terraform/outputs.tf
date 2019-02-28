@@ -94,6 +94,14 @@ output "bosh_load_balancer_address" {
   value = "${module.infra.bosh_load_balancer_address}"
 }
 
+output "pks_api_load_balancer_name" {
+  value = "${module.pks.pks_api_load_balancer_name}"
+}
+
+output "pks_cluster1_load_balancer_name" {
+  value = "${module.pks.pks_cluster1_load_balancer_name}"
+}
+
 output "buildpacks_bucket" {
   value = "${module.pas.buildpacks_bucket}"
 }

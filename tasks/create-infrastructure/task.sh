@@ -38,6 +38,8 @@ output_json=$(terraform output -json -state=terraform.tfstate)
 pub_ip_opsman=$(echo $output_json | jq --raw-output '.ops_manager_ip.value')
 pub_ip_bosh=$(echo $output_json | jq --raw-output '.bosh_load_balancer_address.value')
 bosh_lb=$(echo $output_json | jq --raw-output '.bosh_load_balancer_name.value')
+pks_api_lb=$(echo $output_json | jq --raw-output '.pks_api_load_balancer_name.value')
+pks_cluster1_lb=$(echo $output_json | jq --raw-output '.pks_cluster1_load_balancer_name.value')
 env_name=$(echo $output_json | jq --raw-output '.env_name.value')
 infra_subnet=$(echo $output_json | jq --raw-output '.infra_network_name.value')
 buildpacks_bucket=$(echo $output_json | jq --raw-output '.buildpacks_bucket.value')
@@ -51,6 +53,8 @@ tar -zxvf credhub-linux-2.2.1.tgz
 ./credhub set --name="${PREFIX}/om_public_ip" --type="value" --value="${pub_ip_opsman}"
 ./credhub set --name="${PREFIX}/bosh_public_ip" --type="value" --value="${pub_ip_bosh}"
 ./credhub set --name="${PREFIX}/bosh_lb" --type="value" --value="${bosh_lb}"
+./credhub set --name="${PREFIX}/pks_api_lb" --type="value" --value="${pks_api_lb}"
+./credhub set --name="${PREFIX}/pks_cluster1_lb" --type="value" --value="${pks_cluster1_lb}"
 ./credhub set --name="${PREFIX}/env_name" --type="value" --value="${env_name}"
 ./credhub set --name="${PREFIX}/infra_subnet" --type="value" --value="${infra_subnet}"
 ./credhub set --name="${PREFIX}/ssl_certificate" --type="value" --value="${SSL_CERT}"
