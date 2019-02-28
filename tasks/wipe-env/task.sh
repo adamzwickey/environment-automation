@@ -17,5 +17,12 @@ terraform destroy -force \
   -var "dns_zone_name=dontcare" \
   -var "dns_zone_dns_name=dontcare" \
   -var "pks_cluster_name=dontcare" \
+  -var "buckets_location=dontcare" \
+  -var "dns_suffix=dontcare" \
+  -var "ssl_cert=dontcare" \
+  -var "ssl_private_key=dontcare" \
+  -var "global_lb=1" \
+  -var "zones=dontcare" \
+  -var "create_gcs_buckets=dontcare" \
   -state-out $root/wipe-output/terraform.tfstate \
   environment-automation/terraform
