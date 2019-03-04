@@ -361,7 +361,7 @@ resource-config:
       id: automatic
     internet_connected: true
   mysql_monitor:
-    instances: automatic
+    instances: 0
     instance_type:
       id: automatic
     internet_connected: true
@@ -382,23 +382,23 @@ resource-config:
     internet_connected: true
 errand-config:
   deploy-autoscaler:
-    post-deploy-state: false
+    post-deploy-state: true
   deploy-notifications:
-    post-deploy-state: false
+    post-deploy-state: true
   deploy-notifications-ui:
-    post-deploy-state: false
+    post-deploy-state: true
   metric_registrar_smoke_test:
     post-deploy-state: false
   nfsbrokerpush:
-    post-deploy-state: false
+    post-deploy-state: true
   push-apps-manager:
-    post-deploy-state: false
+    post-deploy-state: true
   push-usage-service:
-    post-deploy-state: false
+    post-deploy-state: true
   smbbrokerpush:
     post-deploy-state: false
   smoke_tests:
-    post-deploy-state: false
+    post-deploy-state: true
   test-autoscaling:
-    post-deploy-state: false
+    post-deploy-state: true
 
