@@ -27,8 +27,8 @@ if [ $(echo $files | grep -c terraform.tfstate) == 0 ]; then
   echo "{\"version\": 3}" > terraform.tfstate
   #gsutil cp terraform.tfstate "gs://${TERRAFORM_STATEFILE_BUCKET}/terraform.tfstate"
 else
-  echo "terraform.tfstate file found, skipping"
-  exit 0
+  echo "terraform.tfstate file found, skipping creation"
+  gsutil cat gs://automation-az/terraform.tfstate > terraform.tfstate
 fi
 
 cp terraform.tfstate $root/bootstrap-output/terraform.tfstate
