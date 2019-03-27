@@ -134,7 +134,7 @@ resources:
   source:
     bucket: ((gcp.bucket))
     json_key: ((gcp.json_key))
-    regexp: installation-after-(.*).zip
+    regexp: installation-(.*).zip
 - name: om-product
   type: pivnet
   source:
@@ -478,10 +478,10 @@ jobs:
       env: interpolated-files
     params:
       ENV_FILE: ((foundation))/env/ops-manager.yml
-      INSTALLATION_FILE: installation-after-((products.opsman.product_slug))-((products.opsman.product_version)).zip
+      INSTALLATION_FILE: installation-$timestamp.zip
   - put: installation
     params:
-      file: installation/installation-after-((products.opsman.product_slug))-((products.opsman.product_version)).zip
+      file: installation/installation-$timestamp.zip
 
 - name: fetch-platform-automation
   # We use the pivnet resource to bootstrap the pipeline,
@@ -746,11 +746,11 @@ jobs:
     input_mapping:
       env: interpolated-files
     params:
-      ENV_FILE: ((foundation))/env/((products.pas.product_slug)).yml
-      INSTALLATION_FILE: installation-after-((products.pas.product_slug))-((products.pas.product_version)).zip
+      ENV_FILE: ((foundation))/env/ops-manager.yml
+      INSTALLATION_FILE: installation-$timestamp.zip
   - put: installation
     params:
-      file: installation/installation-after-((products.pas.product_slug))-((products.pas.product_version)).zip
+      file: installation/installation-$timestamp.zip
 
 - name: upload-and-stage-pks
   serial: true
@@ -994,11 +994,11 @@ jobs:
     input_mapping:
       env: interpolated-files
     params:
-      ENV_FILE: ((foundation))/env/((products.pks.product_slug)).yml
-      INSTALLATION_FILE: installation-after-((products.pks.product_slug))-((products.pks.product_version)).zip
+      ENV_FILE: ((foundation))/env/ops-manager.yml
+      INSTALLATION_FILE: installation-$timestamp.zip
   - put: installation
     params:
-      file: installation/installation-after-((products.pks.product_slug))-((products.pks.product_version)).zip
+      file: installation/installation-$timestamp.zip
 
 - name: upload-and-stage-redis
   serial: true
@@ -1248,8 +1248,8 @@ jobs:
     input_mapping:
       env: interpolated-files
     params:
-      ENV_FILE: ((foundation))/env/((products.redis.product_slug)).yml
-      INSTALLATION_FILE: installation-after-((products.redis.product_slug))-((products.redis.product_version)).zip
+      ENV_FILE: ((foundation))/env/ops-manager.yml
+      INSTALLATION_FILE: installation-$timestamp.zip
   - put: installation
     params:
-      file: installation/installation-after-((products.redis.product_slug))-((products.redis.product_version)).zip
+      file: installation/installation-$timestamp.zip
