@@ -43,8 +43,8 @@ products:
     # Pivnet-based
     product_slug: ops-manager
     product_name: ""
-    product_version: 2.4.4
-    product_globs: "*GCP.yml"
+    product_version: 2.5.*
+    product_globs: "*gcp*.yml"
   pas:
     product_slug: elastic-runtime
     product_name: cf
