@@ -48,7 +48,7 @@ products:
   pas:
     product_slug: elastic-runtime
     product_name: cf
-    product_version: 2.4.4
+    product_version: 2.5.*
     product_globs: "srt-*.pivotal"
     stemcell:
       product_slug: stemcells-ubuntu-xenial
