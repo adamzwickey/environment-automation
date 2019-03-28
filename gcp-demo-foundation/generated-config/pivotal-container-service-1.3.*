@@ -1,0 +1,91 @@
+product-name: pivotal-container-service
+product-properties:
+  .pivotal-container-service.pks_tls:
+    value:
+      cert_pem: ((pivotal-container-service_pks_tls.cert_pem))
+      private_key_pem: ((pivotal-container-service_pks_tls.private_key_pem))
+  .properties.cloud_provider.azure.azure_cloud_name:
+    value: AzurePublicCloud
+  .properties.cloud_provider.vsphere.vcenter_master_creds:
+    value:
+      identity: ((properties_cloud_provider_vsphere_vcenter_master_creds.identity))
+      password: ((properties_cloud_provider_vsphere_vcenter_master_creds.password))
+  .properties.network_selector:
+    value: flannel
+  .properties.network_selector.flannel.pod_network_cidr:
+    value: 10.200.0.0/16
+  .properties.network_selector.flannel.service_cluster_cidr:
+    value: 10.100.200.0/24
+  .properties.pks-vrli:
+    value: disabled
+  .properties.plan1_selector:
+    value: Plan Active
+  .properties.plan2_selector:
+    value: Plan Inactive
+  .properties.plan3_selector:
+    value: Plan Inactive
+  .properties.plan4_selector:
+    value: Plan Inactive
+  .properties.plan5_selector:
+    value: Plan Inactive
+  .properties.plan6_selector:
+    value: Plan Inactive
+  .properties.plan7_selector:
+    value: Plan Inactive
+  .properties.plan8_selector:
+    value: Plan Inactive
+  .properties.plan9_selector:
+    value: Plan Inactive
+  .properties.plan10_selector:
+    value: Plan Inactive
+  .properties.proxy_selector:
+    value: Disabled
+  .properties.sink_resources_selector:
+    value: enabled
+  .properties.syslog_selector:
+    value: disabled
+  .properties.telemetry_selector.enabled.billing_polling_interval:
+    value: 60
+  .properties.telemetry_selector.enabled.telemetry_polling_interval:
+    value: 600
+  .properties.telemetry_selector.enabled.telemetry_url:
+    value: https://vcsa.vmware.com/ph
+  .properties.uaa:
+    value: internal
+  .properties.uaa_oidc:
+    value: false
+  .properties.uaa_pks_cli_access_token_lifetime:
+    value: 600
+  .properties.uaa_pks_cli_refresh_token_lifetime:
+    value: 21600
+  .properties.wavefront:
+    value: disabled
+  .properties.worker_max_in_flight:
+    value: 1
+network-properties:
+  network: null
+  other_availability_zones: []
+  service_network: null
+  singleton_availability_zone: null
+resource-config:
+  pivotal-container-service:
+    instances: automatic
+    persistent_disk:
+      size_mb: automatic
+    instance_type:
+      id: automatic
+    internet_connected: true
+errand-config:
+  delete-all-clusters:
+    pre-delete-state: true
+  pks-nsx-t-precheck:
+    post-deploy-state: false
+  smoke-tests:
+    post-deploy-state: false
+  upgrade-all-service-instances:
+    post-deploy-state: true
+  wavefront-alert-creation:
+    post-deploy-state: false
+  wavefront-alert-deletion:
+    pre-delete-state: false
+
