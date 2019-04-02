@@ -35,7 +35,19 @@ $ROOT_DIR/pks create-cluster $PKS_CLUSTER_NAME -e $PKS_CLUSTER_NAME.$PKS_SYSTEM_
 
 finished=false
 while ! $finished; do
-    ...
-    # At some point
+
+  cluster_state=$($ROOT_DIR/pks cluster demo | grep "Last Action State:" | awk -F : '{print $2}' | tr -d "[:blank:]")
+  echo "Cluster State: $cluster_state"
+
+  if [ "$cluster_state" == "succeeded" ]; then
+    $ROOT_DIR/pks cluster demo
     finished=true
+    exit 0
+  fi
+
+  if [ "$cluster_state" == "failed" ]; then
+    $ROOT_DIR/pks cluster demo
+    exit -1
+  fi
+  sleep 20s
 done
