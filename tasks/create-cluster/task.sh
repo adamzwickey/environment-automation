@@ -31,4 +31,4 @@ if [ "$pks_status" != "0" ]; then
 fi
 
 echo "Creating PKS cluster : ${PKS_CLUSTER_NAME}"
-pks create-cluster $PKS_CLUSTER_NAME -e $PKS_CLUSTER_NAME.$PKS_SYSTEM_DOMAIN -p small -n 3
+$ROOT_DIR/pks create-cluster $PKS_CLUSTER_NAME -e $PKS_CLUSTER_NAME.$PKS_SYSTEM_DOMAIN -p small -n 3
