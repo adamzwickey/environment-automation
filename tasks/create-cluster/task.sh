@@ -31,10 +31,9 @@ if [ "$pks_status" != "0" ]; then
 fi
 
 echo "Checking if cluster [$PKS_CLUSTER_NAME] exists"
-cluster_check_output=$($ROOT_DIR/pks cluster $PKS_CLUSTER_NAME | grep UUID)
-cluster_status=$(echo $?)
-if [ "$cluster_status" != "0" ]; then
-  echo "Cluster doesn't exists... creating..."
+cluster_check_output=$($ROOT_DIR/pks clusters | grep -w "$PKS_CLUSTER_NAME")
+if [ "$cluster_check_output" == "" ]; then
+  echo "Cluster doesn't exist... creating..."
 fi
 
 finished=false
