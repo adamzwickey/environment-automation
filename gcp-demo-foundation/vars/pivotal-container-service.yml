@@ -11,8 +11,8 @@ pks:
   gcp:
     project_id: fe-azwickey
     network: bosh-bootstrap
-    master_service_account: ((env_name))-pks-master
-    worker_service_account: ((env_name))-pks-worker
+    master_service_account: ((env_name))-pks-master@fe-azwickey.iam.gserviceaccount.com
+    worker_service_account: ((env_name))-pks-worker@fe-azwickey.iam.gserviceaccount.com
   worker_max_in_flight: 5
   api:
     hostname: pks.public.cloud.zwickey.net
