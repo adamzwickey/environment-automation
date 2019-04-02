@@ -34,6 +34,7 @@ echo "Checking if cluster [$PKS_CLUSTER_NAME] exists"
 cluster_check_output=$($ROOT_DIR/pks clusters | grep -w "$PKS_CLUSTER_NAME")
 if [ "$cluster_check_output" == "" ]; then
   echo "Cluster doesn't exist... creating..."
+  $ROOT_DIR/pks create-cluster $PKS_CLUSTER_NAME -e $PKS_CLUSTER_NAME.$PKS_SYSTEM_DOMAIN -p $PKS_CLUSTER_PLAN -n $PKS_CLUSTER_NODES
 fi
 
 finished=false
