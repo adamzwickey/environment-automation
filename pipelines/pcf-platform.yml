@@ -62,6 +62,8 @@ groups:
   - apply-product-changes-pks
   - export-installation-pks
   - create-pks-users
+  - create-pks-cluster
+  - bootstrap-pks-cluster
 - name: pas
   jobs:
   - upload-and-stage-pas
@@ -89,8 +91,10 @@ groups:
   - export-installation-redis
 - name: manage-env
   jobs:
-- name: bootstrap-demos
-  jobs:
+  - stop-pks-clusters
+  - stop-pks
+  - create-pks-cluster
+  - bootstrap-pks-cluster
 
 resource_types:
 - name: pivnet
@@ -341,10 +345,10 @@ jobs:
   - aggregate:
     - get: platform-automation-image
       params: {unpack: true}
-      trigger: true
     - get: platform-automation-tasks
       params: {unpack: true}
     - get: om-product
+      trigger: true
       params:
         globs:
         - "((products.opsman.product_globs))"
@@ -427,6 +431,7 @@ jobs:
   - aggregate:
     - get: platform-automation-image
       passed: [deploy-opsman]
+      trigger: true
       params: {unpack: true}
     - get: platform-automation-tasks
       params: {unpack: true}
@@ -451,6 +456,7 @@ jobs:
   plan:
   - aggregate:
     - get: platform-automation-image
+      trigger: true
       passed: [configure-director]
       params: {unpack: true}
     - get: platform-automation-tasks
@@ -975,6 +981,7 @@ jobs:
       params:
         globs:
         - "((products.pks.product_globs))"
+      trigger: true
     - get: environment-automation
   - task: credhub-interpolate
     <<: *credhub-interpolate
@@ -1039,6 +1046,7 @@ jobs:
       params:
         globs:
         - "((products.pks.stemcell.product_globs))"
+      trigger: true
   - task: credhub-interpolate
     <<: *credhub-interpolate
   - task: upload-stemcell
@@ -1100,6 +1108,7 @@ jobs:
     - get: platform-automation-image
       params: {unpack: true}
       passed: [generate-product-config-pks]
+      trigger: true
     - get: platform-automation-tasks
       params: {unpack: true}
     - get: environment-automation
@@ -1124,7 +1133,7 @@ jobs:
     - get: platform-automation-image
       params: {unpack: true}
       passed: [upload-stemcell-pks, configure-product-pks]
-      #trigger: true
+      trigger: true
     - get: platform-automation-tasks
       params: {unpack: true}
     - get: environment-automation
@@ -1463,3 +1472,62 @@ jobs:
   - put: installation
     params:
       file: installation/installation-after-((products.redis.product_name)).zip
+
+- name: stop-pks-clusters
+  serial: true
+  plan:
+  - aggregate:
+    - get: platform-automation-image
+      params: {unpack: true}
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+
+- name: stop-pks
+  serial: true
+  plan:
+  - aggregate:
+    - get: platform-automation-image
+      params: {unpack: true}
+      trigger: true
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+      passed: [stop-pks-clusters]
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+
+- name: create-pks-cluster
+  serial: true
+  plan:
+  - aggregate:
+    - get: platform-automation-image
+      params: {unpack: true}
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: create-cluster
+    file: environment-automation/tasks/create-cluster/task.yml
+    params:
+      PKS_SYSTEM_DOMAIN: pks.((gcp.dns_zone_dns_name))
+      PKS_CLI_USERNAME: ((pks.api.username))
+      PKS_CLI_PASSWORD: ((pks.api.password))
+      PKS_CLUSTER_NAME: ((pks.cluster_name))
+
+- name: bootstrap-pks-cluster
+  serial: true
+  plan:
+  - aggregate:
+    - get: platform-automation-image
+      params: {unpack: true}
+      trigger: true
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+      passed: [create-pks-cluster]
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
