@@ -1523,11 +1523,15 @@ jobs:
     <<: *credhub-interpolate
   - task: create-cluster
     file: environment-automation/tasks/create-cluster/task.yml
+    timeout: 2h
     params:
       PKS_SYSTEM_DOMAIN: pks.((gcp.dns_zone_dns_name))
       PKS_CLI_USERNAME: ((pks.api.username))
       PKS_CLI_PASSWORD: ((pks.api.password))
       PKS_CLUSTER_NAME: ((pks.cluster_name))
+      PKS_CLI_PREFIX: ((products.pks.cli_globs))
+      PKS_CLUSTER_NODES: ((pks.cluster_nodes))
+      PKS_CLUSTER_PLAN: ((pks.cluster_plan))
 
 - name: bootstrap-pks-cluster
   serial: true
