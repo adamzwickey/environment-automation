@@ -59,6 +59,7 @@ products:
     product_name: pivotal-container-service
     product_version: 1.3.*
     product_globs: "pivotal-container-service*.pivotal"
+    cli_globs: "pks-linux-amd64*.pivotal"
     stemcell:
       product_slug: stemcells-ubuntu-xenial
       product_version: "170.30"

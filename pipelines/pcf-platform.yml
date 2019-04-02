@@ -198,6 +198,13 @@ resources:
     product_slug: ((products.redis.stemcell.product_slug))
     product_version: ((products.redis.stemcell.product_version))
     sort_by: semver
+- name: pks-cli
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: ((products.pks.product_slug))
+    product_version: ((products.pks.product_version))
+    sort_by: semver
 
 # reusable stuff
 credhub-interpolate: &credhub-interpolate
@@ -1508,6 +1515,10 @@ jobs:
     - get: platform-automation-tasks
       params: {unpack: true}
     - get: environment-automation
+    - get: pks-cli
+      params:
+        globs:
+        - "((products.pks.cli_globs))"
   - task: credhub-interpolate
     <<: *credhub-interpolate
   - task: create-cluster
