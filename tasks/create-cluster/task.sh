@@ -23,8 +23,8 @@ fi
 set -e
 
 # login to PKS API
-pks login -a $PKS_SYSTEM_DOMAIN -u $PKS_CLI_USERNAME -p $PKS_CLI_PASSWORD -k
-pks_output=$(pks clusters)
+$ROOT_DIR/pkspks login -a $PKS_SYSTEM_DOMAIN -u $PKS_CLI_USERNAME -p $PKS_CLI_PASSWORD -k
+pks_output=$($ROOT_DIR/pks clusters)
 pks_status=$(echo $?)
 if [ "$pks_status" != "0" ]; then
   echo "Problem interacting with PKS : $pks_status"
