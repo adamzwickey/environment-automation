@@ -32,3 +32,10 @@ fi
 
 echo "Creating PKS cluster : ${PKS_CLUSTER_NAME}"
 $ROOT_DIR/pks create-cluster $PKS_CLUSTER_NAME -e $PKS_CLUSTER_NAME.$PKS_SYSTEM_DOMAIN -p small -n 3
+
+finished=false
+while ! $finished; do
+    ...
+    # At some point
+    finished=true
+done
