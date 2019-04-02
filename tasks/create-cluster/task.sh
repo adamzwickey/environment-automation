@@ -4,6 +4,9 @@ set -eu
 
 export ROOT_DIR=`pwd`
 
+mv $ROOT_DIR/pks-cli/$PKS_CLI_PREFIX $ROOT_DIR/pks
+chmod u+x $ROOT_DIR/pks
+
 echo "Note - pre-requisite for this task to work:"
 echo "- Your PKS API endpoint [${PKS_SYSTEM_DOMAIN}] should be routable and accessible from the Concourse worker(s) network."
 
