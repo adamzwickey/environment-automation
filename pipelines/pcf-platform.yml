@@ -1546,3 +1546,9 @@ jobs:
       passed: [create-pks-cluster]
   - task: credhub-interpolate
     <<: *credhub-interpolate
+  - task: bootstrap-cluster
+    file: environment-automation/tasks/bootstrap-cluster/task.yml
+    params:
+      GCP_PROJECT_ID: ((gcp.project))
+      GCP_REGION: ((gcp.region))
+      GCP_SERVICE_ACCOUNT_KEY: ((gcp.json_key))
