@@ -9,6 +9,7 @@ image_resource:
 
 inputs:
 - name: environment-automation
+- name: pks-cli
 
 run:
   path: environment-automation/tasks/create-cluster/task.sh
