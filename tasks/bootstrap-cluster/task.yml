@@ -6,7 +6,7 @@ image_resource:
   type: docker-image
   source:
     repository: ubuntu
-    tasg: 'xenial'
+    tag: 'xenial'
 
 inputs:
 - name: environment-automation
