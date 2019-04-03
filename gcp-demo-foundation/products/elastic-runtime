@@ -73,6 +73,9 @@ resource-config:
   router:
     instances: 1
     elb_names: ((pas.resource_config.router_elb_names))
+  istio_router:
+    instances: 1
+    elb_names: ((pas.resource_config.istio_router_elb_names))
 errand-config:
   deploy-autoscaler:
     post-deploy-state: ((pas.errand_config.deploy-autoscaler))
