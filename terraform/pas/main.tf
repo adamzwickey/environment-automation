@@ -148,8 +148,8 @@ module "mesh" {
   env_name = "${var.env_name}"
   name     = "mesh"
 
-  global          = "${var.global_lb}"
-  count           = "${var.global_lb > 0 ? 0 : 1}"
+  global          = false
+  count           = 1
   network         = "${var.network_name}"
   zones           = "${var.zones}"
   ssl_certificate = "${var.ssl_certificate}"
