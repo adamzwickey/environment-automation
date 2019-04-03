@@ -52,6 +52,9 @@ product-properties:
     value: 600
   .properties.uaa_pks_cli_refresh_token_lifetime:
     value: 21600
+  .properties.vm_extensions:
+    value:
+    - public_ip
   .properties.wavefront:
     value: disabled
   .properties.worker_max_in_flight:
