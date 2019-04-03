@@ -62,7 +62,7 @@ deployments=($($ROOT_DIR/om \
               curl -p /api/v0/deployed/products \
               2>/dev/null \
               | jq -rc '.[] .guid' \
-              | grep -v "cf-"
+              | grep -v "cf-" \
               | grep -v "bosh"))
 echo "Starting everything else:"
 length=${#deployments[@]}
