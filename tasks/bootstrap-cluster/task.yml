@@ -10,6 +10,7 @@ image_resource:
 
 inputs:
 - name: environment-automation
+- name: pks-cli
 
 run:
   path: environment-automation/tasks/bootstrap-cluster/task.sh
@@ -18,3 +19,10 @@ params:
   GCP_PROJECT_ID:
   GCP_REGION:
   GCP_SERVICE_ACCOUNT_KEY:
+  PKS_CLUSTER_NAME:
+  BOSH_CLI_URL:
+  OM_CLI_URL:
+  BOSH_DOMAIN_OR_IP_ADDRESS:
+  OPSMAN_DOMAIN_OR_IP_ADDRESS:
+  OPSMAN_USERNAME:
+  OPSMAN_PASSWORD:

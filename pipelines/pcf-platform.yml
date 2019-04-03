@@ -1544,6 +1544,10 @@ jobs:
       params: {unpack: true}
     - get: environment-automation
       passed: [create-pks-cluster]
+    - get: pks-cli
+      params:
+        globs:
+        - "((products.pks.cli_globs))"
   - task: credhub-interpolate
     <<: *credhub-interpolate
   - task: bootstrap-cluster
@@ -1552,3 +1556,10 @@ jobs:
       GCP_PROJECT_ID: ((gcp.project))
       GCP_REGION: ((gcp.region))
       GCP_SERVICE_ACCOUNT_KEY: ((gcp.json_key))
+      PKS_CLUSTER_NAME: ((pks.cluster_name))
+      BOSH_CLI_URL: ((bosh_cli_url))
+      OM_CLI_URL: ((om_cli_url))
+      BOSH_DOMAIN_OR_IP_ADDRESS: bosh.((gcp.dns_zone_dns_name))
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.((gcp.dns_zone_dns_name))
+      OPSMAN_USERNAME: admin
+      OPSMAN_PASSWORD: ((opsman_password))

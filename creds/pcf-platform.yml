@@ -1,6 +1,9 @@
 foundation: gcp-demo-foundation
 pivnet_token: ((pivnet_token))
 
+bosh_cli_url: https://github.com/cloudfoundry/bosh-cli/releases/download/v5.4.0/bosh-cli-5.4.0-linux-amd64
+om_cli_url: https://github.com/pivotal-cf/om/releases/download/0.55.0/om-linux
+
 gcp:
   bucket: automation-az
   region: us-east1
