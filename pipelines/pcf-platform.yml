@@ -1560,7 +1560,6 @@ jobs:
       PKS_CLI_PREFIX: ((products.pks.cli_globs))
       BOSH_CLI_URL: ((bosh_cli_url))
       OM_CLI_URL: ((om_cli_url))
-      BOSH_DOMAIN_OR_IP_ADDRESS: bosh.((gcp.dns_zone_dns_name))
       OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.((gcp.dns_zone_dns_name))
       OPSMAN_USERNAME: admin
       OPSMAN_PASSWORD: ((opsman_password))
