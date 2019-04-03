@@ -1,7 +1,7 @@
 #!/bin/bash
 # Source: https://github.com/pivotalservices/concourse-pipeline-samples/blob/master/tasks/pcf/pks/configure-pks-cli-user/task.sh
 set -eu
-
+export ROOT_DIR=`pwd`
 apt-get update -y && apt-get install -y curl
 
 mv $ROOT_DIR/pks-cli/$PKS_CLI_PREFIX $ROOT_DIR/pks
