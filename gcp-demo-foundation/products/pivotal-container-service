@@ -52,6 +52,9 @@ product-properties:
     value: ((pks.enable_priviledge))
   .properties.plan3_selector.active.worker_instances:
     value: ((pks.worker_instances))
+  .properties.vm_extensions:
+    value:
+    - public_ip
 resource-config:
   pivotal-container-service:
     elb_names: ((pks.resource_config.pks_elb))
