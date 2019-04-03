@@ -37,7 +37,7 @@ deployments=($($ROOT_DIR/om \
               curl -p /api/v0/deployed/products \
               2>/dev/null \
               | jq -rc '.[] .guid' \
-              | grep -v "cf-"
+              | grep -v "cf-" \
               | grep -v "bosh"))
 echo "Stopping all deployments but CF:"
 length=${#deployments[@]}
