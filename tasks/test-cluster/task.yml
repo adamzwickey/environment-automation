@@ -1,0 +1,23 @@
+---
+# Source: https://github.com/pivotalservices/concourse-pipeline-samples/blob/master/tasks/pcf/pks/configure-pks-cli-user/task.yml
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: ubuntu
+    tag: 'xenial'
+
+inputs:
+- name: environment-automation
+- name: pks-cli
+
+run:
+  path: environment-automation/tasks/test-cluster/task.sh
+
+params:
+  PKS_SYSTEM_DOMAIN:
+  PKS_CLI_USERNAME:
+  PKS_CLI_PASSWORD:
+  PKS_CLUSTER_NAME:
+  PKS_CLI_PREFIX:

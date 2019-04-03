@@ -1567,3 +1567,11 @@ jobs:
       OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.((gcp.dns_zone_dns_name))
       OPSMAN_USERNAME: admin
       OPSMAN_PASSWORD: ((opsman_password))
+  - task: test-cluster
+    file: environment-automation/tasks/test-cluster/task.yml
+    params:
+      PKS_SYSTEM_DOMAIN: pks.((gcp.dns_zone_dns_name))
+      PKS_CLI_USERNAME: ((pks.api.username))
+      PKS_CLI_PASSWORD: ((pks.api.password))
+      PKS_CLUSTER_NAME: ((pks.cluster_name))
+      PKS_CLI_PREFIX: ((products.pks.cli_globs))
