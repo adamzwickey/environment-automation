@@ -19,6 +19,8 @@ product-properties:
       name: SSL-Cert
   .properties.haproxy_forward_tls:
     value: disable
+  .properties.istio:
+    value: enable
   .properties.security_acknowledgement:
     value: X
   .uaa.service_provider_key_credentials:
