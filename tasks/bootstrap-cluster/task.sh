@@ -19,8 +19,8 @@ eval "$($ROOT_DIR/om \
        -p $OPSMAN_PASSWORD \
        --skip-ssl-validation \
        bosh-env)"
+$ROOT_DIR/bosh login
 
-export ROOT_DIR=`pwd`
 export CLOUD_SDK_REPO="cloud-sdk-xenial"
 echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
