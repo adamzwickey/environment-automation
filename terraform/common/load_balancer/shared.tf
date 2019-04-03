@@ -6,7 +6,7 @@ locals {
 resource "google_compute_http_health_check" "lb" {
   name                = "${var.env_name}-${var.name}-health-check"
   port                = "${var.health_check_port}"
-  request_path        = "/health"
+  request_path        = "${var.health_check_path}"
   check_interval_sec  = "${var.health_check_interval}"
   timeout_sec         = "${var.health_check_timeout}"
   healthy_threshold   = "${var.health_check_healthy_threshold}"

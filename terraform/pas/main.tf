@@ -161,6 +161,7 @@ module "mesh" {
 
   health_check                     = true
   health_check_port                = "8002"
+  health_check_path                = "/healthcheck"
   health_check_interval            = 5
   health_check_timeout             = 3
   health_check_healthy_threshold   = 1

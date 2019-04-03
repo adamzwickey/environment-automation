@@ -52,6 +52,10 @@ variable "health_check_unhealthy_threshold" {
   default = 0
 }
 
+variable "health_check_path" {
+  default = "/health"
+}
+
 variable "zones" {
   type    = "list"
   default = []
