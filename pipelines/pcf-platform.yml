@@ -38,6 +38,7 @@ groups:
   - apply-director-changes-upgrade
   - export-installation-after
   - stop-env
+  - start-env
   - create-pks-cluster
   - bootstrap-pks-cluster
 - name: infrastructure
@@ -68,6 +69,7 @@ groups:
   - create-pks-cluster
   - bootstrap-pks-cluster
   - stop-env
+  - start-env
 - name: pas
   jobs:
   - upload-and-stage-pas
@@ -85,6 +87,7 @@ groups:
   - apply-product-changes-redis
   - export-installation-redis
   - stop-env
+  - start-env
 - name: marketplace
   jobs:
   - upload-and-stage-redis
@@ -97,6 +100,7 @@ groups:
 - name: manage-env
   jobs:
   - stop-env
+  - start-env
   - create-pks-cluster
   - bootstrap-pks-cluster
 
@@ -1498,6 +1502,27 @@ jobs:
     <<: *credhub-interpolate
   - task: stop-deployments
     file: environment-automation/tasks/stop-env/task.yml
+    params:
+      BOSH_CLI_URL: ((bosh_cli_url))
+      OM_CLI_URL: ((om_cli_url))
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.((gcp.dns_zone_dns_name))
+      OPSMAN_USERNAME: admin
+      OPSMAN_PASSWORD: ((opsman_password))
+
+- name: start-env
+  serial: true
+  plan:
+  - aggregate:
+    - get: platform-automation-image
+      params: {unpack: true}
+      trigger: true
+    - get: platform-automation-tasks
+      params: {unpack: true}
+    - get: environment-automation
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: start-deployments
+    file: environment-automation/tasks/start-env/task.yml
     params:
       BOSH_CLI_URL: ((bosh_cli_url))
       OM_CLI_URL: ((om_cli_url))
