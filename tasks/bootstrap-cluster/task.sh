@@ -36,9 +36,10 @@ cluster_uuid=$($ROOT_DIR/pks cluster demo | grep UUID | awk -F : '{print $2}' | 
 echo "Cluster UUID: $cluster_uuid"
 
 cluster_masters=($($ROOT_DIR/bosh vms -d service-instance_$cluster_uuid | grep master | awk '{print $5}'))
+cluster_masters_zones=($($ROOT_DIR/bosh vms -d service-instance_$cluster_uuid | grep master | awk '{print $3}'))
 echo "PKS Cluster Master(s) VMs:"
 length=${#cluster_masters[@]}
 for ((i = 0; i != length; i++)); do
-   echo "$i: '${cluster_masters[i]}'"
-   gcloud --quiet compute target-pools add-instances $PKS_CLUSTER_LB_NAME --instances=${cluster_masters[i]}
+   echo "$i: ${cluster_masters[i]} -- ${cluster_masters_zones[i]}"
+   gcloud --quiet compute target-pools add-instances $PKS_CLUSTER_LB_NAME --instances=${cluster_masters[i] --instances-zone=${cluster_masters_zones[i]}
 done
