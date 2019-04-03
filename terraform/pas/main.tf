@@ -148,8 +148,8 @@ module "mesh" {
   env_name = "${var.env_name}"
   name     = "mesh"
 
-  global          = false
-  count           = "${var.mesh_lb > 0 ? 0 : 1}"
+  global          = "${var.global_lb}"
+  count           = "${var.global_lb > 0 ? 0 : 1}"
   network         = "${var.network_name}"
   zones           = "${var.zones}"
   ssl_certificate = "${var.ssl_certificate}"
@@ -278,5 +278,5 @@ resource "google_dns_record_set" "wildcard-mesh-dns" {
 
   managed_zone = "${var.dns_zone_name}"
 
-  rrdatas = ["${module.mesh.address}"]
+  rrdatas = ["${module.mesh.global_address}"]
 }
