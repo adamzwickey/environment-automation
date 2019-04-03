@@ -1505,6 +1505,14 @@ jobs:
       passed: [stop-pks-clusters]
   - task: credhub-interpolate
     <<: *credhub-interpolate
+  - task: stop-deployments
+    file: environment-automation/tasks/stop-cluster/task.yml
+    params:
+      BOSH_CLI_URL: ((bosh_cli_url))
+      OM_CLI_URL: ((om_cli_url))
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.((gcp.dns_zone_dns_name))
+      OPSMAN_USERNAME: admin
+      OPSMAN_PASSWORD: ((opsman_password))
 
 - name: create-pks-cluster
   serial: true
