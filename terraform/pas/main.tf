@@ -37,7 +37,7 @@ resource "google_compute_firewall" "pcf-allow-http-8080" {
 
   allow {
     protocol = "tcp"
-    ports    = ["8080"]
+    ports    = ["8080","8002"]
   }
 
   source_ranges = ["0.0.0.0/0"]
@@ -136,6 +136,31 @@ module "gorouter" {
 
   health_check                     = true
   health_check_port                = "8080"
+  health_check_interval            = 5
+  health_check_timeout             = 3
+  health_check_healthy_threshold   = 1
+  health_check_unhealthy_threshold = 3
+}
+
+module "mesh" {
+  source = "../common/load_balancer"
+
+  env_name = "${var.env_name}"
+  name     = "mesh"
+
+  global          = false
+  count           = "${var.mesh_lb > 0 ? 0 : 1}"
+  network         = "${var.network_name}"
+  zones           = "${var.zones}"
+  ssl_certificate = "${var.ssl_certificate}"
+
+  ports = ["80", "8002", "443"]
+
+  lb_name               = "${var.env_name}-mesh"
+  forwarding_rule_ports = ["80", "8002", "443"]
+
+  health_check                     = true
+  health_check_port                = "8002"
   health_check_interval            = 5
   health_check_timeout             = 3
   health_check_healthy_threshold   = 1
@@ -244,4 +269,14 @@ resource "google_dns_record_set" "tcp-dns" {
   managed_zone = "${var.dns_zone_name}"
 
   rrdatas = ["${module.tcprouter.address}"]
+}
+
+resource "google_dns_record_set" "wildcard-mesh-dns" {
+  name = "*.mesh.apps.${var.dns_zone_dns_name}."
+  type = "A"
+  ttl  = 300
+
+  managed_zone = "${var.dns_zone_name}"
+
+  rrdatas = ["${module.mesh.address}"]
 }

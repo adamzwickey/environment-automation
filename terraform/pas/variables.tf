@@ -32,6 +32,10 @@ variable "global_lb" {
   default = "1"
 }
 
+variable "mesh_lb" {
+  default = "1"
+}
+
 variable "zones" {
   type = "list"
 }
