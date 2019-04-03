@@ -37,6 +37,9 @@ groups:
   - configure-director-upgrade
   - apply-director-changes-upgrade
   - export-installation-after
+  - stop-env
+  - create-pks-cluster
+  - bootstrap-pks-cluster
 - name: infrastructure
   jobs:
   - bootstrap-terraform-state
@@ -64,6 +67,7 @@ groups:
   - create-pks-users
   - create-pks-cluster
   - bootstrap-pks-cluster
+  - stop-env
 - name: pas
   jobs:
   - upload-and-stage-pas
@@ -80,6 +84,7 @@ groups:
   - disable-errands-redis
   - apply-product-changes-redis
   - export-installation-redis
+  - stop-env
 - name: marketplace
   jobs:
   - upload-and-stage-redis
@@ -91,8 +96,7 @@ groups:
   - export-installation-redis
 - name: manage-env
   jobs:
-  - stop-pks-clusters
-  - stop-pks
+  - stop-env
   - create-pks-cluster
   - bootstrap-pks-cluster
 
@@ -1480,19 +1484,7 @@ jobs:
     params:
       file: installation/installation-after-((products.redis.product_name)).zip
 
-- name: stop-pks-clusters
-  serial: true
-  plan:
-  - aggregate:
-    - get: platform-automation-image
-      params: {unpack: true}
-    - get: platform-automation-tasks
-      params: {unpack: true}
-    - get: environment-automation
-  - task: credhub-interpolate
-    <<: *credhub-interpolate
-
-- name: stop-pks
+- name: stop-env
   serial: true
   plan:
   - aggregate:
@@ -1502,11 +1494,10 @@ jobs:
     - get: platform-automation-tasks
       params: {unpack: true}
     - get: environment-automation
-      passed: [stop-pks-clusters]
   - task: credhub-interpolate
     <<: *credhub-interpolate
   - task: stop-deployments
-    file: environment-automation/tasks/stop-cluster/task.yml
+    file: environment-automation/tasks/stop-env/task.yml
     params:
       BOSH_CLI_URL: ((bosh_cli_url))
       OM_CLI_URL: ((om_cli_url))
