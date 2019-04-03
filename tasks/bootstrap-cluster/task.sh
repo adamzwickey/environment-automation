@@ -31,5 +31,6 @@ gcloud auth activate-service-account --key-file=credential_key.json
 gcloud config set project $GCP_PROJECT_ID
 
 #Get cluster UUID
-cluster_uuid=$(pks cluster demo | grep UUID | awk -F : '{print $2}' | tr -d "[:blank:]")
+$ROOT_DIR/pks login -a $PKS_SYSTEM_DOMAIN -u $PKS_CLI_USERNAME -p $PKS_CLI_PASSWORD -k
+cluster_uuid=$($ROOT_DIR/pks cluster demo | grep UUID | awk -F : '{print $2}' | tr -d "[:blank:]")
 echo "Cluster UUID: $cluster_uuid"
