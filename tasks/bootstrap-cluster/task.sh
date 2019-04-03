@@ -32,7 +32,7 @@ gcloud config set project $GCP_PROJECT_ID
 
 #Get cluster UUID
 $ROOT_DIR/pks login -a $PKS_SYSTEM_DOMAIN -u $PKS_CLI_USERNAME -p $PKS_CLI_PASSWORD -k
-cluster_uuid=$($ROOT_DIR/pks cluster demo | grep UUID | awk -F : '{print $2}' | tr -d "[:blank:]")
+cluster_uuid=$($ROOT_DIR/pks cluster $PKS_CLUSTER_NAME | grep UUID | awk -F : '{print $2}' | tr -d "[:blank:]")
 echo "Cluster UUID: $cluster_uuid"
 
 cluster_masters=($($ROOT_DIR/bosh vms -d service-instance_$cluster_uuid | grep master | awk '{print $5}'))
@@ -43,3 +43,13 @@ for ((i = 0; i != length; i++)); do
    echo "$i: ${cluster_masters[i]} -- ${cluster_masters_zones[i]}"
    gcloud --quiet compute target-pools add-instances $PKS_CLUSTER_LB_NAME --instances=${cluster_masters[i]} --instances-zone=${cluster_masters_zones[i]}
 done
+
+#Finally We test it
+apt-get install -y apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+apt-get update
+apt-get install -y kubectl
+
+$ROOT_DIR/pks get-credentials $PKS_CLUSTER_NAME
+kubectl cluster-info
