@@ -1557,6 +1557,7 @@ jobs:
       GCP_REGION: ((gcp.region))
       GCP_SERVICE_ACCOUNT_KEY: ((gcp.json_key))
       PKS_CLUSTER_NAME: ((pks.cluster_name))
+      PKS_CLI_PREFIX: ((products.pks.cli_globs))
       BOSH_CLI_URL: ((bosh_cli_url))
       OM_CLI_URL: ((om_cli_url))
       BOSH_DOMAIN_OR_IP_ADDRESS: bosh.((gcp.dns_zone_dns_name))
