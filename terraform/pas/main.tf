@@ -278,5 +278,5 @@ resource "google_dns_record_set" "wildcard-mesh-dns" {
 
   managed_zone = "${var.dns_zone_name}"
 
-  rrdatas = ["${module.mesh.global_address}"]
+  rrdatas = ["${module.mesh.address}"]
 }
