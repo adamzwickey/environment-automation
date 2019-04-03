@@ -19,7 +19,7 @@ eval "$($ROOT_DIR/om \
 $ROOT_DIR/bosh login
 
 # Stop On-Demand SIs and PKS clusters
-service_instances=($($ROOT_DIR/bosh -e pcf deployments | grep service-instance | awk '{print $1}'))
+service_instances=($($ROOT_DIR/bosh deployments | grep service-instance | awk '{print $1}'))
 echo "Stopping Service Instances:"
 length=${#service_instances[@]}
 for ((i = 0; i != length; i++)); do
