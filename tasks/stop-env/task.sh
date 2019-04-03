@@ -2,6 +2,7 @@
 # Source: https://github.com/pivotalservices/concourse-pipeline-samples/blob/master/tasks/pcf/pks/configure-pks-cli-user/task.sh
 set -eu
 export ROOT_DIR=`pwd`
+apt-get update -y && apt-get install -y curl jq
 
 curl -L $BOSH_CLI_URL -o $ROOT_DIR/bosh
 chmod u+x $ROOT_DIR/bosh
