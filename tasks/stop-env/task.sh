@@ -42,7 +42,7 @@ echo "Stopping all deployments but CF:"
 length=${#deployments[@]}
 for ((i = 0; i != length; i++)); do
    echo "Stopping $i: ${deployments[i]}"
-   $ROOT_DIR/bosh stop -n --hard -d ${deployments[i]}
+   $ROOT_DIR/bosh -n stop --hard -d ${deployments[i]}
 done
 
 # Stop cf
@@ -67,5 +67,5 @@ if [ "$cf_deployment" == "1" ]; then
                 | jq -rc '.[] .guid' \
                 | grep "cf-" ))
   echo "Stopping CF deployment: $cf"
-  $ROOT_DIR/bosh stop -n --hard -d ${cf}
+  $ROOT_DIR/bosh -n stop --hard -d ${cf}
 fi
