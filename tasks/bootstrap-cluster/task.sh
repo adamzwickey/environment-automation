@@ -34,3 +34,10 @@ gcloud config set project $GCP_PROJECT_ID
 $ROOT_DIR/pks login -a $PKS_SYSTEM_DOMAIN -u $PKS_CLI_USERNAME -p $PKS_CLI_PASSWORD -k
 cluster_uuid=$($ROOT_DIR/pks cluster demo | grep UUID | awk -F : '{print $2}' | tr -d "[:blank:]")
 echo "Cluster UUID: $cluster_uuid"
+
+cluster_masters=($(bosh vms -d service-instance_4b1409ad-8495-4663-b643-bcc509c4a4cc | grep worker | awk '{print $5}'))
+echo "PKS Cluster Master(s):"
+length=${#cluster_masters[@]}
+for ((i = 0; i != length; i++)); do
+   echo "Master $i: '${cluster_masters[i]}'"
+done
