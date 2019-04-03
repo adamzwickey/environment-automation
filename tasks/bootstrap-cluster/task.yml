@@ -5,7 +5,7 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: azwickey/deploy-worker
+    repository: ubuntu/xenial 
 
 inputs:
 - name: environment-automation
