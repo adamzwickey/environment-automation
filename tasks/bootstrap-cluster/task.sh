@@ -13,7 +13,7 @@ chmod u+x $ROOT_DIR/bosh
 curl -L $OM_CLI_URL -o $ROOT_DIR/om
 chmod u+x $ROOT_DIR/om
 
-PRODUCTS=$(om-linux \
+PRODUCTS=$(om \
             -t https://$OPSMAN_DOMAIN_OR_IP_ADDRESS \
             -u $OPSMAN_USERNAME \
             -p $OPSMAN_PASSWORD \
