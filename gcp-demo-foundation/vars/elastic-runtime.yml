@@ -29,6 +29,7 @@ pas:
     cells: 3
     control_elb_names: ["tcp:pcf-cf-ssh"]
     router_elb_names: ["tcp:pcf-cf-ws","http:pcf-httpslb"]
+    istio_router_elb_names: ["tcp:pcf-mesh"]
   errand_config:
     deploy-autoscaler: true
     deploy-notifications: true
