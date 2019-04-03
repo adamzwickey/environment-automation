@@ -43,13 +43,3 @@ for ((i = 0; i != length; i++)); do
    echo "$i: ${cluster_masters[i]} -- ${cluster_masters_zones[i]}"
    gcloud --quiet compute target-pools add-instances $PKS_CLUSTER_LB_NAME --instances=${cluster_masters[i]} --instances-zone=${cluster_masters_zones[i]}
 done
-
-#Finally We test it
-apt-get install -y apt-transport-https
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
-apt-get update
-apt-get install -y kubectl
-
-$ROOT_DIR/pks get-credentials $PKS_CLUSTER_NAME
-kubectl cluster-info
