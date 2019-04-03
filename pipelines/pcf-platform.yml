@@ -1560,6 +1560,7 @@ jobs:
       PKS_CLI_USERNAME: ((pks.api.username))
       PKS_CLI_PASSWORD: ((pks.api.password))
       PKS_CLUSTER_NAME: ((pks.cluster_name))
+      PKS_CLUSTER_LB_NAME: ((env.name))-pks-cluster-1
       PKS_CLI_PREFIX: ((products.pks.cli_globs))
       BOSH_CLI_URL: ((bosh_cli_url))
       OM_CLI_URL: ((om_cli_url))
