@@ -21,6 +21,12 @@ product-properties:
     value: disable
   .properties.istio:
     value: enable
+  .properties.istio_frontend_tls_keypairs:
+    value:
+    - certificate:
+        cert_pem: "((pas.networks.ssl.certificate))"
+        private_key_pem: "((pas.networks.ssl.private_key))"
+      name: Istio-SSL-Cert
   .properties.security_acknowledgement:
     value: X
   .uaa.service_provider_key_credentials:
