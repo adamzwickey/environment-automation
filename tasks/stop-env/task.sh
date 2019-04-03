@@ -25,7 +25,7 @@ echo "Stopping Service Instances:"
 length=${#service_instances[@]}
 for ((i = 0; i != length; i++)); do
    echo "$i: ${service_instances[i]}"
-   $ROOT_DIR/bosh -n stop --hard -d ${service_instances[i]}
+   $ROOT_DIR/bosh -n stop --hard --skip-drain -d ${service_instances[i]}
 done
 
 # Stop everything BUT cf
