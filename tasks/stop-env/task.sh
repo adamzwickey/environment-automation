@@ -36,7 +36,7 @@ deployments=($($ROOT_DIR/om \
               curl -p /api/v0/deployed/products \
               2>/dev/null \
               | jq -rc '.[] .guid' \
-              grep -v "cf-"))
+              | grep -v "cf-"))
 echo "Stopping all deployments but CF:"
 length=${#deployments[@]}
 for ((i = 0; i != length; i++)); do
@@ -53,6 +53,6 @@ cf_deployment=($($ROOT_DIR/om \
               curl -p /api/v0/deployed/products \
               2>/dev/null \
               | jq -rc '.[] .guid' \
-              grep "cf-"))
+              | grep "cf-"))
 echo "Stopping CF deployment: $cf_deployment"
 #$ROOT_DIR/bosh stop --hard -d ${cf_deployment}
