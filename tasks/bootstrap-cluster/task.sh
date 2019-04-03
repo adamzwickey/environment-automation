@@ -41,5 +41,5 @@ echo "PKS Cluster Master(s) VMs:"
 length=${#cluster_masters[@]}
 for ((i = 0; i != length; i++)); do
    echo "$i: ${cluster_masters[i]} -- ${cluster_masters_zones[i]}"
-   gcloud --quiet compute target-pools add-instances $PKS_CLUSTER_LB_NAME --instances=${cluster_masters[i] --instances-zone=${cluster_masters_zones[i]}
+   gcloud --quiet compute target-pools add-instances $PKS_CLUSTER_LB_NAME --instances=${cluster_masters[i]} --instances-zone=${cluster_masters_zones[i]}
 done
