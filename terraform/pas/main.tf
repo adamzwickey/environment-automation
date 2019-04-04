@@ -13,7 +13,7 @@ resource "google_compute_firewall" "pcf-allow-http" {
   }
 
   source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["allow-http", "router"]
+  target_tags   = ["allow-http", "router", "istio-router"]
 }
 
 // Allow https from public
@@ -27,7 +27,7 @@ resource "google_compute_firewall" "pcf-allow-https" {
   }
 
   source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["allow-https", "router"]
+  target_tags   = ["allow-https", "router", "istio-router"]
 }
 
 //// GO Router Health Checks
@@ -41,7 +41,7 @@ resource "google_compute_firewall" "pcf-allow-http-8080" {
   }
 
   source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["router"]
+  target_tags   = ["router", "istio-router"]
 }
 
 //// Allow access to ssh-proxy [Optional]
