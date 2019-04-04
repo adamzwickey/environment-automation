@@ -10,12 +10,12 @@ product-properties:
     value: ((redis.shared.limits))
   .properties.syslog_selector:
     value: "No"
-  .properties.small_plan_selector.active.az_single_select:
-    value: ((redis.small_plan.singleton_availability_zone))
-  .properties.medium_plan_selector.active.az_single_select:
-    value: ((redis.medium_plan.singleton_availability_zone))
-  .properties.large_plan_selector.active.az_single_select:
-    value: ((redis.large_plan.singleton_availability_zone))
+  .properties.small_plan_selector.active.az_multi_select:
+    value: ((redis.small_plan.az_placement))
+  .properties.medium_plan_selector.active.az_multi_select:
+    value: ((redis.medium_plan.az_placement))
+  .properties.large_plan_selector.active.az_multi_select:
+    value: ((redis.large_plan.az_placement))
 errand-config:
   broker-deregistrar:
     pre-delete-state: ((redis.errand_config.broker-deregistrar))

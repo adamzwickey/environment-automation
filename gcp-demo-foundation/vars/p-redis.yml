@@ -11,11 +11,11 @@ redis:
   shared:
     limits: 25
   small_plan:
-    singleton_availability_zone: us-east1-b
+    az_placement: ["us-east1-b","us-east1-c","us-east1-d"]
   medium_plan:
-    singleton_availability_zone: us-east1-b
+    az_placement: ["us-east1-b","us-east1-c","us-east1-d"]
   large_plan:
-    singleton_availability_zone: us-east1-b
+    az_placement: ["us-east1-b","us-east1-c","us-east1-d"]
   errand_config:
     broker-deregistrar: true
     broker-registrar: true
