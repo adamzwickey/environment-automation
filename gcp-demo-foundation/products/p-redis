@@ -21,12 +21,8 @@ errand-config:
     pre-delete-state: ((redis.errand_config.broker-deregistrar))
   broker-registrar:
     post-deploy-state: ((redis.errand_config.broker-registrar))
-  cleanup-metadata-if-dedicated-disabled:
-    post-deploy-state: ((redis.errand_config.cleanup-metadata-if-dedicated-disabled))
   delete-all-service-instances-and-deregister-broker:
     pre-delete-state: ((redis.errand_config.delete-all-service-instances-and-deregister-broker))
-  deprecate-dedicated-vm-plan:
-    post-deploy-state: ((redis.errand_config.deprecate-dedicated-vm-plan))
   on-demand-broker-smoke-tests:
     post-deploy-state: ((redis.errand_config.on-demand-broker-smoke-tests))
   register-broker:
@@ -35,3 +31,7 @@ errand-config:
     post-deploy-state: ((redis.errand_config.smoke-tests))
   upgrade-all-service-instances:
     post-deploy-state: ((redis.errand_config.upgrade-all-service-instances))
+  orphan-deployments:
+    post-deploy-state: ((redis.errand_config.orphan-deployments))
+  recreate-all-service-instances:
+    post-deploy-state: ((redis.errand_config.recreate-all-service-instances))

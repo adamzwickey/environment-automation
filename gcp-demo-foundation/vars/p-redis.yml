@@ -26,3 +26,5 @@ redis:
     register-broker: true
     smoke-tests: true
     upgrade-all-service-instances: true
+    orphan-deployments: false
+    recreate-all-service-instances: false
