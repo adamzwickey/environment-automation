@@ -2,6 +2,8 @@ product-name: cf
 product-properties:
   .cloud_controller.allow_app_ssh_access:
     value: true
+  .cloud_controller.apps_domain:
+    value: apps.public.cloud.zwickey.net
   .cloud_controller.default_app_memory:
     value: 1024
   .cloud_controller.default_app_ssh_access:
@@ -25,6 +27,8 @@ product-properties:
     value: true
   .cloud_controller.staging_timeout_in_seconds:
     value: 900
+  .cloud_controller.system_domain:
+    value: run.public.cloud.zwickey.net
   .diego_brain.starting_container_count_maximum:
     value: 200
   .ha_proxy.skip_cert_verify:
@@ -39,6 +43,8 @@ product-properties:
     value: false
   .mysql_monitor.poll_frequency:
     value: 30
+  .mysql_monitor.recipient_email:
+    value: azwickey@gmail.com
   .mysql_monitor.write_read_delay:
     value: 20
   .mysql_proxy.shutdown_delay:
@@ -102,6 +108,13 @@ product-properties:
   .properties.credhub_hsm_provider_partition_password:
     value:
       secret: ((properties_credhub_hsm_provider_partition_password.secret))
+  .properties.credhub_key_encryption_passwords:
+    value:
+    - key:
+        secret: ((properties_credhub_key_encryption_passwords_0_key.secret))
+      name: primary
+      primary: true
+      provider: internal
   .properties.diego_database_max_open_connections:
     value: 100
   .properties.diego_log_timestamp_format:
@@ -119,7 +132,7 @@ product-properties:
   .properties.haproxy_client_cert_validation:
     value: none
   .properties.haproxy_forward_tls:
-    value: enable
+    value: disable
   .properties.haproxy_hsts_support:
     value: disable
   .properties.haproxy_max_buffer_size:
@@ -127,7 +140,13 @@ product-properties:
   .properties.haproxy_ssl_ciphers:
     value: DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384
   .properties.istio:
-    value: disable
+    value: enable
+  .properties.istio_frontend_tls_keypairs:
+    value:
+    - certificate:
+        cert_pem: ((properties_istio_frontend_tls_keypairs_0_certificate.cert_pem))
+        private_key_pem: ((properties_istio_frontend_tls_keypairs_0_certificate.private_key_pem))
+      name: Istio-SSL-Cert
   .properties.locket_database_max_open_connections:
     value: 200
   .properties.metric_registrar_blacklisted_tags:
@@ -140,6 +159,12 @@ product-properties:
     value: enable
   .properties.mysql_activity_logging.enable.audit_logging_events:
     value: connect,query
+  .properties.networking_poe_ssl_certs:
+    value:
+    - certificate:
+        cert_pem: ((properties_networking_poe_ssl_certs_0_certificate.cert_pem))
+        private_key_pem: ((properties_networking_poe_ssl_certs_0_certificate.private_key_pem))
+      name: SSL-Cert
   .properties.networkpolicyserver_database_max_open_connections:
     value: 200
   .properties.networkpolicyserverinternal_database_max_open_connections:
@@ -185,6 +210,8 @@ product-properties:
     value: SHA256
   .properties.secure_service_instance_credentials:
     value: false
+  .properties.security_acknowledgement:
+    value: X
   .properties.silk_database_max_open_connections:
     value: 200
   .properties.smoke_tests:
@@ -197,6 +224,8 @@ product-properties:
       password: ((properties_smtp_credentials.password))
   .properties.smtp_enable_starttls_auto:
     value: false
+  .properties.stack_migration_acknowledgement:
+    value: X
   .properties.syslog_drop_debug:
     value: true
   .properties.syslog_metrics_to_syslog_enabled:
@@ -206,7 +235,20 @@ product-properties:
   .properties.syslog_use_tcp_for_file_forwarding_local_transport:
     value: false
   .properties.system_blobstore:
-    value: internal
+    value: external_gcs
+  .properties.system_blobstore.external_gcs.access_key:
+    value: GOOG2HEJSCWIRIURGQ7Y
+  .properties.system_blobstore.external_gcs.buildpacks_bucket:
+    value: fe-azwickey-pcf-buildpacks
+  .properties.system_blobstore.external_gcs.droplets_bucket:
+    value: fe-azwickey-pcf-droplets
+  .properties.system_blobstore.external_gcs.packages_bucket:
+    value: fe-azwickey-pcf-packages
+  .properties.system_blobstore.external_gcs.resources_bucket:
+    value: fe-azwickey-pcf-resources
+  .properties.system_blobstore.external_gcs.secret_key:
+    value:
+      secret: ((properties_system_blobstore_external_gcs_secret_key.secret))
   .properties.system_blobstore_ccdroplet_max_staged_droplets_stored:
     value: 2
   .properties.system_blobstore_ccpackage_max_valid_packages_stored:
@@ -273,26 +315,31 @@ product-properties:
     value:
       secret: ((uaa_service_provider_key_password.secret))
 network-properties:
-  network: null
-  other_availability_zones: []
-  singleton_availability_zone: null
+  network:
+    name: pas
+  other_availability_zones:
+  - name: us-east1-b
+  - name: us-east1-c
+  - name: us-east1-d
+  singleton_availability_zone:
+    name: us-east1-b
 resource-config:
   backup_restore:
-    instances: automatic
+    instances: 0
     persistent_disk:
       size_mb: automatic
     instance_type:
       id: automatic
     internet_connected: true
   blobstore:
-    instances: automatic
+    instances: 0
     persistent_disk:
       size_mb: automatic
     instance_type:
       id: automatic
     internet_connected: true
   compute:
-    instances: automatic
+    instances: 3
     instance_type:
       id: automatic
     internet_connected: true
@@ -301,6 +348,8 @@ resource-config:
     instance_type:
       id: automatic
     internet_connected: true
+    elb_names:
+    - tcp:pcf-cf-ssh
   database:
     instances: automatic
     persistent_disk:
@@ -309,35 +358,40 @@ resource-config:
       id: automatic
     internet_connected: true
   ha_proxy:
-    instances: automatic
+    instances: 0
     instance_type:
       id: automatic
     internet_connected: true
   istio_control:
-    instances: 0
+    instances: automatic
     instance_type:
       id: automatic
     internet_connected: true
   istio_router:
-    instances: 0
+    instances: 1
     instance_type:
       id: automatic
     internet_connected: true
+    elb_names:
+    - tcp:pcf-mesh
   mysql_monitor:
-    instances: automatic
+    instances: 0
     instance_type:
       id: automatic
     internet_connected: true
   route_syncer:
-    instances: 0
-    instance_type:
-      id: automatic
-    internet_connected: true
-  router:
     instances: automatic
     instance_type:
       id: automatic
     internet_connected: true
+  router:
+    instances: 1
+    instance_type:
+      id: automatic
+    internet_connected: true
+    elb_names:
+    - tcp:pcf-cf-ws
+    - http:pcf-httpslb
   tcp_router:
     instances: 0
     persistent_disk:
