@@ -58,7 +58,7 @@ product-properties:
   .properties.wavefront:
     value: disabled
   .properties.worker_max_in_flight:
-    value: 5
+    value: 1
 network-properties:
   network:
     name: pks
