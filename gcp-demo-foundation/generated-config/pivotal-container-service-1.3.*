@@ -4,12 +4,8 @@ product-properties:
     value:
       cert_pem: ((pivotal-container-service_pks_tls.cert_pem))
       private_key_pem: ((pivotal-container-service_pks_tls.private_key_pem))
-  .properties.cloud_provider.azure.azure_cloud_name:
-    value: AzurePublicCloud
-  .properties.cloud_provider.vsphere.vcenter_master_creds:
-    value:
-      identity: ((properties_cloud_provider_vsphere_vcenter_master_creds.identity))
-      password: ((properties_cloud_provider_vsphere_vcenter_master_creds.password))
+  .properties.cloud_provider:
+    value: GCP
   .properties.network_selector:
     value: flannel
   .properties.network_selector.flannel.pod_network_cidr:
@@ -18,12 +14,14 @@ product-properties:
     value: 10.100.200.0/24
   .properties.pks-vrli:
     value: disabled
+  .properties.pks_api_hostname:
+    value: pks.public.cloud.zwickey.net
   .properties.plan1_selector:
     value: Plan Active
   .properties.plan2_selector:
-    value: Plan Inactive
+    value: Plan Active
   .properties.plan3_selector:
-    value: Plan Inactive
+    value: Plan Active
   .properties.plan4_selector:
     value: Plan Inactive
   .properties.plan5_selector:
@@ -44,12 +42,8 @@ product-properties:
     value: enabled
   .properties.syslog_selector:
     value: disabled
-  .properties.telemetry_selector.enabled.billing_polling_interval:
-    value: 60
-  .properties.telemetry_selector.enabled.telemetry_polling_interval:
-    value: 600
-  .properties.telemetry_selector.enabled.telemetry_url:
-    value: https://vcsa.vmware.com/ph
+  .properties.telemetry_selector:
+    value: disabled
   .properties.uaa:
     value: internal
   .properties.uaa_oidc:
@@ -58,15 +52,24 @@ product-properties:
     value: 600
   .properties.uaa_pks_cli_refresh_token_lifetime:
     value: 21600
+  .properties.vm_extensions:
+    value:
+    - public_ip
   .properties.wavefront:
     value: disabled
   .properties.worker_max_in_flight:
-    value: 1
+    value: 5
 network-properties:
-  network: null
-  other_availability_zones: []
-  service_network: null
-  singleton_availability_zone: null
+  network:
+    name: pks
+  other_availability_zones:
+  - name: us-east1-b
+  - name: us-east1-c
+  - name: us-east1-d
+  service_network:
+    name: pks
+  singleton_availability_zone:
+    name: us-east1-b
 resource-config:
   pivotal-container-service:
     instances: automatic
@@ -75,6 +78,8 @@ resource-config:
     instance_type:
       id: automatic
     internet_connected: true
+    elb_names:
+    - tcp:pcf-pks-api
 errand-config:
   delete-all-clusters:
     pre-delete-state: true
