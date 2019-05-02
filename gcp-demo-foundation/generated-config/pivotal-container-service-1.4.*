@@ -1,0 +1,233 @@
+product-name: pivotal-container-service
+product-properties:
+  .pivotal-container-service.pks_tls:
+    value:
+      cert_pem: ((pivotal-container-service_pks_tls.cert_pem))
+      private_key_pem: ((pivotal-container-service_pks_tls.private_key_pem))
+  .properties.cloud_provider:
+    selected_option: gcp
+    value: GCP
+  .properties.cloud_provider.gcp.master_service_account:
+    value: pcf-pks-master@fe-azwickey.iam.gserviceaccount.com
+  .properties.cloud_provider.gcp.network:
+    value: bosh-bootstrap
+  .properties.cloud_provider.gcp.project_id:
+    value: fe-azwickey
+  .properties.cloud_provider.gcp.worker_service_account:
+    value: pcf-pks-worker@fe-azwickey.iam.gserviceaccount.com
+  .properties.log_sink_resources_deploy:
+    value: true
+  .properties.metric_sink_resources_deploy:
+    value: true
+  .properties.network_selector:
+    selected_option: flannel
+    value: flannel
+  .properties.network_selector.flannel.pod_network_cidr:
+    value: 10.200.0.0/16
+  .properties.network_selector.flannel.service_cluster_cidr:
+    value: 10.100.200.0/24
+  .properties.pks-vrli:
+    selected_option: disabled
+    value: disabled
+  .properties.pks-vrops:
+    selected_option: disabled
+    value: disabled
+  .properties.pks_api_hostname:
+    value: pks.public.cloud.zwickey.net
+  .properties.plan1_selector:
+    selected_option: active
+    value: Plan Active
+  .properties.plan1_selector.active.admission_plugins:
+    value:
+    - deny_escalating_exec
+  .properties.plan1_selector.active.allow_privileged_containers:
+    value: true
+  .properties.plan1_selector.active.description:
+    value: 'Example: This plan will configure a lightweight kubernetes cluster. Not
+      recommended for production workloads.'
+  .properties.plan1_selector.active.master_az_placement:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
+  .properties.plan1_selector.active.master_instances:
+    value: 1
+  .properties.plan1_selector.active.max_worker_instances:
+    value: 50
+  .properties.plan1_selector.active.name:
+    value: small
+  .properties.plan1_selector.active.worker_az_placement:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
+  .properties.plan1_selector.active.worker_instances:
+    value: 3
+  .properties.plan2_selector:
+    selected_option: active
+    value: Plan Active
+  .properties.plan2_selector.active.admission_plugins:
+    value:
+    - deny_escalating_exec
+  .properties.plan2_selector.active.allow_privileged_containers:
+    value: true
+  .properties.plan2_selector.active.description:
+    value: 'Example: This plan will configure a medium sized kubernetes cluster, suitable
+      for more pods.'
+  .properties.plan2_selector.active.master_az_placement:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
+  .properties.plan2_selector.active.master_instances:
+    value: 3
+  .properties.plan2_selector.active.max_worker_instances:
+    value: 50
+  .properties.plan2_selector.active.name:
+    value: medium
+  .properties.plan2_selector.active.worker_az_placement:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
+  .properties.plan2_selector.active.worker_instances:
+    value: 5
+  .properties.plan3_selector:
+    selected_option: active
+    value: Plan Active
+  .properties.plan3_selector.active.admission_plugins:
+    value:
+    - deny_escalating_exec
+  .properties.plan3_selector.active.allow_privileged_containers:
+    value: true
+  .properties.plan3_selector.active.description:
+    value: 'Example: This plan will configure a large kubernetes cluster for resource
+      heavy workloads, or a high number of workloads.'
+  .properties.plan3_selector.active.master_az_placement:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
+  .properties.plan3_selector.active.master_instances:
+    value: 3
+  .properties.plan3_selector.active.max_worker_instances:
+    value: 50
+  .properties.plan3_selector.active.name:
+    value: large
+  .properties.plan3_selector.active.worker_az_placement:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
+  .properties.plan3_selector.active.worker_instances:
+    value: 5
+  .properties.plan4_selector:
+    selected_option: active
+    value: Plan Active
+  .properties.plan4_selector.active.admission_plugins:
+    value:
+    - deny_escalating_exec
+  .properties.plan4_selector.active.allow_privileged_containers:
+    value: true
+  .properties.plan4_selector.active.description:
+    value: 'Example: This plan will configure a large kubernetes cluster for resource
+      heavy workloads, or a high number of workloads.'
+  .properties.plan4_selector.active.master_az_placement:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
+  .properties.plan4_selector.active.master_instances:
+    value: 1
+  .properties.plan4_selector.active.max_worker_instances:
+    value: 50
+  .properties.plan4_selector.active.name:
+    value: demo-kafka
+  .properties.plan4_selector.active.worker_az_placement:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
+  .properties.plan4_selector.active.worker_instances:
+    value: 3
+  .properties.plan4_selector.active.worker_vm_type:
+    value: xlarge.mem
+  .properties.plan5_selector:
+    selected_option: inactive
+    value: Plan Inactive
+  .properties.plan6_selector:
+    selected_option: inactive
+    value: Plan Inactive
+  .properties.plan7_selector:
+    selected_option: inactive
+    value: Plan Inactive
+  .properties.plan8_selector:
+    selected_option: inactive
+    value: Plan Inactive
+  .properties.plan9_selector:
+    selected_option: inactive
+    value: Plan Inactive
+  .properties.plan10_selector:
+    selected_option: inactive
+    value: Plan Inactive
+  .properties.proxy_selector:
+    selected_option: disabled
+    value: Disabled
+  .properties.syslog_selector:
+    selected_option: disabled
+    value: disabled
+  .properties.telemetry_selector:
+    selected_option: disabled
+    value: disabled
+  .properties.uaa:
+    selected_option: internal
+    value: internal
+  .properties.uaa_oidc:
+    value: false
+  .properties.uaa_pks_cli_access_token_lifetime:
+    value: 600
+  .properties.uaa_pks_cli_refresh_token_lifetime:
+    value: 21600
+  .properties.vm_extensions:
+    value:
+    - public_ip
+  .properties.wavefront:
+    selected_option: disabled
+    value: disabled
+  .properties.worker_max_in_flight:
+    value: 1
+network-properties:
+  network:
+    name: pks
+  other_availability_zones:
+  - name: us-east1-b
+  - name: us-east1-c
+  - name: us-east1-d
+  service_network:
+    name: pks
+  singleton_availability_zone:
+    name: us-east1-b
+resource-config:
+  pivotal-container-service:
+    instances: automatic
+    persistent_disk:
+      size_mb: automatic
+    instance_type:
+      id: automatic
+    internet_connected: true
+    elb_names:
+    - tcp:pcf-pks-api
+errand-config:
+  delete-all-clusters:
+    pre-delete-state: true
+  pks-nsx-t-precheck:
+    post-deploy-state: false
+  smoke-tests:
+    post-deploy-state: false
+  upgrade-all-service-instances:
+    post-deploy-state: true
+  wavefront-alert-creation:
+    post-deploy-state: false
+  wavefront-alert-deletion:
+    pre-delete-state: false
+
