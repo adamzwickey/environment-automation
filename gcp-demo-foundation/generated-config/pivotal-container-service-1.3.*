@@ -23,7 +23,7 @@ product-properties:
   .properties.plan3_selector:
     value: Plan Active
   .properties.plan4_selector:
-    value: Plan Inactive
+    value: Plan Active
   .properties.plan5_selector:
     value: Plan Inactive
   .properties.plan6_selector:
