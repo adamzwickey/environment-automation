@@ -5,6 +5,12 @@ az-configuration:
   iaas_configuration_guid: 139028c12aa2ed71fa79
 - name: us-east1-d
   iaas_configuration_guid: 139028c12aa2ed71fa79
+iaas-configurations:
+- additional_cloud_properties: {}
+  associated_service_account: ((iaas-configurations_0_associated_service_account))
+  default_deployment_tag: ((iaas-configurations_0_default_deployment_tag))
+  name: ((iaas-configurations_0_name))
+  project: ((iaas-configurations_0_project))
 network-assignment:
   network:
     name: mgmt
@@ -66,9 +72,7 @@ properties-configuration:
     database_type: internal
     director_hostname: bosh.public.cloud.zwickey.net
     director_worker_count: 5
-    encryption:
-      keys: []
-      providers: []
+    encryption: []
     hm_emailer_options:
       enabled: false
     hm_pager_duty_options:
@@ -83,18 +87,9 @@ properties-configuration:
     resurrector_enabled: true
     retry_bosh_deploys: false
     skip_director_drain: true
-  dns_configuration:
-    excluded_recursors: []
-    handlers: []
-  iaas_configuration:
-    additional_cloud_properties: {}
-    associated_service_account: ((properties-configuration_iaas_configuration_associated_service_account))
-    default_deployment_tag: ((properties-configuration_iaas_configuration_default_deployment_tag))
-    guid: ((properties-configuration_iaas_configuration_guid))
-    name: ((properties-configuration_iaas_configuration_name))
-    project: ((properties-configuration_iaas_configuration_project))
+  dns_configuration: []
   security_configuration:
-    generate_vm_passwords: true
+    generate_vm_passwords: ((properties-configuration_security_configuration_generate_vm_passwords))
     opsmanager_root_ca_trusted_certs: true
   syslog_configuration:
     enabled: false
