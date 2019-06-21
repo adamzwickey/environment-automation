@@ -1,9 +1,9 @@
 az-configuration:
-- name: us-east1-d
+- name: us-east1-b
   iaas_configuration_guid: 139028c12aa2ed71fa79
 - name: us-east1-c
   iaas_configuration_guid: 139028c12aa2ed71fa79
-- name: us-east1-b
+- name: us-east1-d
   iaas_configuration_guid: 139028c12aa2ed71fa79
 iaas-configurations:
 - additional_cloud_properties: {}
