@@ -7,19 +7,78 @@ product-properties:
   .cf-redis-broker.service_instance_limit:
     value: 5
   .properties.backups_selector:
+    selected_option: disabled
     value: No Backups
   .properties.canary_org_space_selector:
+    selected_option: inactive
     value: "No"
   .properties.large_plan_selector:
+    selected_option: active
     value: Plan Active
+  .properties.large_plan_selector.active.cf_service_access:
+    value: enable
+  .properties.large_plan_selector.active.description:
+    value: This plan provides a large on-demand Redis instance, tailored for caching
+      use-cases with persistence to disk enabled
+  .properties.large_plan_selector.active.instance_limit:
+    value: 20
+  .properties.large_plan_selector.active.lua_scripting:
+    value: false
+  .properties.large_plan_selector.active.maxclients:
+    value: 10000
+  .properties.large_plan_selector.active.name:
+    value: cache-large
+  .properties.large_plan_selector.active.tcp_keepalive:
+    value: 60
+  .properties.large_plan_selector.active.timeout:
+    value: 3600
   .properties.medium_plan_selector:
+    selected_option: active
     value: Plan Active
+  .properties.medium_plan_selector.active.cf_service_access:
+    value: enable
+  .properties.medium_plan_selector.active.description:
+    value: This plan provides a medium on-demand Redis instance, tailored for caching
+      use-cases with persistence to disk enabled
+  .properties.medium_plan_selector.active.instance_limit:
+    value: 20
+  .properties.medium_plan_selector.active.lua_scripting:
+    value: false
+  .properties.medium_plan_selector.active.maxclients:
+    value: 5000
+  .properties.medium_plan_selector.active.name:
+    value: cache-medium
+  .properties.medium_plan_selector.active.tcp_keepalive:
+    value: 60
+  .properties.medium_plan_selector.active.timeout:
+    value: 3600
   .properties.metrics_polling_interval:
     value: 30
   .properties.small_plan_selector:
+    selected_option: active
     value: Plan Active
+  .properties.small_plan_selector.active.cf_service_access:
+    value: enable
+  .properties.small_plan_selector.active.description:
+    value: This plan provides a small on-demand Redis instance, tailored for caching
+      use-cases with persistence to disk enabled
+  .properties.small_plan_selector.active.instance_limit:
+    value: 20
+  .properties.small_plan_selector.active.lua_scripting:
+    value: false
+  .properties.small_plan_selector.active.maxclients:
+    value: 1000
+  .properties.small_plan_selector.active.name:
+    value: cache-small
+  .properties.small_plan_selector.active.tcp_keepalive:
+    value: 60
+  .properties.small_plan_selector.active.timeout:
+    value: 3600
   .properties.syslog_selector:
+    selected_option: active
     value: Yes without encryption
+  .properties.syslog_selector.active.syslog_transport:
+    value: tcp
   .redis-on-demand-broker.enable_create_swap_delete:
     value: false
   .redis-on-demand-broker.maximum_parallel_upgrades:
