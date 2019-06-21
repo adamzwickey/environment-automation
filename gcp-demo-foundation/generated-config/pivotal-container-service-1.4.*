@@ -124,9 +124,6 @@ product-properties:
   .properties.plan4_selector:
     selected_option: active
     value: Plan Active
-  .properties.plan4_selector.active.admission_plugins:
-    value:
-    - deny_escalating_exec
   .properties.plan4_selector.active.allow_privileged_containers:
     value: true
   .properties.plan4_selector.active.description:
@@ -151,7 +148,7 @@ product-properties:
   .properties.plan4_selector.active.worker_instances:
     value: 3
   .properties.plan4_selector.active.worker_vm_type:
-    value: xlarge.mem
+    value: xlarge
   .properties.plan5_selector:
     selected_option: inactive
     value: Plan Inactive
