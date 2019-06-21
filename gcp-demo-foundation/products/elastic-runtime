@@ -9,8 +9,6 @@ product-properties:
     value: ((pas.cloud_controller.apps_domain))
   .cloud_controller.system_domain:
     value: ((pas.cloud_controller.system_domain))
-  .properties.stack_migration_acknowledgement:
-    value: X
   .properties.networking_poe_ssl_certs:
     value:
     - certificate:
