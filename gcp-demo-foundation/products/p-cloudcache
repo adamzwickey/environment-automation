@@ -1,5 +1,7 @@
 product-name: p-cloudcache
 product-properties:
+  .properties.errand_plan:
+    value: devplan
   .properties.authenticate_with_uaa:
     selected_option: disable
     value: disable
