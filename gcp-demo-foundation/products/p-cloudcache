@@ -18,6 +18,8 @@ product-properties:
     value: 10
   .properties.dev_plan_enable_service_plan.enable.service_metrics:
     value: false
+  .properties.dev_plan_enable_service_plan.enable.service_instance_azs:
+    value: ((pcc.plans.az_placement))
   .properties.enable_secure_binding:
     value: false
   .properties.number_simultaneous_upgrades:

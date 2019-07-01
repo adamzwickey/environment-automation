@@ -10,9 +10,5 @@ pcc:
       - name: us-east1-d
   shared:
     limits: 25
-  small_plan:
-    az_placement: ["us-east1-b","us-east1-c","us-east1-d"]
-  medium_plan:
-    az_placement: ["us-east1-b","us-east1-c","us-east1-d"]
-  large_plan:
+  plans:
     az_placement: ["us-east1-b","us-east1-c","us-east1-d"]
