@@ -50,26 +50,26 @@ products:
     # Pivnet-based
     product_slug: ops-manager
     product_name: ""
-    product_version: 2.5.*
+    product_version: 2.6.*
     product_globs: "*gcp*.yml"
   pas:
     product_slug: elastic-runtime
     product_name: cf
-    product_version: 2.5.*
+    product_version: 2.6.*
     product_globs: "srt-*.pivotal"
     stemcell:
       product_slug: stemcells-ubuntu-xenial
-      product_version: "250.*"
+      product_version: "315.*"
       product_globs: light-bosh-stemcell-*-google-*.tgz
   pks:
     product_slug: pivotal-container-service
     product_name: pivotal-container-service
-    product_version: 1.3.*
+    product_version: 1.4.*
     product_globs: "pivotal-container-service*.pivotal"
     cli_globs: "pks-linux-amd64*"
     stemcell:
       product_slug: stemcells-ubuntu-xenial
-      product_version: "170.30"
+      product_version: "250.25"
       product_globs: light-bosh-stemcell-*-google-*.tgz
   redis:
     product_slug: p-redis
@@ -78,5 +78,14 @@ products:
     product_globs: "p-redis*.pivotal"
     stemcell:
       product_slug: stemcells-ubuntu-xenial
-      product_version: "170.30"
+      product_version: "250.*"
+      product_globs: light-bosh-stemcell-*-google-*.tgz
+  pcc:
+    product_slug: p-cloudcache
+    product_name: p-cloudcache
+    product_version: 1.8.*
+    product_globs: "p-cloudcache*.pivotal"
+    stemcell:
+      product_slug: stemcells-ubuntu-xenial
+      product_version: "315.34"
       product_globs: light-bosh-stemcell-*-google-*.tgz
