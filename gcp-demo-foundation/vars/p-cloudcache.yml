@@ -1,5 +1,5 @@
 ---
-redis:
+pcc:
   networks:
     network: {name: services}
     services_network: {name: services}
