@@ -7,6 +7,9 @@ product-properties:
     value: disable
   .properties.default_distributed_system_id:
     value: 0
+  .properties.vm_extensions:
+    value:
+    - public_ip
   .properties.dev_plan_enable_service_plan:
     selected_option: enable
     value: enable
