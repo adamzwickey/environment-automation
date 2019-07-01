@@ -22,7 +22,7 @@ product-properties:
   .properties.dev_plan_enable_service_plan.enable.service_instance_quota:
     value: 10
   .properties.dev_plan_enable_service_plan.enable.service_metrics:
-    value: false
+    value: true
   .properties.dev_plan_enable_service_plan.enable.service_instance_azs:
     value: ((pcc.plans.az_placement))
   .properties.enable_secure_binding:
@@ -47,7 +47,7 @@ product-properties:
   .properties.plan1_enable_service_plan.enable.service_instance_quota:
     value: 10
   .properties.plan1_enable_service_plan.enable.service_metrics:
-    value: false
+    value: true
   .properties.plan1_enable_service_plan.enable.service_instance_azs:
     value: ((pcc.plans.az_placement))
   .properties.plan2_enable_service_plan:
@@ -66,7 +66,7 @@ product-properties:
   .properties.plan2_enable_service_plan.enable.service_instance_quota:
     value: 10
   .properties.plan2_enable_service_plan.enable.service_metrics:
-    value: false
+    value: true
   .properties.plan2_enable_service_plan.enable.service_instance_azs:
     value: ((pcc.plans.az_placement))
   .properties.plan3_enable_service_plan:
@@ -85,7 +85,7 @@ product-properties:
   .properties.plan3_enable_service_plan.enable.service_instance_quota:
     value: 10
   .properties.plan3_enable_service_plan.enable.service_metrics:
-    value: false
+    value: true
   .properties.plan3_enable_service_plan.enable.service_instance_azs:
     value: ((pcc.plans.az_placement))
   .properties.plan4_enable_service_plan:
@@ -104,7 +104,7 @@ product-properties:
   .properties.plan4_enable_service_plan.enable.service_instance_quota:
     value: 10
   .properties.plan4_enable_service_plan.enable.service_metrics:
-    value: false
+    value: true
   .properties.plan4_enable_service_plan.enable.service_instance_azs:
     value: ((pcc.plans.az_placement))
   .properties.plan5_enable_service_plan:
@@ -123,7 +123,7 @@ product-properties:
   .properties.plan5_enable_service_plan.enable.service_instance_quota:
     value: 10
   .properties.plan5_enable_service_plan.enable.service_metrics:
-    value: false
+    value: true
   .properties.plan5_enable_service_plan.enable.service_instance_azs:
     value: ((pcc.plans.az_placement))
   .properties.small_footprint_enable_service_plan:
@@ -140,7 +140,7 @@ product-properties:
   .properties.small_footprint_enable_service_plan.enable.service_instance_quota:
     value: 10
   .properties.small_footprint_enable_service_plan.enable.service_metrics:
-    value: false
+    value: true
   .properties.small_footprint_enable_service_plan.enable.service_instance_azs:
     value: ((pcc.plans.az_placement))
   .properties.syslog:
