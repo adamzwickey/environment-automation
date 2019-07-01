@@ -43,6 +43,8 @@ product-properties:
     value: 10
   .properties.plan1_enable_service_plan.enable.service_metrics:
     value: false
+  .properties.plan1_enable_service_plan.enable.service_instance_azs:
+    value: ((pcc.plans.az_placement))
   .properties.plan2_enable_service_plan:
     selected_option: enable
     value: enable
@@ -60,6 +62,8 @@ product-properties:
     value: 10
   .properties.plan2_enable_service_plan.enable.service_metrics:
     value: false
+  .properties.plan2_enable_service_plan.enable.service_instance_azs:
+    value: ((pcc.plans.az_placement))
   .properties.plan3_enable_service_plan:
     selected_option: enable
     value: enable
@@ -77,6 +81,8 @@ product-properties:
     value: 10
   .properties.plan3_enable_service_plan.enable.service_metrics:
     value: false
+  .properties.plan3_enable_service_plan.enable.service_instance_azs:
+    value: ((pcc.plans.az_placement))
   .properties.plan4_enable_service_plan:
     selected_option: enable
     value: enable
@@ -94,6 +100,8 @@ product-properties:
     value: 10
   .properties.plan4_enable_service_plan.enable.service_metrics:
     value: false
+  .properties.plan4_enable_service_plan.enable.service_instance_azs:
+    value: ((pcc.plans.az_placement))
   .properties.plan5_enable_service_plan:
     selected_option: enable
     value: enable
@@ -111,6 +119,8 @@ product-properties:
     value: 10
   .properties.plan5_enable_service_plan.enable.service_metrics:
     value: false
+  .properties.plan5_enable_service_plan.enable.service_instance_azs:
+    value: ((pcc.plans.az_placement))
   .properties.small_footprint_enable_service_plan:
     selected_option: enable
     value: enable
@@ -126,6 +136,8 @@ product-properties:
     value: 10
   .properties.small_footprint_enable_service_plan.enable.service_metrics:
     value: false
+  .properties.small_footprint_enable_service_plan.enable.service_instance_azs:
+    value: ((pcc.plans.az_placement))
   .properties.syslog:
     selected_option: disable
     value: disable
