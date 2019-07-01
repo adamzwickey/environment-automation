@@ -133,10 +133,10 @@ product-properties:
     selected_option: disable
     value: disable
 network-properties:
-  network: null
-  other_availability_zones: []
-  service_network: null
-  singleton_availability_zone: null
+  network: ((pcc.networks.network))
+  service_network: ((pcc.networks.services_network))
+  other_availability_zones: ((pcc.networks.other_availability_zones))
+  singleton_availability_zone: ((pcc.networks.singleton_availability_zone))
 resource-config:
   cloudcache-broker:
     instances: automatic
@@ -154,4 +154,3 @@ errand-config:
     post-deploy-state: true
   upgrade-all-service-instances:
     post-deploy-state: true
-
