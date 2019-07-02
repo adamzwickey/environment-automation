@@ -58,10 +58,10 @@ product-properties:
   .properties.syslog_selector.enabled.syslog_transport:
     value: tcp
 network-properties:
-  network: null
-  other_availability_zones: []
-  service_network: null
-  singleton_availability_zone: null
+  network: ((rmq.networks.network))
+  service_network: ((rmq.networks.services_network))
+  other_availability_zones: ((rmq.networks.other_availability_zones))
+  singleton_availability_zone: ((rmq.networks.singleton_availability_zone))
 resource-config:
   on-demand-broker:
     instances: automatic
