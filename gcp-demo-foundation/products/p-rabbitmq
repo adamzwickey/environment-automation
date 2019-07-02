@@ -38,7 +38,7 @@ product-properties:
     value: pause_minority
   .properties.on_demand_broker_plan_1_rabbitmq_number_of_nodes:
     value: 1
-  .properties.on_demand_broker_plan_1_rabbitmq_az_placement
+  .properties.on_demand_broker_plan_1_rabbitmq_az_placement:
     value: ((rmq.plans.az_placement))
   .properties.on_demand_broker_plan_2_selector:
     selected_option: disabled
