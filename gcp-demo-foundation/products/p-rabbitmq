@@ -53,7 +53,7 @@ product-properties:
     selected_option: disabled
     value: disabled
   .properties.syslog_selector:
-    selected_option: enabled
+    selected_option: disabled
     value: disabled
   .properties.syslog_selector.enabled.syslog_tls:
     value: false
