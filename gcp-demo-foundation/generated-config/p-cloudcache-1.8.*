@@ -3,6 +3,8 @@ product-properties:
   .properties.authenticate_with_uaa:
     selected_option: disable
     value: disable
+  .properties.confirm_tls_setup:
+    value: X
   .properties.default_distributed_system_id:
     value: 0
   .properties.dev_plan_enable_service_plan:
@@ -14,12 +16,20 @@ product-properties:
     value: Plan Description
   .properties.dev_plan_enable_service_plan.enable.plan_name:
     value: dev-plan
+  .properties.dev_plan_enable_service_plan.enable.service_instance_azs:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
   .properties.dev_plan_enable_service_plan.enable.service_instance_quota:
     value: 10
   .properties.dev_plan_enable_service_plan.enable.service_metrics:
-    value: false
+    value: true
   .properties.enable_secure_binding:
     value: false
+  .properties.errand_plan:
+    selected_option: devplan
+    value: devplan
   .properties.number_simultaneous_upgrades:
     value: 1
   .properties.number_upgrade_canary_instances:
@@ -37,10 +47,15 @@ product-properties:
     value: Plan Description
   .properties.plan1_enable_service_plan.enable.plan_name:
     value: extra-small
+  .properties.plan1_enable_service_plan.enable.service_instance_azs:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
   .properties.plan1_enable_service_plan.enable.service_instance_quota:
     value: 10
   .properties.plan1_enable_service_plan.enable.service_metrics:
-    value: false
+    value: true
   .properties.plan2_enable_service_plan:
     selected_option: enable
     value: enable
@@ -54,10 +69,15 @@ product-properties:
     value: Plan Description
   .properties.plan2_enable_service_plan.enable.plan_name:
     value: small
+  .properties.plan2_enable_service_plan.enable.service_instance_azs:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
   .properties.plan2_enable_service_plan.enable.service_instance_quota:
     value: 10
   .properties.plan2_enable_service_plan.enable.service_metrics:
-    value: false
+    value: true
   .properties.plan3_enable_service_plan:
     selected_option: enable
     value: enable
@@ -71,10 +91,15 @@ product-properties:
     value: Plan Description
   .properties.plan3_enable_service_plan.enable.plan_name:
     value: medium
+  .properties.plan3_enable_service_plan.enable.service_instance_azs:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
   .properties.plan3_enable_service_plan.enable.service_instance_quota:
     value: 10
   .properties.plan3_enable_service_plan.enable.service_metrics:
-    value: false
+    value: true
   .properties.plan4_enable_service_plan:
     selected_option: enable
     value: enable
@@ -88,10 +113,15 @@ product-properties:
     value: Plan Description
   .properties.plan4_enable_service_plan.enable.plan_name:
     value: large
+  .properties.plan4_enable_service_plan.enable.service_instance_azs:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
   .properties.plan4_enable_service_plan.enable.service_instance_quota:
     value: 10
   .properties.plan4_enable_service_plan.enable.service_metrics:
-    value: false
+    value: true
   .properties.plan5_enable_service_plan:
     selected_option: enable
     value: enable
@@ -105,10 +135,15 @@ product-properties:
     value: Plan Description
   .properties.plan5_enable_service_plan.enable.plan_name:
     value: extra-large
+  .properties.plan5_enable_service_plan.enable.service_instance_azs:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
   .properties.plan5_enable_service_plan.enable.service_instance_quota:
     value: 10
   .properties.plan5_enable_service_plan.enable.service_metrics:
-    value: false
+    value: true
   .properties.small_footprint_enable_service_plan:
     selected_option: enable
     value: enable
@@ -120,10 +155,15 @@ product-properties:
     value: Plan Description
   .properties.small_footprint_enable_service_plan.enable.plan_name:
     value: small-footprint
+  .properties.small_footprint_enable_service_plan.enable.service_instance_azs:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
   .properties.small_footprint_enable_service_plan.enable.service_instance_quota:
     value: 10
   .properties.small_footprint_enable_service_plan.enable.service_metrics:
-    value: false
+    value: true
   .properties.syslog:
     selected_option: disable
     value: disable
@@ -132,11 +172,20 @@ product-properties:
   .properties.uaa_custom_url:
     selected_option: disable
     value: disable
+  .properties.vm_extensions:
+    value:
+    - public_ip
 network-properties:
-  network: null
-  other_availability_zones: []
-  service_network: null
-  singleton_availability_zone: null
+  network:
+    name: services
+  other_availability_zones:
+  - name: us-east1-b
+  - name: us-east1-c
+  - name: us-east1-d
+  service_network:
+    name: services
+  singleton_availability_zone:
+    name: us-east1-b
 resource-config:
   cloudcache-broker:
     instances: automatic
