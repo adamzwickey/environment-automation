@@ -1,0 +1,14 @@
+---
+rmq:
+  networks:
+    network: {name: services}
+    services_network: {name: services}
+    singleton_availability_zone: {name: us-east1-b}
+    other_availability_zones:
+      - name: us-east1-b
+      - name: us-east1-c
+      - name: us-east1-d
+  shared:
+    limits: 25
+  plans:
+    az_placement: ["us-east1-b","us-east1-c","us-east1-d"]
