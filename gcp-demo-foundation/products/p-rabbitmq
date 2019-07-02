@@ -25,7 +25,7 @@ product-properties:
   .properties.on_demand_broker_plan_1_description:
     value: This plan provides a single dedicated RabbitMQ 3.7 node
   .properties.on_demand_broker_plan_1_disk_limit_acknowledgement:
-    value: acknowledge
+    value: ["acknowledge"]
   .properties.on_demand_broker_plan_1_features:
     value: RabbitMQ 3.7
   .properties.on_demand_broker_plan_1_instance_quota:
