@@ -147,7 +147,7 @@ product-properties:
     selected_option: disable
     value: disable
   .properties.tls_supported:
-    value: true
+    value: false
   .properties.uaa_custom_url:
     selected_option: disable
     value: disable
