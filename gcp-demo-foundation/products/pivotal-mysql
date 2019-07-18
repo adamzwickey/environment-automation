@@ -10,6 +10,20 @@ product-properties:
     value: X
   .properties.global_recipient_email:
     value: ((mysql.email))
+  .properties.backups_selector.scp
+    value: 0 */8 * * *
+  .properties.backups_selector.scp.user
+    value: ((mysql.backup.user))
+  .properties.backups_selector.scp.key
+    value: ((mysql.backup.key))
+  .properties.backups_selector.scp.server
+    value: ((mysql.backup.server))
+  .properties.backups_selector.scp.destination
+    value: ((mysql.backup.destination))
+  .properties.backups_selector.scp.port
+    value: ((mysql.backup.port))
+  .properties.backups_selector.scp.cron_schedule
+    value: ((mysql.backup.cron))
 network-properties:
   network: ((mysql.networks.network))
   service_network: ((mysql.networks.services_network))
