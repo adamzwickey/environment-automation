@@ -8,6 +8,8 @@ product-properties:
     value: ((mysql.plans.az_placement))
   .properties.deprecated_bindings_string:
     value: X
+  .properties.global_recipient_email:
+    value: ((mysql.email))
 network-properties:
   network: ((mysql.networks.network))
   service_network: ((mysql.networks.services_network))

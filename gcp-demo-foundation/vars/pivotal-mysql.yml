@@ -10,3 +10,4 @@ mysql:
       - name: us-east1-d
   plans:
     az_placement: ["us-east1-b","us-east1-c","us-east1-d"]
+  email: azwickey@pivotal.io
