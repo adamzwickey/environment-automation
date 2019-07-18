@@ -10,8 +10,8 @@ product-properties:
     value: X
   .properties.global_recipient_email:
     value: ((mysql.email))
-  .properties.backups_selector.scp:
-    value: enabled
+  .properties.backups_selector:
+    value: SCP Backups
   .properties.backups_selector.scp.user:
     value: ((mysql.backup.user))
   .properties.backups_selector.scp.key:
