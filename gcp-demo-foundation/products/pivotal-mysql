@@ -11,18 +11,14 @@ product-properties:
   .properties.global_recipient_email:
     value: ((mysql.email))
   .properties.backups_selector:
-    value: SCP Backups
-  .properties.backups_selector.scp.user:
-    value: ((mysql.backup.user))
-  .properties.backups_selector.scp.key:
-    value: ((mysql.backup.key))
-  .properties.backups_selector.scp.server:
-    value: ((mysql.backup.server))
-  .properties.backups_selector.scp.destination:
-    value: ((mysql.backup.destination))
-  .properties.backups_selector.scp.port:
-    value: ((mysql.backup.port))
-  .properties.backups_selector.scp.cron_schedule:
+    value: GCS
+  .properties.backups_selector.gcs.project_id:
+    value: ((mysql.backup.project_id))
+  .properties.backups_selector.gcs.bucket_name:
+    value: ((mysql.backup.bucket))
+  .properties.backups_selector.gcs.service_account_json:
+    value: ((mysql.backup.auth_json))
+  .properties.backups_selector.gcs.cron_schedule:
     value: ((mysql.backup.cron))
 network-properties:
   network: ((mysql.networks.network))
