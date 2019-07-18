@@ -13,8 +13,8 @@ mysql:
   email: azwickey@pivotal.io
   backup:
     user: 123
-    key: 123
+    key: abc123
     server: localhost
-    port: "12345"
+    port: 12345
     destination: /data
     cron: "0 */9 * * *"
