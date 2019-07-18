@@ -11,7 +11,6 @@ product-properties:
   .properties.global_recipient_email:
     value: ((mysql.email))
   .properties.backups_selector:
-    selected_option: scp
     value: scp
   .properties.backups_selector.scp.user:
     value: ((mysql.backup.user))
