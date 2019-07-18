@@ -13,7 +13,7 @@ mysql:
   email: azwickey@pivotal.io
   backup:
     user: 123
-    key: 123abc
+    key: { "secret": "123" }
     server: localhost
     port: 12345
     destination: /data
