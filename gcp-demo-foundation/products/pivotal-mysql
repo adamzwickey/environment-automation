@@ -17,7 +17,8 @@ product-properties:
   .properties.backups_selector.gcs.bucket_name:
     value: ((mysql.backup.bucket))
   .properties.backups_selector.gcs.service_account_json:
-    value: ((mysql.backup.auth_json))
+    value:
+      secret: ((mysql.backup.auth_json))
   .properties.backups_selector.gcs.cron_schedule:
     value: ((mysql.backup.cron))
 network-properties:
