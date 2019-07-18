@@ -91,6 +91,8 @@ properties-configuration:
   security_configuration:
     generate_vm_passwords: ((properties-configuration_security_configuration_generate_vm_passwords))
     opsmanager_root_ca_trusted_certs: true
+    trusted_certificates: "-----BEGIN CERTIFICATE-----\r\nMIIDRzCCAi+gAwIBAgIUPfES2ctxer+/7UXdTzedlXiRwrEwDQYJKoZIhvcNAQEL\r\nBQAwMzEfMB0GA1UEAxMWb3BzbWdyLXNlcnZpY2VzLXRscy1jYTEQMA4GA1UEChMH\r\nUGl2b3RhbDAeFw0xOTA2MjExNzA5MzFaFw0yNDA2MTkxNzA5MzFaMDMxHzAdBgNV\r\nBAMTFm9wc21nci1zZXJ2aWNlcy10bHMtY2ExEDAOBgNVBAoTB1Bpdm90YWwwggEi\r\nMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC/W8oCtPBwnPZYXJZUXgor/uKL\r\nuMu0WBs7jAqRyrhvLw2fMeHXjeAnZPpkwCrPe8M9RRGDEAMd5GFMMhoxzfEfqsn8\r\norckTF4q2Ei59Sln+6NKI3tHBqcx3FruLwe3K/DiO/hi7DHg6oUlKHJW1k5TUOBJ\r\nOXyjfNQBUeNcPX5K64JWXTN5n2Vc8AjbXUm9qoMdVJe4sDk78kWdM3rr4RGxw9xJ\r\nh8AE/fxH1n4U7S/IoXu8z7kZUr8UlGttV/feriXXAYnpCoHFJK0OyiWkVeYVbbCg\r\nPBqS5J9DIhK8Vw8q+8TQF90E144ZRau3fDKK5pjKj34Zp71fM+O05ZkRth5RAgMB\r\nAAGjUzBRMB0GA1UdDgQWBBSnIEISgMNRgyzaDvVPqWoTVuwddzAfBgNVHSMEGDAW\r\ngBSnIEISgMNRgyzaDvVPqWoTVuwddzAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3\r\nDQEBCwUAA4IBAQCVX7KNB6/colQqxPbwjmlFU+2UlQNIC+xT4WMcxVffzIdbmNSb\r\nwCO72ZZoo3i42xPIHR70vKDquesU+RbDec6EMJ9aSFxXtkNSy3NJMpgvHS/VIzGo\r\njTfI6LfesoSRZajxZaJcoZsKy+1aaC71Sg+xz3cmhwDQcTzRcd4IhKoxrbNqq5pm\r\ntXTxb179ZokgBIRaXDI4dZ7+KjofsmhBc7PLco8W8acBE+6qKX34I8HlxMQAEK/P\r\nRyKuOzplBU8aPQf4OgozQTpkZEp763Rm3Td4VOJSCg0uMNlCptkp9H/5/WET4FaV\r\nnvIkFAWBeMI4lSWpsGVWi7SOdDwzHGWoQY0U\r\n-----END
+      CERTIFICATE-----"
   syslog_configuration:
     enabled: false
 resource-configuration:
