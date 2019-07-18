@@ -1,12 +1,13 @@
 product-name: pivotal-mysql
 product-properties:
-
-.properties.plan1_selector.single_node.az_multi_select:
-  value: ((mysql.plans.az_placement))
-.properties.plan2_selector.single_node.az_multi_select:
-  value: ((mysql.plans.az_placement))
-.properties.plan3_selector.single_node.az_multi_select:
-  value: ((mysql.plans.az_placement))
+  .properties.plan1_selector.single_node.az_multi_select:
+    value: ((mysql.plans.az_placement))
+  .properties.plan2_selector.single_node.az_multi_select:
+    value: ((mysql.plans.az_placement))
+  .properties.plan3_selector.single_node.az_multi_select:
+    value: ((mysql.plans.az_placement))
+  .properties.deprecated_bindings_string:
+    value: X
 network-properties:
   network: ((mysql.networks.network))
   service_network: ((mysql.networks.services_network))
