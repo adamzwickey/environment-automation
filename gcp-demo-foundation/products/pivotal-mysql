@@ -1,0 +1,138 @@
+product-name: pivotal-mysql
+product-properties:
+  .properties.allow_lower_case_table_names_via_config_param:
+    value: false
+  .properties.audit_logging_enabled:
+    value: false
+  .properties.backups_selector.azure.cron_schedule:
+    value: 0 */8 * * *
+  .properties.backups_selector.azure.enable_email_alerts:
+    value: false
+  .properties.backups_selector.azure.storage_access_key:
+    value:
+      secret: ((properties_backups_selector_azure_storage_access_key.secret))
+  .properties.backups_selector.gcs.cron_schedule:
+    value: 0 */8 * * *
+  .properties.backups_selector.gcs.enable_email_alerts:
+    value: false
+  .properties.backups_selector.gcs.service_account_json:
+    value:
+      secret: ((properties_backups_selector_gcs_service_account_json.secret))
+  .properties.backups_selector.s3.access_key_id:
+    value:
+      secret: ((properties_backups_selector_s3_access_key_id.secret))
+  .properties.backups_selector.s3.cron_schedule:
+    value: 0 */8 * * *
+  .properties.backups_selector.s3.enable_email_alerts:
+    value: false
+  .properties.backups_selector.s3.secret_access_key:
+    value:
+      secret: ((properties_backups_selector_s3_secret_access_key.secret))
+  .properties.backups_selector.scp.cron_schedule:
+    value: 0 */8 * * *
+  .properties.backups_selector.scp.enable_email_alerts:
+    value: false
+  .properties.backups_selector.scp.key:
+    value:
+      secret: ((properties_backups_selector_scp_key.secret))
+  .properties.canary_instances:
+    value: 0
+  .properties.enable_lower_case_table_names:
+    value: false
+  .properties.enable_read_only_admin:
+    value: false
+  .properties.enable_secure_binding_credentials:
+    value: false
+  .properties.enable_tls_selector:
+    selected_option: disabled
+    value: disabled
+  .properties.global_service_instance_limit:
+    value: 50
+  .properties.local_infile:
+    value: false
+  .properties.mysql_metrics_frequency:
+    value: 30
+  .properties.plan1_selector:
+    selected_option: single_node
+    value: single_node
+  .properties.plan1_selector.single_node.access_dropdown:
+    value: enable
+  .properties.plan1_selector.single_node.description:
+    value: This plan provides a small dedicated MySQL instance.
+  .properties.plan1_selector.single_node.name:
+    value: db-small
+  .properties.plan1_selector.single_node.paid_plan:
+    value: false
+  .properties.plan2_selector:
+    selected_option: single_node
+    value: single_node
+  .properties.plan2_selector.single_node.access_dropdown:
+    value: enable
+  .properties.plan2_selector.single_node.description:
+    value: This plan provides a medium dedicated MySQL instance.
+  .properties.plan2_selector.single_node.name:
+    value: db-medium
+  .properties.plan2_selector.single_node.paid_plan:
+    value: false
+  .properties.plan3_selector:
+    selected_option: single_node
+    value: single_node
+  .properties.plan3_selector.single_node.access_dropdown:
+    value: enable
+  .properties.plan3_selector.single_node.description:
+    value: This plan provides a large dedicated MySQL instance.
+  .properties.plan3_selector.single_node.name:
+    value: db-large
+  .properties.plan3_selector.single_node.paid_plan:
+    value: false
+  .properties.plan4_selector:
+    selected_option: inactive
+    value: Inactive
+  .properties.plan5_selector:
+    selected_option: inactive
+    value: Inactive
+  .properties.plan6_selector:
+    selected_option: inactive
+    value: Inactive
+  .properties.plan7_selector:
+    selected_option: inactive
+    value: Inactive
+  .properties.plan8_selector:
+    selected_option: inactive
+    value: Inactive
+  .properties.plan9_selector:
+    selected_option: inactive
+    value: Inactive
+  .properties.request_timeout:
+    value: 120
+  .properties.simultaneous_upgrades:
+    value: 1
+  .properties.syslog_migration_selector:
+    selected_option: disabled
+    value: disabled
+  .properties.userstat:
+    value: false
+  .properties.wait_timeout:
+    value: 28800
+network-properties:
+  network: null
+  other_availability_zones: []
+  service_network: null
+  singleton_availability_zone: null
+resource-config:
+  dedicated-mysql-broker:
+    instances: automatic
+    instance_type:
+      id: automatic
+    internet_connected: true
+errand-config:
+  delete-all-service-instances-and-deregister-broker:
+    pre-delete-state: true
+  register-broker:
+    post-deploy-state: true
+  smoke-tests:
+    post-deploy-state: true
+  upgrade-all-service-instances:
+    post-deploy-state: true
+  validate-before-upgrade-instances:
+    post-deploy-state: true
