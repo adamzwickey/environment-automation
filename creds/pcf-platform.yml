@@ -83,7 +83,7 @@ products:
   pcc:
     product_slug: p-cloudcache
     product_name: p-cloudcache
-    product_version: 1.8.*
+    product_version: 1.7.*
     product_globs: "p-cloudcache*.pivotal"
     stemcell:
       product_slug: stemcells-ubuntu-xenial
@@ -94,6 +94,15 @@ products:
     product_name: p-rabbitmq
     product_version: 1.16.*
     product_globs: "p-rabbitmq*.pivotal"
+    stemcell:
+      product_slug: stemcells-ubuntu-xenial
+      product_version: "170.*"
+      product_globs: light-bosh-stemcell-*-google-*.tgz
+  mysql:
+    product_slug: pivotal-mysql
+    product_name: pivotal-mysql
+    product_version: 2.6.*
+    product_globs: "pivotal-mysql*.pivotal"
     stemcell:
       product_slug: stemcells-ubuntu-xenial
       product_version: "170.*"
