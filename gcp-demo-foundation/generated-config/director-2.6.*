@@ -7,7 +7,6 @@ az-configuration:
   iaas_configuration_guid: 139028c12aa2ed71fa79
 iaas-configurations:
 - additional_cloud_properties: {}
-  associated_service_account: ((iaas-configurations_0_associated_service_account))
   default_deployment_tag: ((iaas-configurations_0_default_deployment_tag))
   name: ((iaas-configurations_0_name))
   project: ((iaas-configurations_0_project))
@@ -72,7 +71,9 @@ properties-configuration:
     database_type: internal
     director_hostname: bosh.public.cloud.zwickey.net
     director_worker_count: 5
-    encryption: []
+    encryption:
+      keys: []
+      providers: []
     hm_emailer_options:
       enabled: false
     hm_pager_duty_options:
@@ -87,7 +88,9 @@ properties-configuration:
     resurrector_enabled: true
     retry_bosh_deploys: false
     skip_director_drain: true
-  dns_configuration: []
+  dns_configuration:
+    excluded_recursors: []
+    handlers: []
   security_configuration:
     generate_vm_passwords: ((properties-configuration_security_configuration_generate_vm_passwords))
     opsmanager_root_ca_trusted_certs: true
@@ -104,11 +107,12 @@ resource-configuration:
   director:
     instances: automatic
     persistent_disk:
-      size_mb: automatic
+      size_mb: "102400"
     instance_type:
       id: automatic
     internet_connected: true
     elb_names:
     - tcp:pcf-bosh-lb
 vmextensions-configuration: []
+vmtypes-configuration: {}
 
