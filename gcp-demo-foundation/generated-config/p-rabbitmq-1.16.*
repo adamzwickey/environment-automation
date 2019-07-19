@@ -99,19 +99,19 @@ errand-config:
   broker-deregistrar:
     pre-delete-state: true
   broker-registrar:
-    post-deploy-state: true
+    post-deploy-state: false
   delete-all-service-instances:
     pre-delete-state: true
   deregister-broker:
     pre-delete-state: true
   on-demand-broker-smoke-tests:
-    post-deploy-state: true
+    post-deploy-state: false
   recreate-all-service-instances:
     post-deploy-state: false
   register-broker:
-    post-deploy-state: true
+    post-deploy-state: false
   smoke-tests:
-    post-deploy-state: true
+    post-deploy-state: false
   upgrade-all-service-instances:
-    post-deploy-state: true
+    post-deploy-state: false
 

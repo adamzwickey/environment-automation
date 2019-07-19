@@ -4,39 +4,24 @@ product-properties:
     value: false
   .properties.audit_logging_enabled:
     value: false
-  .properties.backups_selector.azure.cron_schedule:
-    value: 0 */8 * * *
-  .properties.backups_selector.azure.enable_email_alerts:
-    value: false
-  .properties.backups_selector.azure.storage_access_key:
-    value:
-      secret: ((properties_backups_selector_azure_storage_access_key.secret))
+  .properties.backups_selector:
+    selected_option: gcs
+    value: GCS
+  .properties.backups_selector.gcs.bucket_name:
+    value: mysql_backup_az
   .properties.backups_selector.gcs.cron_schedule:
-    value: 0 */8 * * *
+    value: 0 0 1 1 *
   .properties.backups_selector.gcs.enable_email_alerts:
     value: false
+  .properties.backups_selector.gcs.project_id:
+    value: fe-azwickey
   .properties.backups_selector.gcs.service_account_json:
     value:
       secret: ((properties_backups_selector_gcs_service_account_json.secret))
-  .properties.backups_selector.s3.access_key_id:
-    value:
-      secret: ((properties_backups_selector_s3_access_key_id.secret))
-  .properties.backups_selector.s3.cron_schedule:
-    value: 0 */8 * * *
-  .properties.backups_selector.s3.enable_email_alerts:
-    value: false
-  .properties.backups_selector.s3.secret_access_key:
-    value:
-      secret: ((properties_backups_selector_s3_secret_access_key.secret))
-  .properties.backups_selector.scp.cron_schedule:
-    value: 0 */8 * * *
-  .properties.backups_selector.scp.enable_email_alerts:
-    value: false
-  .properties.backups_selector.scp.key:
-    value:
-      secret: ((properties_backups_selector_scp_key.secret))
   .properties.canary_instances:
     value: 0
+  .properties.deprecated_bindings_string:
+    value: X
   .properties.enable_lower_case_table_names:
     value: false
   .properties.enable_read_only_admin:
@@ -46,6 +31,8 @@ product-properties:
   .properties.enable_tls_selector:
     selected_option: disabled
     value: disabled
+  .properties.global_recipient_email:
+    value: azwickey@pivotal.io
   .properties.global_service_instance_limit:
     value: 50
   .properties.local_infile:
@@ -57,6 +44,11 @@ product-properties:
     value: single_node
   .properties.plan1_selector.single_node.access_dropdown:
     value: enable
+  .properties.plan1_selector.single_node.az_multi_select:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
   .properties.plan1_selector.single_node.description:
     value: This plan provides a small dedicated MySQL instance.
   .properties.plan1_selector.single_node.name:
@@ -68,6 +60,11 @@ product-properties:
     value: single_node
   .properties.plan2_selector.single_node.access_dropdown:
     value: enable
+  .properties.plan2_selector.single_node.az_multi_select:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
   .properties.plan2_selector.single_node.description:
     value: This plan provides a medium dedicated MySQL instance.
   .properties.plan2_selector.single_node.name:
@@ -79,6 +76,11 @@ product-properties:
     value: single_node
   .properties.plan3_selector.single_node.access_dropdown:
     value: enable
+  .properties.plan3_selector.single_node.az_multi_select:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
   .properties.plan3_selector.single_node.description:
     value: This plan provides a large dedicated MySQL instance.
   .properties.plan3_selector.single_node.name:
@@ -115,10 +117,16 @@ product-properties:
   .properties.wait_timeout:
     value: 28800
 network-properties:
-  network: null
-  other_availability_zones: []
-  service_network: null
-  singleton_availability_zone: null
+  network:
+    name: services
+  other_availability_zones:
+  - name: us-east1-b
+  - name: us-east1-c
+  - name: us-east1-d
+  service_network:
+    name: services
+  singleton_availability_zone:
+    name: us-east1-b
 resource-config:
   dedicated-mysql-broker:
     instances: automatic
