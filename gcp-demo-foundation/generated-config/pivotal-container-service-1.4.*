@@ -226,7 +226,7 @@ errand-config:
   smoke-tests:
     post-deploy-state: false
   upgrade-all-service-instances:
-    post-deploy-state: true
+    post-deploy-state: false
   wavefront-alert-creation:
     post-deploy-state: false
   wavefront-alert-deletion:
