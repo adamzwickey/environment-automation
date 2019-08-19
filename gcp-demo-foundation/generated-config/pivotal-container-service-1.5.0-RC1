@@ -1,0 +1,168 @@
+product-name: pivotal-container-service
+product-properties:
+  .pivotal-container-service.pks_tls:
+    value:
+      cert_pem: ((pivotal-container-service_pks_tls.cert_pem))
+      private_key_pem: ((pivotal-container-service_pks_tls.private_key_pem))
+  .properties.bosh-metric-sink-node-exporter:
+    value: false
+  .properties.bosh-metric-sink-outputs:
+    value: |
+      [[outputs.discard]]
+  .properties.cloud_provider.azure.azure_cloud_name:
+    value: AzurePublicCloud
+  .properties.cloud_provider.vsphere.vcenter_master_creds:
+    value:
+      identity: ((properties_cloud_provider_vsphere_vcenter_master_creds.identity))
+      password: ((properties_cloud_provider_vsphere_vcenter_master_creds.password))
+  .properties.log_sink_resources_deploy:
+    value: true
+  .properties.metric_sink_resources_deploy:
+    value: true
+  .properties.network_selector:
+    selected_option: flannel
+    value: flannel
+  .properties.network_selector.flannel.pod_network_cidr:
+    value: 10.200.0.0/16
+  .properties.network_selector.flannel.service_cluster_cidr:
+    value: 10.100.200.0/24
+  .properties.node_exporter_deploy:
+    value: false
+  .properties.oidc_selector.enabled.groups_claim:
+    value: roles
+  .properties.oidc_selector.enabled.groups_prefix:
+    value: 'oidc:'
+  .properties.oidc_selector.enabled.username_claim:
+    value: user_name
+  .properties.oidc_selector.enabled.username_prefix:
+    value: 'oidc:'
+  .properties.pks-vrli:
+    selected_option: disabled
+    value: disabled
+  .properties.pks-vrops:
+    selected_option: disabled
+    value: disabled
+  .properties.plan1_selector:
+    selected_option: active
+    value: Plan Active
+  .properties.plan1_selector.active.allow_privileged_containers:
+    value: false
+  .properties.plan1_selector.active.description:
+    value: 'Example: This plan will configure a lightweight kubernetes cluster. Not
+      recommended for production workloads.'
+  .properties.plan1_selector.active.kubelet_drain_delete_local_data:
+    value: true
+  .properties.plan1_selector.active.kubelet_drain_force:
+    value: true
+  .properties.plan1_selector.active.kubelet_drain_force_node:
+    value: false
+  .properties.plan1_selector.active.kubelet_drain_grace_period:
+    value: 10
+  .properties.plan1_selector.active.kubelet_drain_ignore_daemonsets:
+    value: true
+  .properties.plan1_selector.active.kubelet_drain_timeout:
+    value: 0
+  .properties.plan1_selector.active.master_instances:
+    value: 1
+  .properties.plan1_selector.active.max_worker_instances:
+    value: 50
+  .properties.plan1_selector.active.name:
+    value: small
+  .properties.plan1_selector.active.worker_instances:
+    value: 3
+  .properties.plan2_selector:
+    selected_option: inactive
+    value: Plan Inactive
+  .properties.plan3_selector:
+    selected_option: inactive
+    value: Plan Inactive
+  .properties.plan4_selector:
+    selected_option: inactive
+    value: Plan Inactive
+  .properties.plan5_selector:
+    selected_option: inactive
+    value: Plan Inactive
+  .properties.plan6_selector:
+    selected_option: inactive
+    value: Plan Inactive
+  .properties.plan7_selector:
+    selected_option: inactive
+    value: Plan Inactive
+  .properties.plan8_selector:
+    selected_option: inactive
+    value: Plan Inactive
+  .properties.plan9_selector:
+    selected_option: inactive
+    value: Plan Inactive
+  .properties.plan10_selector:
+    selected_option: inactive
+    value: Plan Inactive
+  .properties.plan11_selector:
+    selected_option: inactive
+    value: Plan Inactive
+  .properties.plan12_selector:
+    selected_option: inactive
+    value: Plan Inactive
+  .properties.plan13_selector:
+    selected_option: inactive
+    value: Plan Inactive
+  .properties.proxy_selector:
+    selected_option: disabled
+    value: Disabled
+  .properties.syslog_selector:
+    selected_option: disabled
+    value: disabled
+  .properties.telemetry_selector:
+    selected_option: enabled
+    value: enabled
+  .properties.telemetry_selector.enabled.billing_polling_interval:
+    value: 60
+  .properties.telemetry_selector.enabled.environment_provider:
+    value: none
+  .properties.telemetry_selector.enabled.telemetry_polling_interval:
+    value: 600
+  .properties.telemetry_selector.enabled.telemetry_url:
+    value: https://vcsa.vmware.com/ph
+  .properties.uaa:
+    selected_option: internal
+    value: internal
+  .properties.uaa_pks_cli_access_token_lifetime:
+    value: 600
+  .properties.uaa_pks_cli_refresh_token_lifetime:
+    value: 21600
+  .properties.uaa_pks_cluster_client_access_token_lifetime:
+    value: 600
+  .properties.uaa_pks_cluster_client_refresh_token_lifetime:
+    value: 21600
+  .properties.wavefront:
+    selected_option: disabled
+    value: disabled
+  .properties.worker_max_in_flight:
+    value: 1
+network-properties:
+  network: null
+  other_availability_zones: []
+  service_network: null
+  singleton_availability_zone: null
+resource-config:
+  pivotal-container-service:
+    instances: automatic
+    persistent_disk:
+      size_mb: automatic
+    instance_type:
+      id: automatic
+    internet_connected: true
+errand-config:
+  delete-all-clusters:
+    pre-delete-state: true
+  pks-nsx-t-precheck:
+    post-deploy-state: false
+  smoke-tests:
+    post-deploy-state: false
+  upgrade-all-service-instances:
+    post-deploy-state: true
+  wavefront-alert-creation:
+    post-deploy-state: false
+  wavefront-alert-deletion:
+    pre-delete-state: false
+
