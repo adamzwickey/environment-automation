@@ -1,75 +1,19 @@
-az-configuration:
-- name: us-east1-d
-  iaas_configuration_guid: 139028c12aa2ed71fa79
-- name: us-east1-c
-  iaas_configuration_guid: 139028c12aa2ed71fa79
-- name: us-east1-b
-  iaas_configuration_guid: 139028c12aa2ed71fa79
+az-configuration: []
 iaas-configurations:
 - additional_cloud_properties: {}
   default_deployment_tag: ((iaas-configurations_0_default_deployment_tag))
   name: ((iaas-configurations_0_name))
-  project: ((iaas-configurations_0_project))
 network-assignment:
-  network:
-    name: mgmt
   other_availability_zones: []
-  singleton_availability_zone:
-    name: us-east1-b
 networks-configuration:
   icmp_checks_enabled: false
-  networks:
-  - name: mgmt
-    subnets:
-    - iaas_identifier: bosh-bootstrap/pcf-infrastructure-subnet/us-east1
-      cidr: 10.0.1.0/26
-      dns: 169.254.169.254
-      gateway: 10.0.1.1
-      reserved_ip_ranges: 10.0.1.1-10.0.1.9
-      availability_zone_names:
-      - us-east1-b
-      - us-east1-c
-      - us-east1-d
-  - name: pas
-    subnets:
-    - iaas_identifier: bosh-bootstrap/pcf-pas-subnet/us-east1
-      cidr: 10.0.3.0/24
-      dns: 169.254.169.254
-      gateway: 10.0.3.1
-      reserved_ip_ranges: 10.0.3.1-10.0.3.9
-      availability_zone_names:
-      - us-east1-b
-      - us-east1-c
-      - us-east1-d
-  - name: pks
-    subnets:
-    - iaas_identifier: bosh-bootstrap/pcf-pks-subnet/us-east1
-      cidr: 10.0.2.0/24
-      dns: 169.254.169.254
-      gateway: 10.0.2.1
-      reserved_ip_ranges: 10.0.2.1-10.0.2.9
-      availability_zone_names:
-      - us-east1-b
-      - us-east1-c
-      - us-east1-d
-  - name: services
-    subnets:
-    - iaas_identifier: bosh-bootstrap/pcf-service-subnet/us-east1
-      cidr: 10.0.4.0/24
-      dns: 169.254.169.254
-      gateway: 10.0.4.1
-      reserved_ip_ranges: 10.0.4.1-10.0.4.9
-      availability_zone_names:
-      - us-east1-b
-      - us-east1-c
-      - us-east1-d
+  networks: []
 properties-configuration:
   director_configuration:
     blobstore_type: local
     bosh_recreate_on_next_deploy: false
     bosh_recreate_persistent_disks_on_next_deploy: false
     database_type: internal
-    director_hostname: bosh.public.cloud.zwickey.net
     director_worker_count: 5
     encryption:
       keys: []
@@ -83,19 +27,17 @@ properties-configuration:
     keep_unreachable_vms: false
     local_blobstore_options:
       tls_enabled: true
-    ntp_servers_string: metadata.google.internal
-    post_deploy_enabled: true
-    resurrector_enabled: true
+    ntp_servers_string: ""
+    post_deploy_enabled: false
+    resurrector_enabled: false
     retry_bosh_deploys: false
-    skip_director_drain: true
+    skip_director_drain: false
   dns_configuration:
     excluded_recursors: []
     handlers: []
   security_configuration:
     generate_vm_passwords: ((properties-configuration_security_configuration_generate_vm_passwords))
-    opsmanager_root_ca_trusted_certs: true
-    trusted_certificates: "-----BEGIN CERTIFICATE-----\r\nMIIDRzCCAi+gAwIBAgIUPfES2ctxer+/7UXdTzedlXiRwrEwDQYJKoZIhvcNAQEL\r\nBQAwMzEfMB0GA1UEAxMWb3BzbWdyLXNlcnZpY2VzLXRscy1jYTEQMA4GA1UEChMH\r\nUGl2b3RhbDAeFw0xOTA2MjExNzA5MzFaFw0yNDA2MTkxNzA5MzFaMDMxHzAdBgNV\r\nBAMTFm9wc21nci1zZXJ2aWNlcy10bHMtY2ExEDAOBgNVBAoTB1Bpdm90YWwwggEi\r\nMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC/W8oCtPBwnPZYXJZUXgor/uKL\r\nuMu0WBs7jAqRyrhvLw2fMeHXjeAnZPpkwCrPe8M9RRGDEAMd5GFMMhoxzfEfqsn8\r\norckTF4q2Ei59Sln+6NKI3tHBqcx3FruLwe3K/DiO/hi7DHg6oUlKHJW1k5TUOBJ\r\nOXyjfNQBUeNcPX5K64JWXTN5n2Vc8AjbXUm9qoMdVJe4sDk78kWdM3rr4RGxw9xJ\r\nh8AE/fxH1n4U7S/IoXu8z7kZUr8UlGttV/feriXXAYnpCoHFJK0OyiWkVeYVbbCg\r\nPBqS5J9DIhK8Vw8q+8TQF90E144ZRau3fDKK5pjKj34Zp71fM+O05ZkRth5RAgMB\r\nAAGjUzBRMB0GA1UdDgQWBBSnIEISgMNRgyzaDvVPqWoTVuwddzAfBgNVHSMEGDAW\r\ngBSnIEISgMNRgyzaDvVPqWoTVuwddzAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3\r\nDQEBCwUAA4IBAQCVX7KNB6/colQqxPbwjmlFU+2UlQNIC+xT4WMcxVffzIdbmNSb\r\nwCO72ZZoo3i42xPIHR70vKDquesU+RbDec6EMJ9aSFxXtkNSy3NJMpgvHS/VIzGo\r\njTfI6LfesoSRZajxZaJcoZsKy+1aaC71Sg+xz3cmhwDQcTzRcd4IhKoxrbNqq5pm\r\ntXTxb179ZokgBIRaXDI4dZ7+KjofsmhBc7PLco8W8acBE+6qKX34I8HlxMQAEK/P\r\nRyKuOzplBU8aPQf4OgozQTpkZEp763Rm3Td4VOJSCg0uMNlCptkp9H/5/WET4FaV\r\nnvIkFAWBeMI4lSWpsGVWi7SOdDwzHGWoQY0U\r\n-----END
-      CERTIFICATE-----"
+    opsmanager_root_ca_trusted_certs: false
   syslog_configuration:
     enabled: false
 resource-configuration:
@@ -111,8 +53,6 @@ resource-configuration:
     instance_type:
       id: automatic
     internet_connected: true
-    elb_names:
-    - tcp:pcf-bosh-lb
 vmextensions-configuration: []
 vmtypes-configuration: {}
 
