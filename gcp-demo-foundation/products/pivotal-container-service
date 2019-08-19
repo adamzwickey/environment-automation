@@ -56,6 +56,8 @@ product-properties:
     value: ((pks.enable_priviledge))
   .properties.plan3_selector.active.worker_instances:
     value: ((pks.worker_instances))
+  .properties.plan12_selector:
+    value: Plan Active
   .properties.vm_extensions:
     value:
     - public_ip
