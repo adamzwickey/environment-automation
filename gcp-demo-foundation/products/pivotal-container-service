@@ -18,6 +18,8 @@ product-properties:
     value: disabled
   .properties.telemetry_selector:
     value: disabled
+  .properties.telemetry_installation_purpose_selector:
+    value: demo_or_poc
   .properties.cloud_provider:
     value: GCP
   .properties.cloud_provider.gcp.project_id:
