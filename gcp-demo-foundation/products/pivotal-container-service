@@ -14,6 +14,8 @@ product-properties:
     value:
       cert_pem: ((pks.api.ssl_certificate))
       private_key_pem: ((pks.api.ssl_private_key))
+  .properties.oidc_selector:
+    value: disabled
   .properties.telemetry_selector:
     value: disabled
   .properties.cloud_provider:
