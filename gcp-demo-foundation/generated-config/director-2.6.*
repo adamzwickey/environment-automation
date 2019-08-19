@@ -107,7 +107,7 @@ resource-configuration:
   director:
     instances: automatic
     persistent_disk:
-      size_mb: "102400"
+      size_mb: automatic
     instance_type:
       id: automatic
     internet_connected: true
