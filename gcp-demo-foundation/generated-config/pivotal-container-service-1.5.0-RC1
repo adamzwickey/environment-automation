@@ -183,8 +183,31 @@ product-properties:
     selected_option: inactive
     value: Plan Inactive
   .properties.plan12_selector:
-    selected_option: inactive
-    value: Plan Inactive
+    selected_option: active
+    value: Plan Active
+  .properties.plan12_selector.active.allow_privileged_containers:
+    value: true
+  .properties.plan12_selector.active.description:
+    value: 'Example: This plan will configure a large kubernetes cluster for resource
+      heavy workloads, or a high number of workloads.'
+  .properties.plan12_selector.active.master_az_placement:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
+  .properties.plan12_selector.active.master_instances:
+    value: 3
+  .properties.plan12_selector.active.max_worker_instances:
+    value: 50
+  .properties.plan12_selector.active.name:
+    value: Plan-12-Windows-Beta
+  .properties.plan12_selector.active.worker_az_placement:
+    value:
+    - us-east1-b
+    - us-east1-c
+    - us-east1-d
+  .properties.plan12_selector.active.worker_instances:
+    value: 5
   .properties.plan13_selector:
     selected_option: inactive
     value: Plan Inactive
